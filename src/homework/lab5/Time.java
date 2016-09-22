@@ -1,11 +1,11 @@
-package homework.fromfive.lab5;
+package homework.lab5;
 
-public class Time {
+class Time {
     private int hours;
     private int minutes;
     private int seconds;
 
-    public Time(String time_string) {
+    Time(String time_string) {
         String[] strings = time_string.split("\\.|/| |-|:");
 
         if (strings.length >= 2) {

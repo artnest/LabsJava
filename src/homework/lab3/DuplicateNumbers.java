@@ -1,4 +1,4 @@
-package homework.tofive.DuplicateNumbers;
+package homework.lab3;
 
 import java.util.Scanner;
 

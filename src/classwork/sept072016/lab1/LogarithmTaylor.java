@@ -1,8 +1,4 @@
-package homework.tofive.logarithm;
-
-/**
- * Created by theme on 9/7/16.
- */
+package classwork.sept072016.lab1;
 
 /*
 ln (1-x) = -x - x^2/2 - x^3/3 - x^4/4 - ..., x [-1, 1]

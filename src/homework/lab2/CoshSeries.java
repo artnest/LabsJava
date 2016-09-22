@@ -1,4 +1,4 @@
-package homework.tofive.cosh;
+package homework.lab2;
 
 public class CoshSeries {
     public static void main(String[] args) {

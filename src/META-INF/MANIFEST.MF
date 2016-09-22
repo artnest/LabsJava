@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: homework.tofive.cosh.CoshSeries
+Main-Class: homework.lab2.CoshSeries
 

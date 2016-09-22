@@ -1,4 +1,4 @@
-package homework.fromfive.lab4;
+package homework.lab4;
 
 import java.io.BufferedReader;
 import java.io.IOException;

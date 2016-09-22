@@ -1,11 +1,11 @@
-package homework.fromfive.lab5;
+package homework.lab5;
 
-public class Date {
+class Date {
     private int day;
     private int month;
     private int year;
 
-    public Date(String date_string) {
+    Date(String date_string) {
         String[] strings = date_string.split("\\.|/| |-");
 
         if (strings.length == 3) {

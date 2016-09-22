@@ -1,12 +1,9 @@
-package homework.tofive.symbolsinput;
+package classwork.sept072016.lab2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Created by theme on 9/7/16.
- */
 public class SymbolsInput {
     public static void main(String[] args) throws IOException {
         String str = "";
