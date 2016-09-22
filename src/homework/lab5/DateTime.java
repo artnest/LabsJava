@@ -13,7 +13,7 @@ public class DateTime {
         Date date;
         Time time;
 
-        System.out.print("Введите дату и время через пробел: ");
+        System.out.print("Введите дату и время через пробел (для прекращения нажмите Enter): ");
         while (!((s = reader.readLine()).isEmpty())) {
             try {
                 if ((el = s.split(" ")).length != 2) {
@@ -24,9 +24,22 @@ public class DateTime {
                 time = new Time(el[1]);
 
                 System.out.println(date + ": " + time);
+
+                if (date.isLeapYear()) {
+                    System.out.println("год високосный");
+                } else {
+                    System.out.println("год невисокосный");
+                }
+
+                System.out.println(date.getMonthName());
+
+                System.out.println("время суток: " + time.getTimeType());
+                System.out.println("текущее время: " + Time.getCurrentTime());
+                System.out.println();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
+        reader.close();
     }
 }
