@@ -20,17 +20,14 @@ class Time {
     Time(String time_string) {
         String[] strings = time_string.split("\\.|/| |-|:");
 
-        if (strings.length == 3) {
-            if ((this.hours = Integer.parseInt(strings[0])) < 0 ||
-                    (this.hours = Integer.parseInt(strings[0])) > 24 ||
-                    (this.minutes = Integer.parseInt(strings[1])) < 0 ||
-                    (this.minutes = Integer.parseInt(strings[1])) > 60 ||
-                    (this.seconds = Integer.parseInt(strings[2])) < 0 ||
-                    (this.seconds = Integer.parseInt(strings[2])) > 60) {
-                throw new IllegalArgumentException("Invalid time numbers");
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid time");
+        assert strings.length == 3: "Invalid time";
+        if ((this.hours = Integer.parseInt(strings[0])) < 0 ||
+                (this.hours = Integer.parseInt(strings[0])) > 24 ||
+                (this.minutes = Integer.parseInt(strings[1])) < 0 ||
+                (this.minutes = Integer.parseInt(strings[1])) > 60 ||
+                (this.seconds = Integer.parseInt(strings[2])) < 0 ||
+                (this.seconds = Integer.parseInt(strings[2])) > 60) {
+            throw new IllegalArgumentException("Invalid time numbers");
         }
     }
 

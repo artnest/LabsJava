@@ -22,16 +22,13 @@ class Date {
     Date(String date_string) {
         String[] strings = date_string.split("\\.|/| |-");
 
-        if (strings.length == 3) {
-            if ((this.day = Integer.parseInt(strings[0])) <= 0 ||
-                    (this.day = Integer.parseInt(strings[0])) > 31 ||
-                    (this.month = Integer.parseInt(strings[1])) <= 0 ||
-                    (this.month = Integer.parseInt(strings[1])) > 12 ||
-                    (this.year = Integer.parseInt(strings[2])) <= 0) {
-                throw new IllegalArgumentException("Invalid date numbers");
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid date");
+        assert strings.length == 3: "Invalid date";
+        if ((this.day = Integer.parseInt(strings[0])) <= 0 ||
+                (this.day = Integer.parseInt(strings[0])) > 31 ||
+                (this.month = Integer.parseInt(strings[1])) <= 0 ||
+                (this.month = Integer.parseInt(strings[1])) > 12 ||
+                (this.year = Integer.parseInt(strings[2])) <= 0) {
+            throw new IllegalArgumentException("Invalid date numbers");
         }
     }
 

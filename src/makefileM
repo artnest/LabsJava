@@ -1,0 +1,30 @@
+#makefile
+.SUFFIXES: .class .java
+
+PACK = classwork/sept282016/lab1
+TARG = Test
+JC = javac -g
+JM = java -ea -jar
+JR = jar -cfe
+
+OBJ = $(PACK)/Matrix.class $(PACK)/Test.class
+
+.java.class:
+	$(JC) $<
+
+run: build
+	$(JM) $(TARG).jar
+
+build: $(OBJ)
+	$(JR) $(TARG).jar $(PACK).Test $(OBJ)
+
+clean:
+	for f in $(OBJ) ; do rm $$f ; done
+	rm $(TARG).jar
+#		del %%f
+#       del $(TARG).jar
+
+$(PACK)/Matrix.class: $(PACK)/Matrix.java makefile
+$(PACK)/Test.class: $(PACK)/Test.java makefile
+
+#eof
