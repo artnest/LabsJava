@@ -8,10 +8,16 @@ public abstract class Triangle implements Comparable<Triangle> {
     private double b;
     private double angle;
 
+    private double area;
+    private double perimetr;
+
     public Triangle(double a, double b, double angle) {
         this.a = a;
         this.b = b;
         this.angle = Math.toRadians(angle);
+
+        area = Area();
+        perimetr = Perimetr();
     }
 
     public double getA() {
@@ -38,12 +44,20 @@ public abstract class Triangle implements Comparable<Triangle> {
         this.angle = Math.toRadians(angle);
     }
 
-    public double Area() {
+    protected double Area() {
         return a * b * Math.sin(angle) / 2;
     }
 
-    public double Perimetr() {
+    protected double Perimetr() {
         return a + b + Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(angle));
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public double getPerimetr() {
+        return perimetr;
     }
 
     @Override

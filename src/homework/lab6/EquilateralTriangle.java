@@ -9,12 +9,12 @@ public class EquilateralTriangle extends Triangle {
     }
 
     @Override
-    public double Area() {
+    protected double Area() {
         return getA() * getA() * getA();
     }
 
     @Override
-    public double Perimetr() {
+    protected double Perimetr() {
         return 3 * getA();
     }
 }
