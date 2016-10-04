@@ -1,9 +1,11 @@
 package homework.lab6;
 
+import java.util.Iterator;
+
 /**
  * Created by artem on 04.10.2016.
  */
-public abstract class Triangle implements Comparable<Triangle> {
+public abstract class Triangle implements Comparable<Triangle>, Iterable<Double> {
     private double a;
     private double b;
     private double angle;
@@ -28,6 +30,10 @@ public abstract class Triangle implements Comparable<Triangle> {
         this.a = a;
     }
 
+    public boolean hasA() {
+        return a != 0;
+    }
+
     public double getB() {
         return b;
     }
@@ -36,12 +42,20 @@ public abstract class Triangle implements Comparable<Triangle> {
         this.b = b;
     }
 
+    public boolean hasB() {
+        return b != 0;
+    }
+
     public double getAngle() {
         return Math.toDegrees(angle);
     }
 
     public void setAngle(double angle) {
         this.angle = Math.toRadians(angle);
+    }
+
+    public boolean hasAngle() {
+        return angle != 0;
     }
 
     protected double Area() {
@@ -56,8 +70,16 @@ public abstract class Triangle implements Comparable<Triangle> {
         return area;
     }
 
+    public boolean hasArea() {
+        return Area() != 0;
+    }
+
     public double getPerimetr() {
         return perimetr;
+    }
+
+    public boolean hasPerimetr() {
+        return perimetr != 0;
     }
 
     @Override
@@ -103,5 +125,10 @@ public abstract class Triangle implements Comparable<Triangle> {
 
         result = Double.compare(angle, o.angle);
         return result;
+    }
+
+    @Override
+    public Iterator<Double> iterator() {
+        return new TriangleIterator(this);
     }
 }
