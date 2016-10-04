@@ -1,5 +1,6 @@
 package homework.lab6;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -13,7 +14,15 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     private double area;
     private double perimetr;
 
+    public Triangle(String s) {
+        assert !s.isEmpty();
+
+        String[] strings = s.split(" ");
+    }
+
     public Triangle(double a, double b, double angle) {
+        assert a != 0 && b != 0 && angle != 0;
+
         this.a = a;
         this.b = b;
         this.angle = Math.toRadians(angle);
@@ -130,5 +139,32 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     @Override
     public Iterator<Double> iterator() {
         return new TriangleIterator(this);
+    }
+
+    public Comparator<Triangle> comparator(int i) {
+        switch (i) {
+            case 1:
+                return new TriangleFirstSideComparator();
+            case 2:
+                return new TriangleSecondSideComparator();
+            case 3:
+                return new TriangleAngleComparator();
+            case 4:
+                return new TriangleAreaComparator();
+            case 5:
+                return new TrianglePerimetrComparator();
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "First side: " + a + System.lineSeparator() +
+                "Second side: " + b + System.lineSeparator() +
+                "Angle (radians): " + angle + System.lineSeparator() +
+                "Angle (degrees): " + Math.toDegrees(angle) + System.lineSeparator() +
+                "Area: " + area + System.lineSeparator() +
+                "Perimetr: " + perimetr + System.lineSeparator();
     }
 }

@@ -6,11 +6,11 @@ import java.util.NoSuchElementException;
 /**
  * Created by artem on 04.10.2016.
  */
-public class TriangleIterator implements Iterator<Double> {
+class TriangleIterator implements Iterator<Double> {
     private Triangle triangle;
     private int index = -1;
 
-    public TriangleIterator(Triangle triangle) {
+    TriangleIterator(Triangle triangle) {
         this.triangle = triangle;
     }
 
