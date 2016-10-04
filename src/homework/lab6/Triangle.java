@@ -22,7 +22,7 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         assert strings.length == 3: "Not enough parameters";
         if ((this.a = Double.parseDouble(strings[0])) <= 0 ||
                 (this.b = Double.parseDouble(strings[1])) <= 0 ||
-                (this.angle = Double.parseDouble(strings[2])) <= 0) {
+                (this.angle = Math.toRadians(Double.parseDouble(strings[2]))) <= 0) {
             throw new IllegalArgumentException("Invalid parameters");
         }
     }
@@ -131,7 +131,7 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         return new TriangleIterator(this);
     }
 
-    public Comparator<Triangle> comparator(int i) {
+    public static Comparator<Triangle> comparator(int i) {
         switch (i) {
             case 1:
                 return new TriangleFirstSideComparator();
@@ -150,11 +150,11 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
 
     @Override
     public String toString() {
-        return "First side: " + a + System.lineSeparator() +
-                "Second side: " + b + System.lineSeparator() +
-                "Angle (radians): " + angle + System.lineSeparator() +
-                "Angle (degrees): " + Math.toDegrees(angle) + System.lineSeparator() +
-                "Area: " + area + System.lineSeparator() +
+        return "First side: " + String.format("%.2f", a) + System.lineSeparator() +
+                "Second side: " + String.format("%.2f", b) + System.lineSeparator() +
+                "Angle (radians): " + String.format("%.2f", angle) + System.lineSeparator() +
+                "Angle (degrees): " + String.format("%.2f", Math.toDegrees(angle)) + System.lineSeparator() +
+                "Area: " + String.format("%.2f", area) + System.lineSeparator() +
                 "Perimetr: " + perimetr + System.lineSeparator();
     }
 }
