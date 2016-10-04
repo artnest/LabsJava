@@ -16,105 +16,22 @@ class TriangleIterator implements Iterator<Double> {
 
     @Override
     public boolean hasNext() {
-        switch (index) {
-            case -1:
-                return triangle.hasA() ||
-                        triangle.hasB() ||
-                        triangle.hasAngle() ||
-                        triangle.hasArea() ||
-                        triangle.hasPerimetr();
-            case 0:
-                return  triangle.hasB() ||
-                        triangle.hasAngle() ||
-                        triangle.hasArea() ||
-                        triangle.hasPerimetr();
-            case 1:
-                return triangle.hasAngle() ||
-                        triangle.hasArea() ||
-                        triangle.hasPerimetr();
-            case 2:
-                return triangle.hasArea() ||
-                        triangle.hasPerimetr();
-            case 3:
-                return triangle.hasPerimetr();
-            default:
-                return false;
-        }
+        return (index >= -1 && index <= 3);
     }
 
     @Override
     public Double next() {
-        switch (index) {
+        switch (index++) {
             case -1:
-                if (triangle.hasA()) {
-                    index = 0;
-                    return triangle.getA();
-                }
-                if (triangle.hasB()) {
-                    index = 1;
-                    return triangle.getB();
-                }
-                if (triangle.hasAngle()) {
-                    index = 2;
-                    return triangle.getAngle();
-                }
-                if (triangle.hasArea()) {
-                    index = 3;
-                    return triangle.getArea();
-                }
-                if (triangle.hasPerimetr()) {
-                    index = 4;
-                    return triangle.getPerimetr();
-                }
-                break;
+                return triangle.getA();
             case 0:
-                if (triangle.hasB()) {
-                    index = 1;
-                    return triangle.getB();
-                }
-                if (triangle.hasAngle()) {
-                    index = 2;
-                    return triangle.getAngle();
-                }
-                if (triangle.hasArea()) {
-                    index = 3;
-                    return triangle.getArea();
-                }
-                if (triangle.hasPerimetr()) {
-                    index = 4;
-                    return triangle.getPerimetr();
-                }
-                break;
+                return triangle.getB();
             case 1:
-                if (triangle.hasAngle()) {
-                    index = 2;
-                    return triangle.getAngle();
-                }
-                if (triangle.hasArea()) {
-                    index = 3;
-                    return triangle.getArea();
-                }
-                if (triangle.hasPerimetr()) {
-                    index = 4;
-                    return triangle.getPerimetr();
-                }
-                break;
+                return triangle.getAngle();
             case 2:
-                if (triangle.hasArea()) {
-                    index = 3;
-                    return triangle.getArea();
-                }
-                if (triangle.hasPerimetr()) {
-                    index = 4;
-                    return triangle.getPerimetr();
-                }
-                break;
+                return triangle.getArea();
             case 3:
-                if (triangle.hasPerimetr()) {
-                    index = 4;
-                    return triangle.getPerimetr();
-                }
-                break;
+                return triangle.getPerimetr();
         }
         throw new NoSuchElementException();
     }

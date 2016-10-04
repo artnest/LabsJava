@@ -47,10 +47,6 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         this.a = a;
     }
 
-    public boolean hasA() {
-        return a != 0;
-    }
-
     public double getB() {
         return b;
     }
@@ -60,10 +56,6 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         this.b = b;
     }
 
-    public boolean hasB() {
-        return b != 0;
-    }
-
     public double getAngle() {
         return Math.toDegrees(angle);
     }
@@ -71,10 +63,6 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     public void setAngle(double angle) {
         assert angle != 0;
         this.angle = Math.toRadians(angle);
-    }
-
-    public boolean hasAngle() {
-        return angle != 0;
     }
 
     protected double Area() {
@@ -89,16 +77,8 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         return area;
     }
 
-    public boolean hasArea() {
-        return Area() != 0;
-    }
-
     public double getPerimetr() {
         return perimetr;
-    }
-
-    public boolean hasPerimetr() {
-        return perimetr != 0;
     }
 
     @Override
