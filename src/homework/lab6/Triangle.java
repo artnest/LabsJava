@@ -18,6 +18,13 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
         assert !s.isEmpty();
 
         String[] strings = s.split(" ");
+
+        assert strings.length == 3: "Not enough parameters";
+        if ((this.a = Double.parseDouble(strings[0])) <= 0 ||
+                (this.b = Double.parseDouble(strings[1])) <= 0 ||
+                (this.angle = Double.parseDouble(strings[2])) <= 0) {
+            throw new IllegalArgumentException("Invalid parameters");
+        }
     }
 
     public Triangle(double a, double b, double angle) {
@@ -36,6 +43,7 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     }
 
     public void setA(double a) {
+        assert a != 0;
         this.a = a;
     }
 
@@ -48,6 +56,7 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     }
 
     public void setB(double b) {
+        assert b != 0;
         this.b = b;
     }
 
@@ -60,6 +69,7 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     }
 
     public void setAngle(double angle) {
+        assert angle != 0;
         this.angle = Math.toRadians(angle);
     }
 
