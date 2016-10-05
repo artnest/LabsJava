@@ -35,4 +35,8 @@ class TriangleIterator implements Iterator<Double> {
         }
         throw new NoSuchElementException();
     }
+
+    public void reset() {
+        index = -1;
+    }
 }
