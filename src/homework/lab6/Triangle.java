@@ -1,6 +1,5 @@
 package homework.lab6;
 
-import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -129,23 +128,6 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
     @Override
     public Iterator<Double> iterator() {
         return new TriangleIterator(this);
-    }
-
-    public static Comparator<Triangle> comparator(int i) {
-        switch (i) {
-            case 1:
-                return new TriangleFirstSideComparator();
-            case 2:
-                return new TriangleSecondSideComparator();
-            case 3:
-                return new TriangleAngleComparator();
-            case 4:
-                return new TriangleAreaComparator();
-            case 5:
-                return new TrianglePerimetrComparator();
-            default:
-                return null;
-        }
     }
 
     @Override

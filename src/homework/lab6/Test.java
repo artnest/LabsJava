@@ -20,7 +20,7 @@ public class Test {
             System.out.println(triangle);
         }
 
-        Arrays.sort(triangles, new TriangleFirstSideComparator());
+        Arrays.sort(triangles, TriangleComparator.getComparator(1));
 
         System.out.println("Sorted array:");
         for (Triangle triangle : triangles) {

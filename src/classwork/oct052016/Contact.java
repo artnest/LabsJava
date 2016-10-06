@@ -67,11 +67,11 @@ public class Contact implements Comparable<Contact>, Iterable<String>, Iterator<
         if (idx >= length() || idx < 0) {
             throw new IndexOutOfBoundsException();
         }
-        if ((idx == 0 && valName(val) == false) ||
-                (idx == 1 && validMobile(val) == false) || /*...*/) {
+        /*if ((idx == 0 && valName(val) == false) ||
+                (idx == 1 && validMobile(val) == false) || *//*...*//*) {
             throw new ArgException(val);
             areas[idx] = val;
-        }
+        }*/
     }
 
     public Iterator<String> iterator() {
