@@ -14,17 +14,28 @@ public class Library {
         //catalog = new ArrayList<>();
         //readers = new LinkedList<>();
         //blackList = new LinkedList<>();
-        catalog = new Catalog();
+        catalog = Catalog.getInstance();
         librarian = Librarian.getInstance();
         administrator = Administrator.getInstance();
     }
 
-    /*public boolean checkBook(String author, String bookName) {
-        return catalog.isInList(new Book(author, bookName));
-    }*/
+    public boolean checkBooks(Order order) {
+        for (Book book : order.getBooks()) {
+            if (!catalog.containsKey(book)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
         Library library = new Library();
+        //boolean bookIsInLibrary = library.checkBooks(new Book("B", "def"));
+        //System.out.println(bookIsInLibrary);
         System.out.println(library.administrator);
+
+        Reader reader = new Reader();
+        System.out.println(library.checkBooks(new Order(new Book("B", "def"))));
     }
 }
