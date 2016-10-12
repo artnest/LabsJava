@@ -1,8 +1,5 @@
 package homework.lab6;
 
-/**
- * Created by artem on 04.10.2016.
- */
 public class EquilateralTriangle extends Triangle {
     public EquilateralTriangle(double a) {
         super(a, a, Math.toRadians(60));
@@ -28,6 +25,6 @@ public class EquilateralTriangle extends Triangle {
                 "Angle (radians): " + String.format("%.2f", getAngle()) + System.lineSeparator() +
                 "Angle (degrees): " + String.format("%.2f", Math.toDegrees(getAngle())) + System.lineSeparator() +
                 "Area: " + String.format("%.2f", getArea()) + System.lineSeparator() +
-                "Perimetr: " + getPerimetr() + System.lineSeparator();
+                "Perimetr: " + String.format("%.2f", getPerimetr()) + System.lineSeparator();
     }
 }
