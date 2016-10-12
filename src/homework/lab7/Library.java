@@ -10,6 +10,8 @@ public class Library {
     private Librarian librarian;
     private Administrator administrator;
 
+    // TODO implement info methods like in Instrument superclass from the example
+
     public Library() {
         //catalog = new ArrayList<>();
         //readers = new LinkedList<>();
