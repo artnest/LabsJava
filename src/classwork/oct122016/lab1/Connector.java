@@ -27,7 +27,7 @@ public class Connector {
 
     public Instrument[] read() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(filename);
-        try(ObjectInput ois = new ObjectInputStream(fis)) {
+        try(ObjectInputStream ois = new ObjectInputStream(fis)) {
             int length = ois.readInt();
 
             Instrument[] r = new Instrument[length];
