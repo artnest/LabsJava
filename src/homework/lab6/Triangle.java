@@ -2,9 +2,6 @@ package homework.lab6;
 
 import java.util.Iterator;
 
-/**
- * Created by artem on 04.10.2016.
- */
 public abstract class Triangle implements Comparable<Triangle>, Iterable<Double> {
     private double a;
     private double b;
@@ -24,6 +21,9 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
                 (this.angle = Math.toRadians(Double.parseDouble(strings[2]))) <= 0) {
             throw new IllegalArgumentException("Invalid parameters");
         }
+
+        area = Area();
+        perimetr = Perimetr();
     }
 
     public Triangle(double a, double b, double angle) {
@@ -137,6 +137,6 @@ public abstract class Triangle implements Comparable<Triangle>, Iterable<Double>
                 "Angle (radians): " + String.format("%.2f", angle) + System.lineSeparator() +
                 "Angle (degrees): " + String.format("%.2f", Math.toDegrees(angle)) + System.lineSeparator() +
                 "Area: " + String.format("%.2f", area) + System.lineSeparator() +
-                "Perimetr: " + perimetr + System.lineSeparator();
+                "Perimetr: " + String.format("%.2f", perimetr) + System.lineSeparator();
     }
 }

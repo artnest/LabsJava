@@ -13,28 +13,28 @@ class Reader {
     //история взятых книг
 
 
-    public Reader() {
+    Reader() {
         bookList = new ArrayList<>();
     }
 
-    public Reader(Book[] booksArray) {
-        Collections.addAll(bookList, booksArray);
-    }
-
-    public List<Book> getBookList() {
+    List<Book> getBookList() {
         return bookList;
     }
 
-    public void takeBook(Book book) {
+    void takeBook(Book book) {
         bookList.add(book);
     }
 
-    public void takeBook(Book[] booksArray) {
+    void takeBook(Book[] booksArray) {
         Collections.addAll(bookList, booksArray);
     }
 
-    public Order makeOrder(Book book) {
+    Order makeOrder(Book book) {
         return new Order(book);
+    }
+
+    Order makeOrder(Book[] booksArray) {
+        return new Order(booksArray);
     }
 
     // equals

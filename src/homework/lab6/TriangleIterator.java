@@ -3,9 +3,6 @@ package homework.lab6;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Created by artem on 04.10.2016.
- */
 class TriangleIterator implements Iterator<Double> {
     private Triangle triangle;
     private int index = -1;
