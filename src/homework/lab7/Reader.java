@@ -1,24 +1,20 @@
 package homework.lab7;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Created by theme on 10/5/16.
- */
-class Reader {
-    private List<Book> bookList;
+class Reader extends LibraryPart {
+    private Set<Book> bookList = new HashSet<>();
     //история заказов
     //история взятых книг
 
-
     Reader() {
-        bookList = new ArrayList<>();
+        super("Reader", Type.USER);
     }
 
-    List<Book> getBookList() {
-        return bookList;
+    Book[] getBooks() {
+        return bookList.toArray(new Book[bookList.size()]);
     }
 
     void takeBook(Book book) {
@@ -37,5 +33,19 @@ class Reader {
         return new Order(booksArray);
     }
 
-    // equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Reader reader = (Reader) o;
+
+        return bookList.equals(reader.bookList);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return bookList.hashCode();
+    }
 }

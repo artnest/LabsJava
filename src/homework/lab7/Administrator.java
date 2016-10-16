@@ -3,10 +3,7 @@ package homework.lab7;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by theme on 10/6/16.
- */
-class Administrator {
+class Administrator extends LibraryPart {
     private static Administrator ourInstance = new Administrator();
 
     static Administrator getInstance() {
@@ -14,6 +11,7 @@ class Administrator {
     }
 
     private Administrator() {
+        super("Administrator", Type.STAFF);
     }
 
     private Set<Reader> blackList = new HashSet<>();

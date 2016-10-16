@@ -1,21 +1,12 @@
 package homework.lab7;
 
-/**
- * Created by theme on 10/5/16.
- */
 public class Library {
-    //private List<Book> catalog;
-    //private List<Reader> readers;
     private Catalog catalog;
     private Librarian librarian;
     private Administrator administrator;
-
-    // TODO implement info methods like in Instrument superclass from the example
+//    private LinkedList<Reader> readers;
 
     public Library() {
-        //catalog = new ArrayList<>();
-        //readers = new LinkedList<>();
-        //blackList = new LinkedList<>();
         catalog = Catalog.getInstance();
         librarian = Librarian.getInstance();
         administrator = Administrator.getInstance();
@@ -23,7 +14,7 @@ public class Library {
 
     public boolean checkBooks(Order order) {
         for (Book book : order.getBooks()) {
-            if (!catalog.containsKey(book)) {
+            if (!catalog.booksCatalog.containsKey(book)) {
                 return false;
             }
         }
@@ -31,13 +22,27 @@ public class Library {
         return true;
     }
 
-    public static void main(String[] args) {
-        Library library = new Library();
-        //boolean bookIsInLibrary = library.checkBooks(new Book("B", "def"));
-        //System.out.println(bookIsInLibrary);
-        System.out.println(library.administrator);
+    public Catalog getCatalog() {
+        return catalog;
+    }
 
-        Reader reader = new Reader();
-        System.out.println(library.checkBooks(new Order(new Book("B", "def"))));
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
+    }
+
+    public Librarian getLibrarian() {
+        return librarian;
+    }
+
+    public void setLibrarian(Librarian librarian) {
+        this.librarian = librarian;
+    }
+
+    public Administrator getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Administrator administrator) {
+        this.administrator = administrator;
     }
 }

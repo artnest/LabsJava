@@ -8,6 +8,10 @@ import java.io.*;
 public class Connector {
     private String filename;
 
+    public Connector(String filename) {
+        this.filename = filename;
+    }
+
     public void write(Object[] libraryObjects) throws IOException {
         FileOutputStream fos = new FileOutputStream(filename);
 

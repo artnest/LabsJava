@@ -33,7 +33,7 @@ public class Instrument implements Serializable {
     @Override
     public String toString() {
         return "Instrument: " + name +
-                " type: " + type.toString() + " info: " + info;
+                ", type: " + type.toString() + ", info: " + info;
     }
 
     public Instrument() {
