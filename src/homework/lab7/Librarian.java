@@ -2,6 +2,7 @@ package homework.lab7;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 class Librarian extends LibraryPart {
     private static Librarian ourInstance = new Librarian();
@@ -14,14 +15,13 @@ class Librarian extends LibraryPart {
         super("Librarian", Type.STAFF);
     }
 
-    private Map<Map<Reader, Book>, Boolean> givenBooks = new HashMap<>();
+    private Map<Reader, Set<Book>> givenBooks = new HashMap<>();
 
-    public void giveBook(Book book, Reader reader/*, boolean place*/) {
-        reader.takeBook(book/*, place*/);
+    public void giveBooks(Book book, Reader reader, Order.Place place) {
+        reader.takeBooks(book, place);
     }
 
-    public void giveBook(Book[] booksArray, Reader reader/*, boolean place*/) {
-        //givenBooks.keySet().
-        reader.takeBook(booksArray/*, place*/);
+    public void giveBooks(Book[] booksArray, Reader reader, Order.Place place) {
+        reader.takeBooks(booksArray, place);
     }
 }

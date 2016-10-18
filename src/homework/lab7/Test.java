@@ -17,7 +17,8 @@ public class Test {
         Book book = new Book("B", "def");
         Order order = new Order(book);
         if (library.checkBooks(order)) {
-            library.getLibrarian().giveBook(order.getBooks(), reader);
+            library.getLibrarian().giveBooks(order.getBooks(), reader, order.getPlace());
+            // giveBooks((new set).toArray, reader); выкинуть отсутствующие книги
         }
 
         Connector connector = new Connector("library.dat");

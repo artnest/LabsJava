@@ -6,6 +6,7 @@ import java.util.Set;
 
 class Reader extends LibraryPart {
     private Set<Book> bookList = new HashSet<>();
+    private Order.Place place;
     //история заказов
     //история взятых книг
 
@@ -17,20 +18,30 @@ class Reader extends LibraryPart {
         return bookList.toArray(new Book[bookList.size()]);
     }
 
-    void takeBook(Book book) {
+    void takeBooks(Book book, Order.Place place) {
         bookList.add(book);
+        this.place = place;
     }
 
-    void takeBook(Book[] booksArray) {
+    void takeBooks(Book[] booksArray, Order.Place place) {
         Collections.addAll(bookList, booksArray);
+        this.place = place;
     }
 
     Order makeOrder(Book book) {
         return new Order(book);
     }
 
+    Order makeOrder(Book book, Order.Place place) {
+        return new Order(book, place);
+    }
+
     Order makeOrder(Book[] booksArray) {
         return new Order(booksArray);
+    }
+
+    Order makeOrder(Book[] booksArray, Order.Place place) {
+        return new Order(booksArray, place);
     }
 
     @Override
