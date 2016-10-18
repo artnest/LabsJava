@@ -1,12 +1,9 @@
 package homework.lab7;
 
-/**
- * Created by theme on 10/5/16.
- */
 class Book {
     private String author;
     private String name;
-    private boolean isInLibrary = true;
+//    private boolean isInLibrary = true;
 
     Book(String author, String name) {
         this.author = author;
@@ -21,13 +18,13 @@ class Book {
         return name;
     }
 
-    boolean isInLibrary() {
+    /*boolean isInLibrary() {
         return isInLibrary;
     }
 
     void setInLibrary(boolean inLibrary) {
         isInLibrary = inLibrary;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

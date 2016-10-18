@@ -18,7 +18,7 @@ class Catalog extends LibraryPart {
 
     HashMap<Book, Integer> booksCatalog = new HashMap<>();
 
-    public void setBooksCatalog(String filename) {
+    void setBooksCatalog(String filename) {
         try (LineNumberReader reader = new LineNumberReader(new FileReader("books.txt"))) {
             String s;
 

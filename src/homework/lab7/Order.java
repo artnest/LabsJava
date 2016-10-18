@@ -5,40 +5,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Order extends LibraryPart {
-    private Set<Book> bookList = new HashSet<>();
+    private Set<Book> bookSet = new HashSet<>();
     enum Place { READINGROOM, HOME, NONE }
     private Place place;
 
     Order(Book book) {
         super("Order", Type.ORDER);
-        bookList.add(book);
+        bookSet.add(book);
         place = Place.READINGROOM;
     }
 
     Order(Book book, Place place) {
         super("Order", Type.ORDER);
-        bookList.add(book);
+        bookSet.add(book);
         this.place = place;
     }
 
     Order(Book[] booksArray) {
         super("Order", Type.ORDER);
-        Collections.addAll(bookList, booksArray);
+        Collections.addAll(bookSet, booksArray);
         place = Place.READINGROOM;
     }
 
     Order(Book[] booksArray, Place place) {
         super("Order", Type.ORDER);
-        Collections.addAll(bookList, booksArray);
+        Collections.addAll(bookSet, booksArray);
         this.place = place;
     }
 
-    Set<Book> getBookList() {
-        return bookList;
+    Set<Book> getBookSet() {
+        return bookSet;
     }
 
-    Book[] getBooks() {
-        return bookList.toArray(new Book[bookList.size()]);
+    Book[] getBookArray() {
+        return bookSet.toArray(new Book[bookSet.size()]);
     }
 
     Place getPlace() {
@@ -52,12 +52,12 @@ class Order extends LibraryPart {
 
         Order order = (Order) o;
 
-        return bookList.equals(order.bookList);
+        return bookSet.equals(order.bookSet);
 
     }
 
     @Override
     public int hashCode() {
-        return bookList.hashCode();
+        return bookSet.hashCode();
     }
 }

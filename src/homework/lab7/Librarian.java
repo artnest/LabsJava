@@ -17,11 +17,15 @@ class Librarian extends LibraryPart {
 
     private Map<Reader, Set<Book>> givenBooks = new HashMap<>();
 
-    public void giveBooks(Book book, Reader reader, Order.Place place) {
+    void giveBooks(Book book, Reader reader, Order.Place place) {
         reader.takeBooks(book, place);
     }
 
-    public void giveBooks(Book[] booksArray, Reader reader, Order.Place place) {
+    void giveBooks(Book[] booksArray, Reader reader, Order.Place place) {
         reader.takeBooks(booksArray, place);
+    }
+
+    void giveBooks(Set<Book> bookSet, Reader reader, Order.Place place) {
+        reader.takeBooks(bookSet, place);
     }
 }

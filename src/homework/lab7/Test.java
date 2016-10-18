@@ -2,6 +2,7 @@ package homework.lab7;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Test {
     public static void main(String[] args) {
@@ -16,9 +17,12 @@ public class Test {
 
         Book book = new Book("B", "def");
         Order order = new Order(book);
-        if (library.checkBooks(order)) {
-            library.getLibrarian().giveBooks(order.getBooks(), reader, order.getPlace());
-            // giveBooks((new set).toArray, reader); выкинуть отсутствующие книги
+
+        Set<Book> booksInLibrarySet = library.checkBooks(order);
+        if (!booksInLibrarySet.isEmpty()) {
+            library.getLibrarian().giveBooks(booksInLibrarySet, reader, order.getPlace());
+        } else {
+            System.out.println("Данные книги в каталоге отсутствуют!");
         }
 
         Connector connector = new Connector("library.dat");

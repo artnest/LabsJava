@@ -1,5 +1,8 @@
 package homework.lab7;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Library {
     private Catalog catalog;
     private Librarian librarian;
@@ -12,16 +15,17 @@ public class Library {
         administrator = Administrator.getInstance();
     }
 
-    public boolean checkBooks(Order order) {
-        for (Book book : order.getBooks()) {
+    public Set<Book> checkBooks(Order order) {
+        Set<Book> copyBookSet = new HashSet<>(order.getBookSet());
+/*
+        for (Book book : order.getBookSet()) {
             if (!catalog.booksCatalog.containsKey(book)) {
-                return false;
+                copyBookSet.remove(book);
             }
         }
-
-        // new set
-
-        return true;
+*/
+        order.getBookSet().stream().filter(book -> !catalog.booksCatalog.containsKey(book)).forEach(copyBookSet::remove);
+        return copyBookSet;
     }
 
     public Catalog getCatalog() {

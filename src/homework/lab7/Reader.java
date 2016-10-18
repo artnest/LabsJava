@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Reader extends LibraryPart {
-    private Set<Book> bookList = new HashSet<>();
+    private Set<Book> bookSet = new HashSet<>();
     private Order.Place place;
     //история заказов
     //история взятых книг
@@ -14,17 +14,26 @@ class Reader extends LibraryPart {
         super("Reader", Type.USER);
     }
 
-    Book[] getBooks() {
-        return bookList.toArray(new Book[bookList.size()]);
+    Set<Book> getBookSet() {
+        return bookSet;
+    }
+
+    Book[] getBookArray() {
+        return bookSet.toArray(new Book[bookSet.size()]);
     }
 
     void takeBooks(Book book, Order.Place place) {
-        bookList.add(book);
+        bookSet.add(book);
         this.place = place;
     }
 
     void takeBooks(Book[] booksArray, Order.Place place) {
-        Collections.addAll(bookList, booksArray);
+        Collections.addAll(bookSet, booksArray);
+        this.place = place;
+    }
+
+    void takeBooks(Set<Book> bookSet, Order.Place place) {
+        this.bookSet.addAll(bookSet);
         this.place = place;
     }
 
@@ -51,12 +60,12 @@ class Reader extends LibraryPart {
 
         Reader reader = (Reader) o;
 
-        return bookList.equals(reader.bookList);
+        return bookSet.equals(reader.bookSet);
 
     }
 
     @Override
     public int hashCode() {
-        return bookList.hashCode();
+        return bookSet.hashCode();
     }
 }
