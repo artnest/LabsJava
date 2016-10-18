@@ -24,7 +24,7 @@ class Librarian extends LibraryPart {
         readerSet.forEach(System.out::println);
     }
 
-    void giveBooks(Catalog catalog, Set<Book> bookSet, Reader reader, Order.Place place) {
+    void giveBooks(Catalog catalog, Set<Book> bookSet, Reader reader, Reader.Place place) {
         readerSet.add(reader);
         reader.takeBooks(bookSet, place);
         for (Book book : bookSet) {
@@ -40,5 +40,16 @@ class Librarian extends LibraryPart {
         }
     }
 
-    // returnBookToCatalog()
+    void returnBooks(Catalog catalog, Reader reader) {
+        for (Book book : reader.getBookSet()) {
+            if (catalog.booksCatalog.containsKey(book)) {
+                catalog.booksCatalog.put(book, catalog.booksCatalog.get(book) + 1);
+            } else {
+                catalog.booksCatalog.put(book, 1);
+            }
+        }
+
+        reader.returnBooks();
+        readerSet.remove(reader);
+    }
 }

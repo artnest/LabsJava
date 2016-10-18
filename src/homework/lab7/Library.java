@@ -7,7 +7,6 @@ public class Library {
     private Catalog catalog;
     private Librarian librarian;
     private Administrator administrator;
-//    private LinkedList<Reader> readers;
 
     public Library() {
         catalog = Catalog.getInstance();
@@ -15,7 +14,7 @@ public class Library {
         administrator = Administrator.getInstance();
     }
 
-    public Set<Book> checkBooks(Order order) {
+    public Set<Book> checkBooks(Reader.Order order) {
         Set<Book> copyBookSet = new HashSet<>(order.getBookSet());
 /*
         for (Book book : order.getBookSet()) {
@@ -32,23 +31,11 @@ public class Library {
         return catalog;
     }
 
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
-
     public Librarian getLibrarian() {
         return librarian;
     }
 
-    public void setLibrarian(Librarian librarian) {
-        this.librarian = librarian;
-    }
-
     public Administrator getAdministrator() {
         return administrator;
-    }
-
-    public void setAdministrator(Administrator administrator) {
-        this.administrator = administrator;
     }
 }

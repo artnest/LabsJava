@@ -24,11 +24,22 @@ class Administrator extends LibraryPart {
         blackList.forEach(System.out::println);
     }
 
-    void addToBlacklist(Reader reader) {
-        if (!reader.getBookSet().isEmpty()) {
-            blackList.add(reader);
+    boolean checkReader(Reader reader) {
+        if (reader.getBookSet().isEmpty() && !blackList.contains(reader)) {
+            return true;
+        } else if (reader.getBookSet().isEmpty() && blackList.contains(reader)) {
+            blackList.remove(reader);
+            return true;
+        } else {
+            return false;
         }
     }
 
-    // removeFromBlackList()
+    void addToBlacklist(Reader reader) {
+        blackList.add(reader);
+    }
+
+    void removeFromBlackList(Reader reader) {
+        blackList.remove(reader);
+    }
 }

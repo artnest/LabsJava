@@ -16,13 +16,14 @@ public class Test {
 //        System.out.println(library.checkBooks(new Order(new Book("B", "def"))));
 
         Book book = new Book("B", "def");
-        Order order = new Order(book);
+        Reader.Order order = reader.makeOrder(book, Reader.Place.HOME);
 
         Set<Book> booksInLibrarySet = library.checkBooks(order);
-        if (!booksInLibrarySet.isEmpty()) {
+        if (!booksInLibrarySet.isEmpty() && library.getAdministrator().checkReader(reader)) {
             library.getLibrarian().giveBooks(library.getCatalog(), booksInLibrarySet, reader, order.getPlace());
         } else {
-            System.out.println("Данные книги в каталоге отсутствуют!");
+            System.out.println("Данные книги в каталоге отсутствуют, или" +
+                    "читатель не может делать заказы (находится в черном списке)!");
         }
 
         Connector connector = new Connector("library.dat");
