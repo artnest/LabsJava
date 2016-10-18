@@ -37,10 +37,6 @@ class Order extends LibraryPart {
         return bookSet;
     }
 
-    Book[] getBookArray() {
-        return bookSet.toArray(new Book[bookSet.size()]);
-    }
-
     Place getPlace() {
         return place;
     }

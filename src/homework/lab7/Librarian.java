@@ -24,20 +24,6 @@ class Librarian extends LibraryPart {
         readerSet.forEach(System.out::println);
     }
 
-    void giveBooks(Catalog catalog, Book book, Reader reader, Order.Place place) {
-        readerSet.add(reader);
-        reader.takeBooks(book, place);
-        takeBookFromCatalog(catalog, book);
-    }
-
-    void giveBooks(Catalog catalog, Book[] booksArray, Reader reader, Order.Place place) {
-        readerSet.add(reader);
-        reader.takeBooks(booksArray, place);
-        for (Book book : booksArray) {
-            takeBookFromCatalog(catalog, book);
-        }
-    }
-
     void giveBooks(Catalog catalog, Set<Book> bookSet, Reader reader, Order.Place place) {
         readerSet.add(reader);
         reader.takeBooks(bookSet, place);

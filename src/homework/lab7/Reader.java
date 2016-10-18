@@ -1,6 +1,5 @@
 package homework.lab7;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,20 +15,6 @@ class Reader extends LibraryPart {
 
     Set<Book> getBookSet() {
         return bookSet;
-    }
-
-    Book[] getBookArray() {
-        return bookSet.toArray(new Book[bookSet.size()]);
-    }
-
-    void takeBooks(Book book, Order.Place place) {
-        bookSet.add(book);
-        this.place = place;
-    }
-
-    void takeBooks(Book[] booksArray, Order.Place place) {
-        Collections.addAll(bookSet, booksArray);
-        this.place = place;
     }
 
     void takeBooks(Set<Book> bookSet, Order.Place place) {
