@@ -20,7 +20,7 @@ public class Test {
 
         Set<Book> booksInLibrarySet = library.checkBooks(order);
         if (!booksInLibrarySet.isEmpty()) {
-            library.getLibrarian().giveBooks(booksInLibrarySet, reader, order.getPlace());
+            library.getLibrarian().giveBooks(library.getCatalog(), booksInLibrarySet, reader, order.getPlace());
         } else {
             System.out.println("Данные книги в каталоге отсутствуют!");
         }

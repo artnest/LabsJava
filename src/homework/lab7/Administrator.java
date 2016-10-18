@@ -16,9 +16,19 @@ class Administrator extends LibraryPart {
 
     private Set<Reader> blackList = new HashSet<>();
 
-    void addToBlacklist(Book book, Reader reader) {
-        /*if (!book.isInLibrary()) {
-            blackList.add(reader);
-        }*/
+    public Set<Reader> getBlackList() {
+        return blackList;
     }
+
+    void showBlackList() {
+        blackList.forEach(System.out::println);
+    }
+
+    void addToBlacklist(Reader reader) {
+        if (!reader.getBookSet().isEmpty()) {
+            blackList.add(reader);
+        }
+    }
+
+    // removeFromBlackList()
 }
