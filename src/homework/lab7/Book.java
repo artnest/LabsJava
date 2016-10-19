@@ -1,22 +1,22 @@
 package homework.lab7;
 
 class Book extends LibraryPart {
-    private String author;
     private String name;
+    private String author;
 
-    Book(String author, String name) {
+    Book(String name, String author) {
         super("Book", Type.ITEM);
 
-        this.author = author;
         this.name = name;
-    }
-
-    String getAuthor() {
-        return author;
+        this.author = author;
     }
 
     String getName() {
         return name;
+    }
+
+    String getAuthor() {
+        return author;
     }
 
     @Override
@@ -26,18 +26,18 @@ class Book extends LibraryPart {
 
         Book book = (Book) o;
 
-        return author.equals(book.author) && name.equals(book.name);
+        return name.equals(book.name) && author.equals(book.author);
     }
 
     @Override
     public int hashCode() {
-        int result = author.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
+        result = 31 * result + author.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return name + ", " + author;
+        return "\"" + name + "\"" + " by " + author;
     }
 }
