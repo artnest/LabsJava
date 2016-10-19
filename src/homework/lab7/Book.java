@@ -1,11 +1,12 @@
 package homework.lab7;
 
-class Book {
+class Book extends LibraryPart {
     private String author;
     private String name;
-//    private boolean isInLibrary = true;
 
     Book(String author, String name) {
+        super("Book", Type.ITEM);
+
         this.author = author;
         this.name = name;
     }
@@ -17,14 +18,6 @@ class Book {
     String getName() {
         return name;
     }
-
-    /*boolean isInLibrary() {
-        return isInLibrary;
-    }
-
-    void setInLibrary(boolean inLibrary) {
-        isInLibrary = inLibrary;
-    }*/
 
     @Override
     public boolean equals(Object o) {
