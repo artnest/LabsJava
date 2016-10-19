@@ -1,19 +1,22 @@
 package homework.lab7;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Set;
 
 public class Test {
     public static void main(String[] args) {
         Library library = new Library();
-        library.getCatalog().setBooksCatalog("books.txt");
 
-        System.out.println(library.getAdministrator());
-        System.out.println(library.getAdministrator().getInfo());
+        library.getCatalog().setBooksCatalog("books.txt");
+        library.getCatalog().setInfo("Main catalog");
+
+        library.getAdministrator().setInfo("Library Administrator");
+        library.getLibrarian().setInfo("Librarian");
 
         Reader reader = new Reader();
-        Reader.Order order = reader.makeOrder(new Book("B", "def"), Reader.Place.HOME);
+        Reader.Order order = reader.makeOrder(new Book[] { new Book("The Grapes of Wrath", "John Steinbeck"),
+                                                            new Book("1984", "George Orwell") },
+                                                Reader.Place.HOME);
 
         Set<Book> booksInLibrarySet = library.checkBooks(order);
         if (!booksInLibrarySet.isEmpty() && library.getAdministrator().checkReader(reader)) {
@@ -24,19 +27,17 @@ public class Test {
         }
 
         Connector connector = new Connector("library.dat");
+        LibraryPart[] libraryParts = new LibraryPart[5];
 
-        LinkedList<LibraryPart> linkedList = new LinkedList<>();
-        linkedList.add(Librarian.getInstance());
-
-        try {
+        /*try {
             connector.write(linkedList.toArray(new LibraryPart[linkedList.size()]));
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
 
         try {
             Object[] objects = connector.read();
-            LibraryPart[] libraryParts = new LibraryPart[objects.length];
+//            LibraryPart[] libraryParts = new LibraryPart[objects.length];
 
             for (int i = 0; i < objects.length; i++) {
                 libraryParts[i] = (LibraryPart) objects[i];
