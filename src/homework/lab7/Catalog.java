@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.HashMap;
+import java.util.Map;
 
 class Catalog extends LibraryPart {
     private static Catalog ourInstance = new Catalog();
@@ -16,19 +17,19 @@ class Catalog extends LibraryPart {
         super("Catalog", Type.ITEM);
     }
 
-    HashMap<Book, Integer> booksCatalog = new HashMap<>();
+    Map<Book, Integer> booksCatalog = new HashMap<>();
 
     void setBooksCatalog(String filename) {
-        try (LineNumberReader reader = new LineNumberReader(new FileReader("books.txt"))) {
+        try (LineNumberReader reader = new LineNumberReader(new FileReader(filename))) {
             String s;
 
             while ((s = reader.readLine()) != null) {
                 try {
                     assert !s.isEmpty(): "Empty string: " + reader.getLineNumber();
-                    String[] strings = s.split(" ");
+                    String[] strings = s.split("by|,");
 
                     if (strings.length == 2) {
-                        Book book = new Book(strings[0], strings[1]);
+                        Book book = new Book(strings[0].replace("\"", "").trim(), strings[1].trim());
 
                         if (booksCatalog.containsKey(book)) {
                             booksCatalog.put(book, booksCatalog.get(book) + 1);
@@ -48,6 +49,6 @@ class Catalog extends LibraryPart {
     }
 
     void showBooksCatalog() {
-        booksCatalog.forEach((book, amount) -> System.out.println(book + " " + amount.toString()));
+        booksCatalog.forEach((book, amount) -> System.out.println(book + ", " + amount.toString()));
     }
 }
