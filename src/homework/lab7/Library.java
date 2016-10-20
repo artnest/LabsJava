@@ -35,8 +35,8 @@ public class Library extends LibraryPart {
         if (!booksInLibrarySet.isEmpty() && administrator.checkReader(reader)) {
             librarian.giveBooks(catalog, booksInLibrarySet, reader, order.getPlace());
         } else {
-            System.out.println("Данные книги в каталоге отсутствуют, или " +
-                    "читатель не может делать заказы (находится в черном списке)!");
+            System.out.println("These books aren't in the catalog or " +
+                    "the reader can't make orders (currently in the blacklist)!");
         }
     }
 

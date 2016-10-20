@@ -11,7 +11,7 @@ public class EquilateralTriangle extends Triangle {
 
     @Override
     protected double Area() {
-        return getA() * getA() * getA();
+        return getA() * getA() * Math.sqrt(3) / 4;
     }
 
     @Override
