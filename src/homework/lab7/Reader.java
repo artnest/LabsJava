@@ -10,8 +10,8 @@ class Reader extends LibraryPart {
     enum Place { READINGROOM, HOME, NONE }
     private Place place = Place.NONE;
 
-    Reader() {
-        super("Reader", Type.USER);
+    Reader(String name) {
+        super(name, Type.USER);
     }
 
     Place getPlace() {

@@ -3,7 +3,7 @@ package homework.lab7;
 import java.io.Serializable;
 
 abstract class LibraryPart implements Serializable {
-    enum Type { ITEM, STAFF, USER, ORDER }
+    enum Type { LIBRARY, ITEM, STAFF, USER, ORDER }
 
     private String name;
     private Type type;

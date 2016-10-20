@@ -5,7 +5,7 @@ class Book extends LibraryPart {
     private String author;
 
     Book(String name, String author) {
-        super("Book", Type.ITEM);
+        super(name, Type.ITEM);
 
         this.name = name;
         this.author = author;

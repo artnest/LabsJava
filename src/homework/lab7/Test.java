@@ -1,50 +1,59 @@
 package homework.lab7;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class Test {
     public static void main(String[] args) {
-        Library library = new Library();
+        Library library1 = new Library("The National Library of Belarus");
 
-        library.getCatalog().setBooksCatalog("books.txt");
-        library.getCatalog().setInfo("Main catalog");
+        library1.setInfo("Belarus");
+        library1.getCatalog().setBooksCatalog("books1.txt");
+        library1.getCatalog().setInfo("Main catalog");
 
-        library.getAdministrator().setInfo("Library Administrator");
-        library.getLibrarian().setInfo("Librarian");
+        library1.getAdministrator().setInfo("Library Administrator");
+        library1.getLibrarian().setInfo("Old Librarian");
 
-        Reader reader = new Reader();
-        Reader.Order order = reader.makeOrder(new Book[] { new Book("The Grapes of Wrath", "John Steinbeck"),
+        Reader reader1 = new Reader("Andrew");
+        Reader.Order order1 = reader1.makeOrder(new Book[] { new Book("The Grapes of Wrath", "John Steinbeck"),
                                                             new Book("1984", "George Orwell") },
                                                 Reader.Place.HOME);
+        library1.doOrder(reader1, order1);
 
-        Set<Book> booksInLibrarySet = library.checkBooks(order);
-        if (!booksInLibrarySet.isEmpty() && library.getAdministrator().checkReader(reader)) {
-            library.getLibrarian().giveBooks(library.getCatalog(), booksInLibrarySet, reader, order.getPlace());
-        } else {
-            System.out.println("Данные книги в каталоге отсутствуют, или " +
-                    "читатель не может делать заказы (находится в черном списке)!");
-        }
+        Library library2 = new Library("The London Library");
 
-        Connector connector = new Connector("library.dat");
-        LibraryPart[] libraryParts = new LibraryPart[5];
+        library2.setInfo("The UK");
+        library2.getCatalog().setBooksCatalog("books2.txt");
+        library2.getCatalog().setInfo("Big catalog");
 
-        /*try {
-            connector.write(linkedList.toArray(new LibraryPart[linkedList.size()]));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }*/
+        library2.getAdministrator().setInfo("Sir Tom Stoppard");
+        library2.getLibrarian().setInfo("Inez Lynn");
+
+        Reader reader2 = new Reader("Steve");
+        Reader.Order order2 = reader2.makeOrder(new Book[] { new Book("Gone with the Wind", "Margaret Mitchell"),
+                        new Book("Memoirs of a Geisha", "Arthur Golden") },
+                Reader.Place.HOME);
+        library2.doOrder(reader2, order2);
+
+        library1.getLibrarian().returnBooks(library1.getCatalog(), reader1);
+        library2.getLibrarian().returnBooks(library2.getCatalog(), reader2);
+
+        Connector connector = new Connector("libraries.dat");
+        LibraryPart[] libraries = new LibraryPart[2];
+        libraries[0] = library1;
+        libraries[1] = library2;
 
         try {
-            Object[] objects = connector.read();
-//            LibraryPart[] libraryParts = new LibraryPart[objects.length];
+            connector.write(libraries);
 
-            for (int i = 0; i < objects.length; i++) {
-                libraryParts[i] = (LibraryPart) objects[i];
+            Object[] objects = connector.read();
+            LibraryPart[] copyLibraries = new LibraryPart[objects.length];
+
+            for (int i = 0; i < copyLibraries.length; i++) {
+                copyLibraries[i] = (LibraryPart) objects[i];
             }
 
-            for (LibraryPart libraryPart : libraryParts) {
-                System.out.println(libraryPart);
+            for (LibraryPart library : copyLibraries) {
+                System.out.println(library);
             }
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
@@ -52,6 +61,7 @@ public class Test {
             System.out.println(e.getMessage() + "; " + e.getCause());
         }
 
-        library.getCatalog().showBooksCatalog();
+        library1.getCatalog().showBooksCatalog();
+        library2.getCatalog().showBooksCatalog();
     }
 }

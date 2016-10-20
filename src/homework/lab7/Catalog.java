@@ -26,7 +26,7 @@ class Catalog extends LibraryPart {
             while ((s = reader.readLine()) != null) {
                 try {
                     assert !s.isEmpty(): "Empty string: " + reader.getLineNumber();
-                    String[] strings = s.split("by|,");
+                    String[] strings = s.split(" by ");
 
                     if (strings.length == 2) {
                         Book book = new Book(strings[0].replace("\"", "").trim(), strings[1].trim());
@@ -37,7 +37,8 @@ class Catalog extends LibraryPart {
                             booksCatalog.put(book, 1);
                         }
                     } else {
-                        throw new IllegalArgumentException("Invalid book data: line " + reader.getLineNumber());
+                        throw new IllegalArgumentException("Invalid book data: " +
+                                                            "file " + filename + ", line " + reader.getLineNumber());
                     }
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
@@ -50,5 +51,16 @@ class Catalog extends LibraryPart {
 
     void showBooksCatalog() {
         booksCatalog.forEach((book, amount) -> System.out.println(book + ", " + amount.toString()));
+    }
+
+    public String toStringBooksCatalog() {
+        StringBuilder stringBooksCatalog = new StringBuilder();
+
+        for (Book book : booksCatalog.keySet()) {
+//            stringBooksCatalog.append(book + ", " + booksCatalog.get(book) + System.lineSeparator());
+            stringBooksCatalog.append(book).append(", ").append(booksCatalog.get(book)).append(System.lineSeparator());
+        }
+
+        return stringBooksCatalog.toString();
     }
 }
