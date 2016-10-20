@@ -37,6 +37,7 @@ public class Buffer {
         int length = file.readInt();
         byte[] what = new byte[length];
         file.read(what);
-        return fromByteArray(what);
+        //return fromByteArray(what);
+        return null;
     }
 }

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class AppLocale {
     private static final String strMsg = "homework.lab7.Msg";
-    private static Locale locale = Locale.getDefault();
+    private static Locale locale = Locale.UK;
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(AppLocale.strMsg, AppLocale.locale);
 
     static Locale getLocale() {

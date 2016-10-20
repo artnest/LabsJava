@@ -16,10 +16,11 @@ public class Book implements Serializable {
     }
 
     public static Book read(Scanner fin) {
-        Book book = new Book;
+        Book book = new Book();
         book.strISBN = fin.nextLine();
 
         //
+        return book;
     }
 
     @Override
