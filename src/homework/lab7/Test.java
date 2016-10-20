@@ -1,17 +1,55 @@
 package homework.lab7;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 public class Test {
+    static Locale createLocale(String[] args) {
+        if (args.length == 2) {
+            return new Locale(args[0], args[1]);
+        } else if (args.length == 4) {
+            return new Locale(args[2], args[3]);
+        }
+
+        return null;
+    }
+
+    static void setupConsole(String[] args) {
+        if (args.length >= 2) {
+            if (args[0].compareTo("-encoding") == 0) {
+                try {
+                    System.setOut(new PrintStream(System.out, true, args[1]));
+                } catch (UnsupportedEncodingException e) {
+                    System.err.println("Unsupported encoding: " + args[1]);
+                    System.exit(1);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        Library library1 = new Library("The National Library of Belarus");
+        setupConsole(args);
+        Locale locale = createLocale(args);
 
-        library1.setInfo("Belarus");
+        if (locale == null) {
+            System.err.println("Invalid argument(s)\n" +
+                                "Syntax: [-encoding ENCODING_ID] language country\n" +
+                                "Example: -encoding CP855 by BY");
+            System.exit(1);
+        }
+
+        AppLocale.setLocale(locale);
+
+        Library library1 = new Library(AppLocale.getString(AppLocale.library_part));
+
+        library1.setInfo(AppLocale.getString(AppLocale.library));
         library1.getCatalog().setBooksCatalog("books1.txt");
-        library1.getCatalog().setInfo("Main catalog");
+        library1.getCatalog().setInfo(AppLocale.getString(AppLocale.catalog));
 
-        library1.getAdministrator().setInfo("Library Administrator");
-        library1.getLibrarian().setInfo("Old Librarian");
+        library1.getAdministrator().setInfo(AppLocale.getString(AppLocale.administrator));
+        library1.getLibrarian().setInfo(AppLocale.getString(AppLocale.librarian));
 
         Reader reader1 = new Reader("Andrew");
         Reader.Order order1 = reader1.makeOrder(new Book[] { new Book("The Grapes of Wrath", "John Steinbeck"),
@@ -19,14 +57,14 @@ public class Test {
                                                 Reader.Place.HOME);
         library1.doOrder(reader1, order1);
 
-        Library library2 = new Library("The London Library");
+        Library library2 = new Library(AppLocale.getString(AppLocale.library_part));
 
-        library2.setInfo("The UK");
+        library2.setInfo(AppLocale.getString(AppLocale.library));
         library2.getCatalog().setBooksCatalog("books2.txt");
-        library2.getCatalog().setInfo("Big catalog");
+        library2.getCatalog().setInfo(AppLocale.getString(AppLocale.catalog));
 
-        library2.getAdministrator().setInfo("Sir Tom Stoppard");
-        library2.getLibrarian().setInfo("Inez Lynn");
+        library2.getAdministrator().setInfo(AppLocale.getString(AppLocale.administrator));
+        library2.getLibrarian().setInfo(AppLocale.getString(AppLocale.librarian));
 
         Reader reader2 = new Reader("Steve");
         Reader.Order order2 = reader2.makeOrder(new Book[] { new Book("Gone with the Wind", "Margaret Mitchell"),
