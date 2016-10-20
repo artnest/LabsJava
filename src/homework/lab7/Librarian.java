@@ -1,7 +1,6 @@
 package homework.lab7;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 class Librarian extends LibraryPart {
@@ -15,17 +14,42 @@ class Librarian extends LibraryPart {
         super("Librarian", Type.STAFF);
     }
 
-    private Map<Reader, Set<Book>> givenBooks = new HashMap<>();
+    private Set<Reader> readerSet = new HashSet<>();
 
-    void giveBooks(Book book, Reader reader, Order.Place place) {
-        reader.takeBooks(book, place);
+    Set<Reader> getReaderSet() {
+        return readerSet;
     }
 
-    void giveBooks(Book[] booksArray, Reader reader, Order.Place place) {
-        reader.takeBooks(booksArray, place);
+    void showReaderSet() {
+        readerSet.forEach(System.out::println);
     }
 
-    void giveBooks(Set<Book> bookSet, Reader reader, Order.Place place) {
+    void giveBooks(Catalog catalog, Set<Book> bookSet, Reader reader, Reader.Place place) {
+        readerSet.add(reader);
         reader.takeBooks(bookSet, place);
+        for (Book book : bookSet) {
+            takeBookFromCatalog(catalog, book);
+        }
+    }
+
+    private void takeBookFromCatalog(Catalog catalog, Book book) {
+        if (catalog.booksCatalog.get(book) != 0) {
+            catalog.booksCatalog.put(book, catalog.booksCatalog.get(book) - 1);
+        } else {
+            catalog.booksCatalog.remove(book);
+        }
+    }
+
+    void returnBooks(Catalog catalog, Reader reader) {
+        for (Book book : reader.getBookSet()) {
+            if (catalog.booksCatalog.containsKey(book)) {
+                catalog.booksCatalog.put(book, catalog.booksCatalog.get(book) + 1);
+            } else {
+                catalog.booksCatalog.put(book, 1);
+            }
+        }
+
+        reader.returnBooks();
+        readerSet.remove(reader);
     }
 }

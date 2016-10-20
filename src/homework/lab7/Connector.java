@@ -2,9 +2,6 @@ package homework.lab7;
 
 import java.io.*;
 
-/**
- * Created by artem on 13.10.2016.
- */
 public class Connector {
     private String filename;
 
@@ -18,8 +15,8 @@ public class Connector {
         try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeInt(libraryObjects.length);
 
-            for (int i = 0; i < libraryObjects.length; i++) {
-                oos.writeObject(libraryObjects[i]);
+            for (Object libraryObject : libraryObjects) {
+                oos.writeObject(libraryObject);
             }
 
             oos.flush();

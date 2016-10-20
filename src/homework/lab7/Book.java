@@ -1,30 +1,23 @@
 package homework.lab7;
 
-class Book {
-    private String author;
+class Book extends LibraryPart {
     private String name;
-//    private boolean isInLibrary = true;
+    private String author;
 
-    Book(String author, String name) {
-        this.author = author;
+    Book(String name, String author) {
+        super(name, Type.ITEM);
+
         this.name = name;
-    }
-
-    String getAuthor() {
-        return author;
+        this.author = author;
     }
 
     String getName() {
         return name;
     }
 
-    /*boolean isInLibrary() {
-        return isInLibrary;
+    String getAuthor() {
+        return author;
     }
-
-    void setInLibrary(boolean inLibrary) {
-        isInLibrary = inLibrary;
-    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -33,18 +26,18 @@ class Book {
 
         Book book = (Book) o;
 
-        return author.equals(book.author) && name.equals(book.name);
+        return name.equals(book.name) && author.equals(book.author);
     }
 
     @Override
     public int hashCode() {
-        int result = author.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
+        result = 31 * result + author.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return name + ", " + author;
+        return "\"" + name + "\"" + " by " + author;
     }
 }

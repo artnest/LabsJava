@@ -14,11 +14,33 @@ class Administrator extends LibraryPart {
         super("Administrator", Type.STAFF);
     }
 
-    private Set<Reader> blackList = new HashSet<>();
+    private Set<Reader> blacklistSet = new HashSet<>();
 
-    void addToBlacklist(Book book, Reader reader) {
-        /*if (!book.isInLibrary()) {
-            blackList.add(reader);
-        }*/
+    public Set<Reader> getBlacklist() {
+        return blacklistSet;
+    }
+
+    void showBlacklist() {
+        blacklistSet.forEach(System.out::println);
+    }
+
+    boolean checkReader(Reader reader) {
+        if (reader.getBookSet().isEmpty() && !blacklistSet.contains(reader)) {
+            return true;
+        } else if (reader.getBookSet().isEmpty() && blacklistSet.contains(reader)) {
+            blacklistSet.remove(reader);
+            return true;
+        } else {
+            blacklistSet.add(reader);
+            return false;
+        }
+    }
+
+    void addToBlacklist(Reader reader) {
+        blacklistSet.add(reader);
+    }
+
+    void removeFromBlacklist(Reader reader) {
+        blacklistSet.remove(reader);
     }
 }
