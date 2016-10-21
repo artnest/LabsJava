@@ -1,4 +1,4 @@
-package homework.lab7;
+package homework.lab7.stage2;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

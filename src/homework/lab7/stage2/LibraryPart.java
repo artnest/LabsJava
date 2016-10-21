@@ -1,4 +1,4 @@
-package homework.lab7;
+package homework.lab7.stage2;
 
 import java.io.Serializable;
 import java.text.DateFormat;
