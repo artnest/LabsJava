@@ -2,9 +2,6 @@ package classwork.oct192016.lab1;
 
 import java.io.*;
 
-/**
- * Created by theme on 10/19/16.
- */
 public class Buffer {
     static byte[] toByteArray(Serializable obj) throws IOException {
         ByteArrayOutputStream bufOut = new ByteArrayOutputStream();

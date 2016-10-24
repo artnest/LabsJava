@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
-/**
- * Created by theme on 10/19/16.
- */
 public class Books {
     static final String filename = "Books.dat";
     private static Scanner fin = new Scanner(System.in);
