@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Scanner;
 
 public class Bill implements Serializable {
-    private String numberHouse;
-    private String numberApartment;
+    private String numberHouse; // TODO make int, add check IntParse for exception
+    private String numberApartment; // TODO make int, add check IntParse for exception
     private String address;
-    private String owner;
-    private String date;
-    private String sum;
-    private String percent;
-    private String daysExpired;
+    private String owner; // TODO check on parsing to correspond 3 params(take from previous works)
+    private String paymentDate; // TODO make use of Date class
+    private String paymentSum; // TODO make int, add check IntParse for exception
+    private String penaltyPercent; // TODO check on parsing to consist of a number and a penaltyPercent sign
+    private String daysExpired; // TODO make int, add check IntParse for exception
 
     public static Bill read(Scanner fin) {
         Bill bill = new Bill();
@@ -36,17 +36,17 @@ public class Bill implements Serializable {
             return null;
         }
 
-        bill.date = fin.nextLine();
+        bill.paymentDate = fin.nextLine();
         if (!fin.hasNextLine()) {
             return null;
         }
 
-        bill.sum = fin.nextLine();
+        bill.paymentSum = fin.nextLine();
         if (!fin.hasNextLine()) {
             return null;
         }
 
-        bill.percent = fin.nextLine();
+        bill.penaltyPercent = fin.nextLine();
         if (!fin.hasNextLine()) {
             return null;
         }
@@ -62,9 +62,9 @@ public class Bill implements Serializable {
                 numberApartment + " | " +
                 address + " | " +
                 owner + " | " +
-                date + " | " +
-                sum + " | " +
-                percent + " | " +
+                paymentDate + " | " +
+                paymentSum + " | " +
+                penaltyPercent + " | " +
                 daysExpired;
     }
 }
