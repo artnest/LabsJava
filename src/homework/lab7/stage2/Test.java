@@ -68,8 +68,8 @@ public class Test {
 
         Reader reader2 = new Reader("Steve");
         Reader.Order order2 = reader2.makeOrder(new Book[] { new Book("Gone with the Wind", "Margaret Mitchell"),
-                        new Book("Memoirs of a Geisha", "Arthur Golden") },
-                Reader.Place.HOME);
+                                                            new Book("Memoirs of a Geisha", "Arthur Golden") },
+                                                Reader.Place.HOME);
         library2.doOrder(reader2, order2);
 
         library1.getLibrarian().returnBooks(library1.getCatalog(), reader1);
