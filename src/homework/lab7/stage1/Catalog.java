@@ -1,4 +1,4 @@
-package homework.lab7;
+package homework.lab7.stage1;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +12,8 @@ class Catalog extends LibraryPart {
     static Catalog getInstance() {
         return ourInstance;
     }
+
+
 
     private Catalog() {
         super("Catalog", Type.ITEM);

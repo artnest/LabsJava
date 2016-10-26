@@ -1,4 +1,4 @@
-package homework.lab7;
+package homework.lab7.stage1;
 
 class Book extends LibraryPart {
     private String name;

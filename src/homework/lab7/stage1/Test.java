@@ -1,4 +1,4 @@
-package homework.lab7;
+package homework.lab7.stage1;
 
 import java.io.IOException;
 
