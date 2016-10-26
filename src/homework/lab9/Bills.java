@@ -12,6 +12,8 @@ public class Bills {
     private static Scanner fin = new Scanner(System.in);
 
     static Bill readBill() {
+
+
         if (fin.hasNextLine()) {
             return Bill.read(fin);
         }
