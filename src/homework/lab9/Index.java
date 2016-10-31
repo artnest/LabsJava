@@ -1,14 +1,21 @@
 package homework.lab9;
 
-import java.util.Comparator;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.Serializable;
 
-class KeyComp implements Comparator<String> {
-    @Override
-    public int compare(String o1, String o2) {
-        return o1.compareTo(o2);
+public class Index implements Serializable, Closeable {
+    private static final long serialVersionUID = 1L;
+
+    public static long[] InsertValue(long[] array, long value) {
+        long[] result = new long[(array == null ? 0 : array.length) + 1];
+        System.arraycopy(array, 0, result, 0, result.length);
+        result[result.length] = value;
+        return result;
     }
-}
 
-public class Index {
+    @Override
+    public void close() throws IOException {
 
+    }
 }
