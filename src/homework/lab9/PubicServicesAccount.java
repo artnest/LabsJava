@@ -1,36 +1,62 @@
 package homework.lab9;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class Bill implements Serializable {
+public class PubicServicesAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int numberHouse;
+    static final String P_numberHouse = "House number";
     private int numberApartment;
+    static final String P_numberApartment = "Apartment number";
     private String address;
+    static final String P_address = "Address";
     private String owner;
+    static final String P_owner = "Owner";
 //    private Date paymentDate;
     private LocalDate paymentDate;
-    private int paymentSum;
+    static final String P_paymentDate = "Payment date";
+    private double paymentSum;
+    static final String P_paymentSum = "Payment sum";
     private String penaltyPercent;
+    static final String P_penaltyPercent = "Penalty percent";
     private int daysExpired;
+    static final String P_daysExpired = "Days expired";
 
-    public static Bill read(Scanner fin) {
-        Bill bill = new Bill();
+    /*private static GregorianCalendar curCalendar = new GregorianCalendar();
+    static Boolean validYear(int year) {
+        return year > 0 && year <= curCalendar.get(Calendar.YEAR);
+    }*/
+
+    static Boolean nextRead(Scanner fin, PrintStream out) {
+        return nextRead(P_numberHouse, fin, out);
+    }
+
+    private static Boolean nextRead(final String prompt, Scanner fin, PrintStream out) {
+        out.print(prompt);
+        out.print(": ");
+        return fin.hasNextLine();
+    }
+
+    public static PubicServicesAccount read(Scanner fin) {
+        PubicServicesAccount pubicServicesAccount = new PubicServicesAccount();
 
         try {
-            bill.numberHouse = Integer.parseInt(fin.nextLine());
+            pubicServicesAccount.numberHouse = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            bill.numberApartment = Integer.parseInt(fin.nextLine());
+            pubicServicesAccount.numberApartment = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            bill.address = fin.nextLine();
+            pubicServicesAccount.address = fin.nextLine();
             if (!fin.hasNextLine()) {
                 return null;
             }
@@ -39,7 +65,7 @@ public class Bill implements Serializable {
             String[] strings = s.split(" ");
             StringBuilder sB = new StringBuilder();
             if (strings.length == 3) {
-                bill.owner = sB.append(strings[0]).append(" ")
+                pubicServicesAccount.owner = sB.append(strings[0]).append(" ")
                                 .append(strings[1]).append(" ")
                                 .append(strings[2]).toString();
             } else {
@@ -49,20 +75,20 @@ public class Bill implements Serializable {
                 return null;
             }
 
-//            bill.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
-            bill.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//            pubicServicesAccount.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
+            pubicServicesAccount.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            bill.paymentSum = Integer.parseInt(fin.nextLine());
+            pubicServicesAccount.paymentSum = Double.parseDouble(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
             strings = fin.nextLine().split("%");
             if (strings.length == 1) {
-                bill.penaltyPercent = strings[0];
+                pubicServicesAccount.penaltyPercent = strings[0];
             } else {
                 throw new IllegalArgumentException("Invalid penalty data");
             }
@@ -70,12 +96,12 @@ public class Bill implements Serializable {
                 return null;
             }
 
-            bill.daysExpired = Integer.parseInt(fin.nextLine());
+            pubicServicesAccount.daysExpired = Integer.parseInt(fin.nextLine());
         } catch (NumberFormatException e/* | ParseException e*/) {
             System.out.println(e.getMessage());
         }
 
-        return bill;
+        return pubicServicesAccount;
     }
 
     @Override

@@ -1,21 +1,19 @@
-package homework.lab9;
+package homework.lab8;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
-public class Bills {
+public class PSAccounts {
     static boolean optionZip = true;
 
-    static final String filename = "Bills.dat";
+    static final String filename = "PSAccounts.dat";
     private static Scanner fin = new Scanner(System.in);
 
-    static Bill readBill() {
-
-
+    static PublicServicesAccount readBill() {
         if (fin.hasNextLine()) {
-            return Bill.read(fin);
+            return PublicServicesAccount.read(fin);
         }
         return null;
     }
@@ -26,11 +24,11 @@ public class Bills {
     }
 
     static void appendFile() throws IOException {
-        Bill bill;
-        System.out.println("Enter bill data:");
+        PublicServicesAccount publicServicesAccount;
+        System.out.println("Enter publicServicesAccount data:");
         try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-            while ((bill = readBill()) != null) {
-                Buffer.writeObject(raf, bill);
+            while ((publicServicesAccount = readBill()) != null) {
+                Buffer.writeObject(raf, publicServicesAccount);
             }
         }
     }
@@ -39,8 +37,8 @@ public class Bills {
         try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
             long pos;
             while ((pos = raf.getFilePointer()) < raf.length()) {
-                Bill bill = (Bill) Buffer.readObject(raf, pos);
-                System.out.println(pos + ": " + bill);
+                PublicServicesAccount publicServicesAccount = (PublicServicesAccount) Buffer.readObject(raf, pos);
+                System.out.println(pos + ": " + publicServicesAccount);
             }
         }
     }
@@ -56,14 +54,14 @@ public class Bills {
                     deleteFile();
                 }
             } else {
-                System.err.println("Bills: Nothing to do!");
+                System.err.println("PSAccounts: Nothing to do!");
             }
         } catch (Exception e) {
             System.err.println("Runtime error" + e);
             System.exit(1);
         }
 
-        System.out.println("Bills finished...");
+        System.out.println("PSAccounts finished...");
         System.exit(0);
     }
 }
