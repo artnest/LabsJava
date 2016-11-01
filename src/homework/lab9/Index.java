@@ -14,6 +14,15 @@ public class Index implements Serializable, Closeable {
         return result;
     }
 
+    IndexOne2One numbersHouse;
+    IndexOne2One numbersApartment;
+    IndexOne2One owners;
+    IndexOne2N paymentDates;
+
+    public void test(PubicServicesAccount account) throws KeyNotUniqueException {
+
+    }
+
     @Override
     public void close() throws IOException {
 
