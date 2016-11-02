@@ -18,7 +18,7 @@ public class Index implements Serializable, Closeable {
     IndexOne2One numbersHouse;
     IndexOne2One numbersApartment;
     IndexOne2One owners;
-    IndexOne2N paymentDates;
+    IndexOne2N   paymentDates;
 
     public void test(PublicServicesAccount account) throws KeyNotUniqueException {
         assert account != null;

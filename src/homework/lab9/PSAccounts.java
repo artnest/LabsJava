@@ -1,5 +1,12 @@
 package homework.lab9;
 
+import sun.text.resources.iw.FormatData_iw_IL;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 public class PSAccounts {
     public static void main(String[] args) {
         try {
@@ -76,5 +83,28 @@ public class PSAccounts {
 
         System.out.println("PublicServicesAccount finished...");
         System.exit(0);
+    }
+
+    static final String filename    = "PSAccounts.dat";
+    static final String filenameBak = "PSAccounts.~dat";
+    static final String idxname     = "PSAccounts.idx";
+    static final String idxnameBak  = "PSAccounts.~idx";
+
+    private static String encoding = "CP866";
+    private static PrintStream accountsOut = System.out;
+
+    static PublicServicesAccount readPSAccount(Scanner fin) throws IOException {
+        return PublicServicesAccount.nextRead(fin, accountsOut) ? PublicServicesAccount.read(fin, accountsOut) : null;
+    }
+
+    private static void deleteBackup() {
+        new File(filename).delete();
+        new File(idxname).delete();
+    }
+
+    private static void deleteFile() {
+        deleteBackup();
+        new File(filename).renameTo(new File(filenameBak));
+        new File(idxname).renameTo(new File(idxnameBak));
     }
 }
