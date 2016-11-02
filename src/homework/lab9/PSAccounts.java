@@ -5,6 +5,7 @@ import sun.text.resources.iw.FormatData_iw_IL;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PSAccounts {
@@ -108,5 +109,36 @@ public class PSAccounts {
         deleteBackup();
         new File(filename).renameTo(new File(filenameBak));
         new File(idxname).renameTo(new File(idxnameBak));
+    }
+
+    private static void backup() {
+        deleteBackup();
+        new File(filename).renameTo(new File(filenameBak));
+        new File(idxname).renameTo(new File(idxnameBak));
+    }
+
+    static boolean deleteFile(String[] args) throws IOException, ClassNotFoundException {
+        if (args.length != 4) {
+            System.err.println("Invalid number of arguments");
+            return false;
+        }
+
+        long[] positions = null;
+        try (Index idx = Index.load(idxname)) {
+            IndexBase pidx = indexByArg(args[1], idx);
+
+            if (pidx == null) {
+                return false;
+            }
+            if (!pidx.contains(args[2])) {
+                System.err.println("Key not found: " + args[2]);
+                return false;
+            }
+
+            positions = pidx.get(args[2]);
+        }
+
+        backup();
+        Arrays.sort(positions);
     }
 }
