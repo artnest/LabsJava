@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class PubicServicesAccount implements Serializable {
+public class PublicServicesAccount implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int numberHouse;
@@ -27,6 +27,38 @@ public class PubicServicesAccount implements Serializable {
     private int daysExpired;
     static final String P_daysExpired = "Days expired";
 
+    public int getNumberHouse() {
+        return numberHouse;
+    }
+
+    public int getNumberApartment() {
+        return numberApartment;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public double getPaymentSum() {
+        return paymentSum;
+    }
+
+    public String getPenaltyPercent() {
+        return penaltyPercent;
+    }
+
+    public int getDaysExpired() {
+        return daysExpired;
+    }
+
     /*private static GregorianCalendar curCalendar = new GregorianCalendar();
     static Boolean validYear(int year) {
         return year > 0 && year <= curCalendar.get(Calendar.YEAR);
@@ -42,21 +74,21 @@ public class PubicServicesAccount implements Serializable {
         return fin.hasNextLine();
     }
 
-    public static PubicServicesAccount read(Scanner fin) {
-        PubicServicesAccount pubicServicesAccount = new PubicServicesAccount();
+    public static PublicServicesAccount read(Scanner fin) {
+        PublicServicesAccount publicServicesAccount = new PublicServicesAccount();
 
         try {
-            pubicServicesAccount.numberHouse = Integer.parseInt(fin.nextLine());
+            publicServicesAccount.numberHouse = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            pubicServicesAccount.numberApartment = Integer.parseInt(fin.nextLine());
+            publicServicesAccount.numberApartment = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            pubicServicesAccount.address = fin.nextLine();
+            publicServicesAccount.address = fin.nextLine();
             if (!fin.hasNextLine()) {
                 return null;
             }
@@ -65,7 +97,7 @@ public class PubicServicesAccount implements Serializable {
             String[] strings = s.split(" ");
             StringBuilder sB = new StringBuilder();
             if (strings.length == 3) {
-                pubicServicesAccount.owner = sB.append(strings[0]).append(" ")
+                publicServicesAccount.owner = sB.append(strings[0]).append(" ")
                                 .append(strings[1]).append(" ")
                                 .append(strings[2]).toString();
             } else {
@@ -75,20 +107,20 @@ public class PubicServicesAccount implements Serializable {
                 return null;
             }
 
-//            pubicServicesAccount.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
-            pubicServicesAccount.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//            publicServicesAccount.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
+            publicServicesAccount.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            pubicServicesAccount.paymentSum = Double.parseDouble(fin.nextLine());
+            publicServicesAccount.paymentSum = Double.parseDouble(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
             strings = fin.nextLine().split("%");
             if (strings.length == 1) {
-                pubicServicesAccount.penaltyPercent = strings[0];
+                publicServicesAccount.penaltyPercent = strings[0];
             } else {
                 throw new IllegalArgumentException("Invalid penalty data");
             }
@@ -96,12 +128,12 @@ public class PubicServicesAccount implements Serializable {
                 return null;
             }
 
-            pubicServicesAccount.daysExpired = Integer.parseInt(fin.nextLine());
+            publicServicesAccount.daysExpired = Integer.parseInt(fin.nextLine());
         } catch (NumberFormatException e/* | ParseException e*/) {
             System.out.println(e.getMessage());
         }
 
-        return pubicServicesAccount;
+        return publicServicesAccount;
     }
 
     @Override
