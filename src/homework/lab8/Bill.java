@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class PublicServicesAccount implements Serializable {
+public class Bill implements Serializable {
     private int numberHouse;
     private int numberApartment;
     private String address;
@@ -16,21 +16,21 @@ public class PublicServicesAccount implements Serializable {
     private String penaltyPercent;
     private int daysExpired;
 
-    public static PublicServicesAccount read(Scanner fin) {
-        PublicServicesAccount publicServicesAccount = new PublicServicesAccount();
+    public static Bill read(Scanner fin) {
+        Bill bill = new Bill();
 
         try {
-            publicServicesAccount.numberHouse = Integer.parseInt(fin.nextLine());
+            bill.numberHouse = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            publicServicesAccount.numberApartment = Integer.parseInt(fin.nextLine());
+            bill.numberApartment = Integer.parseInt(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            publicServicesAccount.address = fin.nextLine();
+            bill.address = fin.nextLine();
             if (!fin.hasNextLine()) {
                 return null;
             }
@@ -39,7 +39,7 @@ public class PublicServicesAccount implements Serializable {
             String[] strings = s.split(" ");
             StringBuilder sB = new StringBuilder();
             if (strings.length == 3) {
-                publicServicesAccount.owner = sB.append(strings[0]).append(" ")
+                bill.owner = sB.append(strings[0]).append(" ")
                         .append(strings[1]).append(" ")
                         .append(strings[2]).toString();
             } else {
@@ -49,20 +49,20 @@ public class PublicServicesAccount implements Serializable {
                 return null;
             }
 
-//            publicServicesAccount.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
-            publicServicesAccount.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//            bill.paymentDate = new SimpleDateFormat("dd/MM/yy").parse(fin.nextLine());
+            bill.paymentDate = LocalDate.parse(fin.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             if (!fin.hasNextLine()) {
                 return null;
             }
 
-            publicServicesAccount.paymentSum = Double.parseDouble(fin.nextLine());
+            bill.paymentSum = Double.parseDouble(fin.nextLine());
             if (!fin.hasNextLine()) {
                 return null;
             }
 
             strings = fin.nextLine().split("%");
             if (strings.length == 1) {
-                publicServicesAccount.penaltyPercent = strings[0];
+                bill.penaltyPercent = strings[0];
             } else {
                 throw new IllegalArgumentException("Invalid penalty data");
             }
@@ -70,12 +70,12 @@ public class PublicServicesAccount implements Serializable {
                 return null;
             }
 
-            publicServicesAccount.daysExpired = Integer.parseInt(fin.nextLine());
+            bill.daysExpired = Integer.parseInt(fin.nextLine());
         } catch (NumberFormatException e/* | ParseException e*/) {
             System.out.println(e.getMessage());
         }
 
-        return publicServicesAccount;
+        return bill;
     }
 
     @Override

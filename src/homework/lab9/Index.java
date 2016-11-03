@@ -20,7 +20,7 @@ public class Index implements Serializable, Closeable {
     IndexOne2One owners;
     IndexOne2N   paymentDates;
 
-    public void test(PublicServicesAccount account) throws KeyNotUniqueException {
+    public void test(Bill account) throws KeyNotUniqueException {
         assert account != null;
 
         if (numbersHouse.contains(String.valueOf(account.getNumberHouse()))) {
@@ -36,7 +36,7 @@ public class Index implements Serializable, Closeable {
         }
     }
 
-    public void put(PublicServicesAccount account, long value) throws KeyNotUniqueException {
+    public void put(Bill account, long value) throws KeyNotUniqueException {
         test(account);
         numbersHouse.put(String.valueOf(account.getNumberHouse()), value);
         numbersApartment.put(String.valueOf(account.getNumberApartment()), value);
