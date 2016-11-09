@@ -9,8 +9,8 @@ import java.net.ServerSocket;
 public class ChatServer implements Runnable {
     private ServerSocket server;
     private Thread thread;
-    private ChatServerThread clients[] = new ChatServerThread[50]; // TODO change the amount
-    private int clientCount = 0;
+    private int clientCount = 50;
+    private ChatServerThread clients[] = new ChatServerThread[clientCount]; // TODO change the amount
 
     public ChatServer(int port) {
         System.out.println("Binding to port " + port + ", please wait...");
@@ -48,5 +48,29 @@ public class ChatServer implements Runnable {
             thread.stop(); // TODO don't use deprecated
             thread = null;
         }
+    }
+
+    private int findClientNumberByID(int ID) {
+        for (int i = 0; i < clients.length; i++) {
+            if (client[i].getID() == ID) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public synchronized void handle(int ID, String input) {
+        if (input != null) {
+            for (ChatServerThread client : clients) {
+                client.send(ID + ": " + input);
+            }
+        } else {
+            clients[findClientNumberByID(ID)].send("Goodbye!")
+        }
+    }
+
+    public synchronized void remove(int ID) {
+
     }
 }
