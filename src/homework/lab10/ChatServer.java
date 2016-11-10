@@ -34,8 +34,9 @@ public class ChatServer {
         try {
             while (true) {
                 System.out.println("Waiting for a client...");
-                new Handler(serverSocket.accept()).start();
-                System.out.println("Client connected");
+                Socket clientSocket = serverSocket.accept();
+                new Handler(clientSocket).start();
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
             }
         } catch (IOException e) {
             System.err.println("Accept failed on: " + port);
@@ -91,7 +92,7 @@ public class ChatServer {
 
         private boolean inputName() throws IOException {
             while (true) {
-                out.println("> Submit your name:");
+                out.println("> Submit your name...");
                 name = in.readLine();
 
                 if (name == null) {
@@ -104,7 +105,7 @@ public class ChatServer {
                         return true;
                     }
 
-                    out.println("> Your name ins't unique!");
+                    out.println("> Your name isn't unique!");
                 }
             }
         }

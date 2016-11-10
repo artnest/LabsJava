@@ -31,10 +31,16 @@ public class ChatClient {
             out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
+            System.out.println(in.readLine());
+            out.println(console.readLine());
+            System.out.println(in.readLine());
+
             String message;
-            while ((message = in.readLine()) != null) {
-                System.out.println(message);
-                out.println(console.readLine());
+            System.out.print("> Message: ");
+            while ((message = console.readLine()) != null) {
+                out.println(message);
+                System.out.println(in.readLine());
+                System.out.print("> Message: ");
             }
 
             out.println(message);
