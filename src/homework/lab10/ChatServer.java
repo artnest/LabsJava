@@ -9,9 +9,6 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by theme on 11/9/16.
- */
 public class ChatServer {
     private ServerSocket serverSocket;
     private int port;
