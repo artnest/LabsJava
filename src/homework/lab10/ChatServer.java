@@ -109,18 +109,14 @@ public class ChatServer {
         }
 
         private void sendMessages() throws IOException {
-            while (true) {
-                String input = in.readLine();
-
-                if (input == null) {
-                    out.println("> Goodbye, " + name);
-                    return;
-                }
-
+            String input;
+            while ((input = in.readLine()) != null) {
                 for (PrintWriter writer : printWriters) {
                     writer.println(name + ": " + input);
                 }
             }
+
+            out.println("> Goodbye, " + name);
         }
     }
 

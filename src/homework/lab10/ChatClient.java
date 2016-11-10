@@ -28,15 +28,15 @@ public class ChatClient implements Runnable {
     @Override
     public void run() {
         try {
-            in = new BufferedReader(new InputStreamReader(System.in));
-            out = new PrintWriter(socket.getOutputStream());
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
 
             String message;
             while ((message = in.readLine()) != null) {
-                out.write(message);
+                out.println(message);
             }
 
-            out.write(message);
+            out.println(message);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
