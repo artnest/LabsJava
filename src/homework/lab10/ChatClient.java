@@ -32,14 +32,8 @@ public class ChatClient {
             BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
             String message;
-            while (true) {
-                System.out.println(in.readLine());
-
-                message = console.readLine();
-                if (message == null) {
-                    break;
-                }
-
+            while ((message = in.readLine()) != null) {
+                System.out.println(message);
                 out.println(console.readLine());
             }
 

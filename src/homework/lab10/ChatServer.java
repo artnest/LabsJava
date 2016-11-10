@@ -35,6 +35,7 @@ public class ChatServer {
             while (true) {
                 System.out.println("Waiting for a client...");
                 new Handler(serverSocket.accept()).start();
+                System.out.println("Client connected");
             }
         } catch (IOException e) {
             System.err.println("Accept failed on: " + port);
