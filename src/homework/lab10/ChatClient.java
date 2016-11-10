@@ -25,7 +25,7 @@ public class ChatClient {
         }
     }
 
-    public void run() { // TODO do we need Runnable?!
+    public void run() { // TODO rewrite and change the whole implementation of server-client connections!
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
