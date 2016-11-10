@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ChatClient implements Runnable {
+public class ChatClient {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in; // TODO convert to local vars (?)
@@ -25,15 +25,22 @@ public class ChatClient implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
+    public void run() { // TODO do we need Runnable?!
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
             String message;
-            while ((message = in.readLine()) != null) {
-                out.println(message);
+            while (true) {
+                System.out.println(in.readLine());
+
+                message = console.readLine();
+                if (message == null) {
+                    break;
+                }
+
+                out.println(console.readLine());
             }
 
             out.println(message);
