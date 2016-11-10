@@ -10,13 +10,14 @@ import java.net.UnknownHostException;
 public class ChatClient implements Runnable {
     private Socket socket;
     private PrintWriter out;
-    private BufferedReader in;
+    private BufferedReader in; // TODO convert to local vars (?)
 
     public ChatClient(String serverAddress, int serverPort) {
         System.out.println("Establishing connection. Please wait...");
         try {
             socket = new Socket(serverAddress, serverPort);
             System.out.println("Connected: " + socket);
+            run(); // TODO check to be right
         } catch (UnknownHostException uhe) {
             System.out.println("Host unknown: " + uhe.getMessage());
         } catch (IOException ioe) {
