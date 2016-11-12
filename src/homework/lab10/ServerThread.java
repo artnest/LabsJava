@@ -83,7 +83,7 @@ class ServerThread extends Thread {
     private void user(MessageUser msg) throws IOException {
         String[] nicks;
         synchronized (Server.syncMap) {
-            nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]); // improve
+            nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]); // TODO improve
         }
 
         if (nicks != null) {
@@ -98,15 +98,15 @@ class ServerThread extends Thread {
         synchronized (Server.users) {
             if (Server.users.isEmpty()) {
                 os.writeObject(new MessageLetterResult("Users not found"));
-            }
+            } else {
+                for (String user : Server.users.keySet()) {
+                    thread = Server.users.get(user);
+                    if (thread.letters == null) {
+                        thread.letters = new Vector<>();
+                    }
 
-            for (String user : Server.users.keySet()) { // TODO check the assignment of NullPointer
-                thread = Server.users.get(user);
-                if (thread.letters == null) {
-                    thread.letters = new Vector<>();
+                    thread.letters.add(userNick + ": " + msg.text);
                 }
-
-                thread.letters.add(userNick + ": " + msg.text);
             }
         }
 
