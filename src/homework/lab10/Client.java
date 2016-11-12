@@ -11,15 +11,9 @@ public class Client {
 
     public static void main(String[] args) {
         if (args.length >= 3 && args.length <= 4) {
-            try /*(Socket socket = args.length == 3 ?
+            try (Socket socket = args.length == 3 ?
                     new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[2])) :
-                    new Socket(args[2], Integer.parseInt(args[3])))*/ {
-                Socket socket;
-                if (args.length == 3) {
-                    socket = new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[2]));
-                } else {
-                    socket = new Socket(args[2], Integer.parseInt(args[3]));
-                }
+                    new Socket(args[2], Integer.parseInt(args[3]))) {
                 System.out.println("Initialized");
                 session(socket, args[0], args[1]);
             } catch (IOException e) {
@@ -29,7 +23,7 @@ public class Client {
             }
         } else {
             System.err.println("Invalid number of arguments!\n" +
-                    "Usage: nick name [host] [port]");
+                                "Usage: nick name [host] [port]");
         }
     }
 
@@ -165,7 +159,7 @@ public class Client {
         if (result.letters.length > 0) {
             System.out.println("Your mail {");
             for (String letter : result.letters) {
-                System.out.println(letter);
+                System.out.println("\t" + letter);
             }
             System.out.println("}");
         } else {

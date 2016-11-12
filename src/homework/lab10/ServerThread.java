@@ -30,15 +30,13 @@ class ServerThread extends Thread {
 
                 switch (msg.getID()) {
                     case Protocol.CMD_CONNECT:
-                        if (!connect((MessageConnect) msg)) {
-                            return;
-                        }
+                        connect((MessageConnect) msg);
                         break;
                     case Protocol.CMD_DISCONNECT:
                         synchronized (Server.syncMap) {
-                            Server.users.put(userNick, null); // TODO map.remove() ?
+                            Server.users.remove(userNick);
                         }
-                        return;
+                        break;
                     case Protocol.CMD_USER:
                         user((MessageUser) msg);
                         break;
@@ -72,12 +70,11 @@ class ServerThread extends Thread {
         }
 
         if (old == null) {
-//            os.writeChars(userNick + " connected");
             os.writeObject(new MessageConnectResult());
             return true;
         } else {
-            os.writeObject(new MessageConnectResult(
-                    "User " + old.userFullName + " already connected as " + userNick));
+            os.writeObject(new MessageConnectResult("User " + old.userFullName +
+                                                    " already connected as " + userNick));
             return false;
         }
     }
