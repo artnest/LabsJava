@@ -126,16 +126,17 @@ public class Client {
 
     private static boolean processCommand(Message message, ObjectInputStream is, ObjectOutputStream os)
             throws IOException, ClassNotFoundException {
-        if (message != null/* && message.getID() != CMD.CMD_DISCONNECT*/) {
+        if (message != null && message.getID() != CMD.CMD_DISCONNECT) {
             os.writeObject(message);
 
-            MessageResult result;
+            /*MessageResult result;
             try {
                 result = (MessageResult) is.readObject();
             } catch (IOException e) {
                 return false;
-            }
+            }*/
 
+            MessageResult result = (MessageResult) is.readObject();
             if (result.error()) {
                 System.err.println(result.getErrorMessage());
             } else {
