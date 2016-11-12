@@ -88,10 +88,10 @@ public class Client {
             byte id = translateCmd(message);
 
             switch (id) {
-                case 2:
-                    return new MessageDisconnect();
                 case 1:
                     return new MessageConnect(session.userNick, session.userName);
+                case 2:
+                    return new MessageDisconnect();
                 case 3:
                     return new MessageUser();
                 case 4:
@@ -115,7 +115,7 @@ public class Client {
 
     private static void printPrompt() {
         System.out.println();
-        System.out.print("(q)uit / (m)ail / (u)sers / (l)etter > ");
+        System.out.print("(q)uit / (u)sers / (m)ail / (l)etter > ");
     }
 
     private static boolean processCommand(Message message, ObjectInputStream is, ObjectOutputStream os)
@@ -180,18 +180,18 @@ public class Client {
     static {
         commands.put("q", (byte) 2);
         commands.put("quit", (byte) 2);
-        commands.put("m", (byte) 4);
-        commands.put("mail", (byte) 4);
         commands.put("u", (byte) 3);
         commands.put("users", (byte) 3);
+        commands.put("m", (byte) 4);
+        commands.put("mail", (byte) 4);
         commands.put("l", (byte) 5);
         commands.put("letter", (byte) 5);
     }
 
     private static class Session {
-        boolean connected = false;
-        String userNick;
-        String userName;
+        private boolean connected = false;
+        private String userNick;
+        private String userName;
 
         Session(String userNick, String userName) {
             this.userNick = userNick;

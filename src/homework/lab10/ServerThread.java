@@ -17,12 +17,13 @@ class ServerThread extends Thread {
 
     private Vector<String> letters;
 
-    public ServerThread(Socket socket) throws IOException {
+    ServerThread(Socket socket) throws IOException {
         os = new ObjectOutputStream(socket.getOutputStream());
         is = new ObjectInputStream(socket.getInputStream());
         address = socket.getInetAddress();
     }
 
+    @Override
     public void run() {
         try {
             while (true) {
@@ -81,27 +82,25 @@ class ServerThread extends Thread {
 
     private void user(MessageUser msg) throws IOException {
         String[] nicks;
-
         synchronized (Server.syncMap) {
-            nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]);
+            nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]); // improve
         }
 
-        if (nicks != null)
+        if (nicks != null) {
             os.writeObject(new MessageUserResult(nicks));
-        else
+        } else {
             os.writeObject(new MessageUserResult("Unable to get users list"));
+        }
     }
 
     private void letter(MessageLetter msg) throws IOException {
         ServerThread thread;
-
         synchronized (Server.users) {
             if (Server.users.isEmpty()) {
-                os.writeObject(new MessageLetterResult(
-                        "Users not found"));
+                os.writeObject(new MessageLetterResult("Users not found"));
             }
 
-            for (String user : Server.users.keySet()) {
+            for (String user : Server.users.keySet()) { // TODO check the assignment of NullPointer
                 thread = Server.users.get(user);
                 if (thread.letters == null) {
                     thread.letters = new Vector<>();
@@ -115,18 +114,19 @@ class ServerThread extends Thread {
     }
 
     private void checkMail(MessageCheckMail msg) throws IOException {
-        String[] lts = new String[letters.size()]; // TODO NullPointerException
+        String[] lts = null;
         synchronized (this) {
             if (letters != null) {
-                lts = letters.toArray(lts);
+                lts = letters.toArray(new String[letters.size()]);
                 letters = null; // TODO change the behaviour to save stack messages
             }
         }
 
-        if (lts != null)
+        if (lts != null) {
             os.writeObject(new MessageCheckMailResult(lts));
-        else
+        } else {
             os.writeObject(new MessageCheckMailResult("Unable to get mail"));
+        }
     }
 
     private void disconnect() {
@@ -137,7 +137,7 @@ class ServerThread extends Thread {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } finally {
-            this.interrupt();
+            interrupt();
         }
     }
 }
