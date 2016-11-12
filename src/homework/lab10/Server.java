@@ -10,7 +10,8 @@ public class Server {
     public static void main(String[] args) {
         System.out.println("Binding to port " + Protocol.PORT + ", please wait...");
         try (ServerSocket serverSocket = new ServerSocket(Protocol.PORT)) {
-            System.out.println("Server started: " + serverSocket);
+            System.out.println("Server started: " +
+                                serverSocket.getInetAddress() + ", " + serverSocket.getLocalPort());
 
             while (true) {
                 System.out.println("Waiting for a client...");

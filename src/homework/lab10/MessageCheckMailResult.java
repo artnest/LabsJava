@@ -7,7 +7,7 @@ public class MessageCheckMailResult extends MessageResult implements Serializabl
 
     public String[] letters = null;
 
-    public MessageCheckMailResult(String errorMessage) { //error
+    public MessageCheckMailResult(String errorMessage) { // error
         super(Protocol.CMD_CHECK_MAIL, errorMessage);
     }
 

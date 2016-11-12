@@ -81,16 +81,14 @@ class ServerThread extends Thread {
     }
 
     private void user(MessageUser msg) throws IOException {
-        String[] nicks = null;
         synchronized (Server.syncMap) {
             if (Server.users.isEmpty()) {
                 os.writeObject(new MessageUserResult("Unable to get users list"));
             } else {
-                nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]);
+                String[] nicks = Server.users.keySet().toArray(new String[Server.users.keySet().size()]);
+                os.writeObject(new MessageUserResult(nicks));
             }
         }
-
-        os.writeObject(new MessageUserResult(nicks));
     }
 
     private void letter(MessageLetter msg) throws IOException {
@@ -107,10 +105,10 @@ class ServerThread extends Thread {
 
                     thread.letters.add(userNick + ": " + msg.text);
                 }
+
+                os.writeObject(new MessageLetterResult());
             }
         }
-
-        os.writeObject(new MessageLetterResult());
     }
 
     private void checkMail(MessageCheckMail msg) throws IOException {
@@ -118,7 +116,7 @@ class ServerThread extends Thread {
         synchronized (this) {
             if (letters != null) {
                 lts = letters.toArray(new String[letters.size()]);
-                letters = null; // TODO change the behaviour to save stack messages
+//                letters.clear(); // TODO change the behaviour to stack messages
             }
         }
 

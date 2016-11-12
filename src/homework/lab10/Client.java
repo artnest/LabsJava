@@ -110,7 +110,8 @@ public class Client {
     }
 
     private static byte translateCmd(String cmd) {
-        return cmd == null ? 0 : commands.get(cmd.trim());
+        Byte command = commands.get(cmd.trim());
+        return command == null ? 0 : (byte) command;
     }
 
     private static void printPrompt() {
@@ -122,13 +123,6 @@ public class Client {
             throws IOException, ClassNotFoundException {
         if (message != null && message.getID() != CMD.CMD_DISCONNECT) {
             os.writeObject(message);
-
-            /*MessageResult result;
-            try {
-                result = (MessageResult) is.readObject();
-            } catch (IOException e) {
-                return false;
-            }*/
 
             MessageResult result = (MessageResult) is.readObject();
             if (result.error()) {
