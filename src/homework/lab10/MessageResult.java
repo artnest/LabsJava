@@ -2,26 +2,22 @@ package homework.lab10;
 
 import java.io.Serializable;
 
-public class MessageResult extends Message implements Serializable {
+class MessageResult extends Message implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int errorCode;
     private String errorMessage;
 
-    public int getErrorCode() {
+    int getErrorCode() {
         return errorCode;
     }
 
-    public boolean error() {
+    boolean error() {
         return errorCode != Protocol.RESULT_CODE_OK;
     }
 
-    public String getErrorMessage() {
+    String getErrorMessage() {
         return errorMessage;
-    }
-
-    protected MessageResult() {
-        super();
     }
 
     protected MessageResult(byte id, String errorMessage) {

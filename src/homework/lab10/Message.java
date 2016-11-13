@@ -2,17 +2,13 @@ package homework.lab10;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+class Message implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private byte id;
 
-    public byte getID() {
+    byte getID() {
         return id;
-    }
-
-    protected Message() {
-        assert false;
     }
 
     protected Message(byte id) {

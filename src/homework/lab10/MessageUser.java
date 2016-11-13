@@ -2,10 +2,10 @@ package homework.lab10;
 
 import java.io.Serializable;
 
-public class MessageUser extends Message implements Serializable {
+class MessageUser extends Message implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public MessageUser() {
+    MessageUser() {
         super(Protocol.CMD_USER);
     }
 }
