@@ -52,8 +52,8 @@ public class Client {
             } catch (IOException ioe) {
                 System.err.println(ioe.getMessage());
             }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        } catch (IOException ioe) {
+            System.err.println(ioe.getMessage());
         }
     }
 
