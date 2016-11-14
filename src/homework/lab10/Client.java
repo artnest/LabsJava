@@ -152,9 +152,10 @@ public class Client {
     }
 
     private static void printMail(MessageCheckMailResult result) {
-        if (result.letters.length > 0) {
+        String[] letters = result.getLetters();
+        if (letters.length > 0) {
             System.out.println("> Your mail:");
-            for (String letter : result.letters) {
+            for (String letter : letters) {
                 System.out.println("\t" + letter);
             }
         } else {
@@ -163,9 +164,10 @@ public class Client {
     }
 
     private static void printUsers(MessageUserResult result) {
-        if (result.userNicks != null) {
+        String[] userNicks = result.getUserNicks();
+        if (userNicks != null) {
             System.out.println("> Users: ");
-            for (String nickName : result.userNicks) {
+            for (String nickName : userNicks) {
                 System.out.println("\t" + nickName);
             }
         }

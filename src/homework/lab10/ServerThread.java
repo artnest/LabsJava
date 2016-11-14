@@ -85,8 +85,8 @@ class ServerThread extends Thread {
 
 
     private boolean connect(MessageConnect msg) throws IOException {
-        userNick = msg.userNick;
-        userFullName = msg.userFullName;
+        userNick = msg.getUserNick();
+        userFullName = msg.getUserFullName();
 
         ServerThread old;
         synchronized (Server.syncMap) {
@@ -129,7 +129,7 @@ class ServerThread extends Thread {
                         thread.letters = new Vector<>();
                     }
 
-                    thread.letters.add(userNick + ": " + msg.text);
+                    thread.letters.add(userNick + ": " + msg.getText());
                 }
 
                 os.writeObject(new MessageLetterResult());
@@ -141,7 +141,7 @@ class ServerThread extends Thread {
         String[] lts;
         synchronized (this) {
             lts = letters.toArray(new String[letters.size()]);
-//                letters.clear(); // TODO change the behaviour to stack messages
+//            letters.clear();
         }
 
         os.writeObject(new MessageCheckMailResult(lts));
