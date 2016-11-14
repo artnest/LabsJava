@@ -14,12 +14,12 @@ public class Client {
             try (Socket socket = args.length == 3 ?
                     new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[2])) :
                     new Socket(args[2], Integer.parseInt(args[3]))) {
-                System.out.println("Initialized");
+                System.out.println("> Initialized");
                 session(socket, args[0], args[1]);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             } finally {
-                System.err.println("Goodbye...");
+                System.err.println("> Goodbye!");
             }
         } else {
             System.err.println("Invalid number of arguments!\n" +
@@ -60,15 +60,16 @@ public class Client {
     private static boolean openSession(Session session, ObjectInputStream is, ObjectOutputStream os)
             throws IOException, ClassNotFoundException {
         os.writeObject(new MessageConnect(session.userNick, session.userName));
+        os.writeObject(new MessageConnectUser(session.userNick));
 
         MessageConnectResult result = (MessageConnectResult) is.readObject();
         if (!result.error()) {
-            System.out.println("Connected");
+            System.out.println("> Connected");
             session.connected = true;
 
             return true;
         } else {
-            System.err.println("Unable to connect: " + result.getErrorMessage());
+            System.err.println("> Unable to connect: " + result.getErrorMessage());
             return false;
         }
     }
@@ -77,6 +78,7 @@ public class Client {
         if (session.connected) {
             session.connected = false;
             os.writeObject(new MessageDisconnect());
+            os.writeObject(new MessageDisconnectUser(session.userNick));
         }
     }
 
@@ -88,24 +90,24 @@ public class Client {
             byte id = translateCmd(message);
 
             switch (id) {
-                case 1:
+                case Protocol.CMD_CONNECT:
                     return new MessageConnect(session.userNick, session.userName);
-                case 2:
+                case Protocol.CMD_DISCONNECT:
                     return new MessageDisconnect();
-                case 3:
+                case Protocol.CMD_USER:
                     return new MessageUser();
-                case 4:
+                case Protocol.CMD_CHECK_MAIL:
                     return new MessageCheckMail();
-                case 5:
+                case Protocol.CMD_LETTER:
                     return inputLetter(reader);
                 default:
-                    System.err.println("Unknown command!");
+                    System.err.println("> Unknown command");
             }
         }
     }
 
     private static MessageLetter inputLetter(BufferedReader reader) throws IOException {
-        System.out.print("Enter the message: ");
+        System.out.print("> Enter the message: ");
         return new MessageLetter(reader.readLine());
     }
 
@@ -116,7 +118,7 @@ public class Client {
 
     private static void printPrompt() {
         System.out.println();
-        System.out.print("(q)uit / (u)sers / (m)ail / (l)etter > ");
+        System.out.print("> (q)uit / (u)sers / (m)ail / (l)etter > ");
     }
 
     private static boolean processCommand(Message message, ObjectInputStream is, ObjectOutputStream os)
@@ -129,14 +131,14 @@ public class Client {
                 System.err.println(result.getErrorMessage());
             } else {
                 switch (result.getID()) {
-                    case 3:
+                    case Protocol.CMD_USER:
                         printUsers((MessageUserResult) result);
                         break;
-                    case 4:
+                    case Protocol.CMD_CHECK_MAIL:
                         printMail((MessageCheckMailResult) result);
                         break;
-                    case 5:
-                        System.out.println("OK...");
+                    case Protocol.CMD_LETTER:
+                        System.out.println("> Letter sent");
                         break;
                     default:
                         assert false;
@@ -151,35 +153,33 @@ public class Client {
 
     private static void printMail(MessageCheckMailResult result) {
         if (result.letters.length > 0) {
-            System.out.println("Your mail {");
+            System.out.println("> Your mail:");
             for (String letter : result.letters) {
                 System.out.println("\t" + letter);
             }
-            System.out.println("}");
         } else {
-            System.out.println("No mail...");
+            System.out.println("> No mail");
         }
     }
 
     private static void printUsers(MessageUserResult result) {
         if (result.userNicks != null) {
-            System.out.println("Users {");
+            System.out.println("> Users: ");
             for (String nickName : result.userNicks) {
                 System.out.println("\t" + nickName);
             }
-            System.out.println("}");
         }
     }
 
     static {
-        commands.put("q", (byte) 2);
-        commands.put("quit", (byte) 2);
-        commands.put("u", (byte) 3);
-        commands.put("users", (byte) 3);
-        commands.put("m", (byte) 4);
-        commands.put("mail", (byte) 4);
-        commands.put("l", (byte) 5);
-        commands.put("letter", (byte) 5);
+        commands.put("q", Protocol.CMD_DISCONNECT);
+        commands.put("quit", Protocol.CMD_DISCONNECT);
+        commands.put("u", Protocol.CMD_USER);
+        commands.put("users", Protocol.CMD_USER);
+        commands.put("m", Protocol.CMD_CHECK_MAIL);
+        commands.put("mail", Protocol.CMD_CHECK_MAIL);
+        commands.put("l", Protocol.CMD_LETTER);
+        commands.put("letter", Protocol.CMD_LETTER);
     }
 
     private static class Session {
