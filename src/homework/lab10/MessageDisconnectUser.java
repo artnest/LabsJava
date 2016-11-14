@@ -1,6 +1,6 @@
 package homework.lab10;
 
-public class MessageDisconnectUser extends MessageNotify {
+class MessageDisconnectUser extends MessageNotify {
     private static final long serialVersionUID = 1L;
 
     MessageDisconnectUser(String userNick) {
