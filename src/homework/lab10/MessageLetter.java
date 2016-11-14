@@ -1,8 +1,6 @@
 package homework.lab10;
 
-import java.io.Serializable;
-
-class MessageLetter extends Message implements Serializable {
+class MessageLetter extends Message {
     private static final long serialVersionUID = 1L;
 
     String text;

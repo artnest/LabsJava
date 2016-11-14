@@ -1,8 +1,6 @@
 package homework.lab10;
 
-import java.io.Serializable;
-
-class MessageUserResult extends MessageResult implements Serializable {
+class MessageUserResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
     String[] userNicks = null;
