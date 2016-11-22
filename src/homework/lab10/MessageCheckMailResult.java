@@ -1,11 +1,13 @@
 package homework.lab10;
 
-import java.io.Serializable;
-
-class MessageCheckMailResult extends MessageResult implements Serializable {
+class MessageCheckMailResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
-    String[] letters = null;
+    private String[] letters = null;
+
+    String[] getLetters() {
+        return letters;
+    }
 
     MessageCheckMailResult(String errorMessage) { // error
         super(Protocol.CMD_CHECK_MAIL, errorMessage);

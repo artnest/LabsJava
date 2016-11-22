@@ -116,7 +116,7 @@ class ServerThread extends Thread {
         synchronized (this) {
             if (letters != null) {
                 lts = letters.toArray(new String[letters.size()]);
-//                letters.clear();
+//                letters.clear(); // TODO change the behaviour to stack messages
             }
         }
 
