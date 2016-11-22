@@ -1,4 +1,4 @@
-package homework.lab10;
+package homework.lab11;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
