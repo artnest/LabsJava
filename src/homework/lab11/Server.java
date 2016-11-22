@@ -25,6 +25,6 @@ public class Server {
         }
     }
 
-    static Object syncMap = new Object();
-    static Map<String, ServerThread> users = new TreeMap<>();
+    static final Object syncMap = new Object();
+    static final Map<String, ServerThread> users = new TreeMap<>();
 }

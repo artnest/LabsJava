@@ -1,11 +1,13 @@
 package homework.lab11;
 
-import java.io.Serializable;
-
-class MessageUserResult extends MessageResult implements Serializable {
+class MessageUserResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
-    String[] userNicks = null;
+    private String[] userNicks = null;
+
+    String[] getUserNicks() {
+        return userNicks;
+    }
 
     MessageUserResult(String errorMessage) { // error
         super(Protocol.CMD_USER, errorMessage);

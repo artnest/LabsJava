@@ -1,8 +1,6 @@
 package homework.lab11;
 
-import java.io.Serializable;
-
-class MessageConnectResult extends MessageResult implements Serializable {
+class MessageConnectResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
     MessageConnectResult(String errorMessage) { // error
