@@ -1,4 +1,4 @@
-package homework.lab11;
+package classwork.nov232016.lab1;
 
 import java.util.Date;
 import java.util.Random;
