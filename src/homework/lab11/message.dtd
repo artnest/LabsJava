@@ -1,0 +1,4 @@
+<!DOCTYPE message
+[
+<!ELEMENT id (#PCDATA)>
+]>
