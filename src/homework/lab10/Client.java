@@ -53,7 +53,7 @@ public class Client {
                 System.err.println(ioe.getMessage());
             }
         } catch (IOException ioe) {
-            System.err.println(ioe.getMessage());
+            System.err.println("> Server disconnected");
         }
     }
 
