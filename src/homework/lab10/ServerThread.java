@@ -48,8 +48,6 @@ class ServerThread extends Thread {
                         letter((MessageLetter) msg);
                         break;
                     case Protocol.CMD_CONNECT_USER:
-                        notify((MessageNotify) msg);
-                        break;
                     case Protocol.CMD_DISCONNECT_USER:
                         notify((MessageNotify) msg);
                         break;
