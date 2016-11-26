@@ -33,12 +33,12 @@ public class AppletGraph extends Applet {
         Color colorx = getHtmlColor(getParameter("DrawBackgroundColor"), new Color(64, 64, 64));
         color = getHtmlColor(getParameter("DrawColor"), Color.WHITE);
 
-        canvas = new Drawing(color, colorx);
+        canvas = new DrawGraph(color, colorx);
         String s = getParameter("DrawImage");
-        Image image = getImage(getCodeBase(), s == null ? "star.get" : s);
+        Image image = getImage(getCodeBase(), s == null ? "star.gif" : s);
 
         for (Canvas canvasStar : canvasStars) {
-            canvasStar = new DrawingImage(this, image);
+            canvasStar = new DrawImage(this, image);
             add(canvasStar);
         }
     }

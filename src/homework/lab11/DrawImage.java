@@ -3,15 +3,13 @@ package homework.lab11;
 import java.applet.Applet;
 import java.awt.*;
 
-public class DrawingImage extends Canvas {
+public class DrawImage extends Canvas {
     private Applet applet;
-    private Image image;
     private Dimension dimension;
 
-    public DrawingImage(Applet applet, Image image) {
+    DrawImage(Applet applet, Image image) {
         this.applet = applet;
-        this.image = image;
-        this.dimension = new Dimension(20,20);
+        this.dimension = new Dimension(10,10);
 
         setBackground(null);
         setMaximumSize(dimension);
@@ -31,5 +29,6 @@ public class DrawingImage extends Canvas {
     @Override
     public void paint(Graphics g) {
         g.drawImage(image, 0, 0, applet);
+        g.draw
     }
 }

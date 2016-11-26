@@ -2,14 +2,13 @@ package homework.lab11;
 
 import java.awt.*;
 
-public class Drawing extends Canvas {
+public class DrawGraph extends Canvas {
     private Color color;
-    private Dimension dimension = new Dimension(20, 20);
+    private Dimension dimension = new Dimension(200, 200);
 
-    public Drawing(Color foregroundColor, Color backgroundColor) {
+    public DrawGraph(Color drawColor) {
         super();
-        color = foregroundColor;
-        setBackground(backgroundColor);
+        color = drawColor;
         setMaximumSize(dimension);
         setBounds(0, 0, dimension.width, dimension.height);
     }
