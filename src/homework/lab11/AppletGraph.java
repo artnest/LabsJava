@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AppletGraph extends Applet {
-    private static final Dimension dimension = new Dimension(450, 450);
+    static final Dimension dimension = new Dimension(650, 650);
     private Canvas canvas;
     private List<Point2D.Double> points = new LinkedList<>();
 
@@ -53,15 +53,15 @@ public class AppletGraph extends Applet {
             dataXY = data.split(" ");
             points.add(new Point2D.Double(Double.parseDouble(dataXY[0]), Double.parseDouble(dataXY[1])));
         }*/
-        points.add(new Point2D.Double(-5.2, 40.2));
+        /*points.add(new Point2D.Double(-5.2, 40.2));
         points.add(new Point2D.Double(-5.1, 45.8));
         points.add(new Point2D.Double(-4.0, 62.5));
         points.add(new Point2D.Double(0, 77.8));
         points.add(new Point2D.Double(1.2, 89.8));
-        points.add(new Point2D.Double(3, 90.1));
+        points.add(new Point2D.Double(3, 90.1));*/
 
-        canvas = new DrawPlotGraph(drawColor, points);
-        add(canvas);
+        /*canvas = new DrawPlotGraph(drawColor, points);
+        add(canvas);*/
     }
 
     /*@Override
