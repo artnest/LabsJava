@@ -78,11 +78,16 @@ class CartesianFrame extends Canvas {
 
         List<Point2D.Double> actualPoints = new LinkedList<>();
 
+        /*double[] x = new double[points.size()];
+        double[] y = new double[points.size()];*/
+
         for (int i = 1; i < points.size(); i++) {
             g2D.drawLine(X_AXIS_FIRST_X_COORD + i * xLength, X_AXIS_Y_COORD - SECOND_LENGTH,
                     X_AXIS_FIRST_X_COORD + i * xLength, X_AXIS_Y_COORD + SECOND_LENGTH);
             g2D.drawString(Double.toString(points.get(i - 1).getX()),
                     X_AXIS_FIRST_X_COORD + i * xLength - 3, X_AXIS_Y_COORD + AXIS_STRING_DISTANCE);
+
+//            x[i - 1] = X_AXIS_FIRST_X_COORD + i * xLength;
         }
 
         /*for (int i = 1; i < yCoordinateNumbers; i++) {
@@ -97,6 +102,8 @@ class CartesianFrame extends Canvas {
                     Y_AXIS_X_COORD + SECOND_LENGTH, Y_AXIS_SECOND_Y_COORD - i * yLength);
             g2D.drawString(Double.toString(points.get(i - 1).getY()),
                     Y_AXIS_X_COORD - AXIS_STRING_DISTANCE, Y_AXIS_SECOND_Y_COORD - i * yLength);
+
+//            y[i - 1] = Y_AXIS_SECOND_Y_COORD - i * yLength;
         }
 
         g2D.translate(X_AXIS_FIRST_X_COORD, Y_AXIS_SECOND_Y_COORD);
@@ -112,9 +119,13 @@ class CartesianFrame extends Canvas {
             actualPoints.add(new Point2D.Double(point.getX(), point.getY()));
         }
 
+        /*for (int i = 0; i < points.size(); i++) {
+            actualPoints.add(new Point2D.Double(x[i], y[i]));
+        }*/
+
         for (int i1 = 1; i1 < actualPoints.size(); i1++) {
-            actualPoints.get(i1).x += i1 * 70;
-            actualPoints.get(i1).y += i1 * 70;
+            actualPoints.get(i1).x += i1 * xLength;
+            actualPoints.get(i1).y += i1 * yLength;
         }
 
         for (int i = 0; i < actualPoints.size() - 1; i++) {
