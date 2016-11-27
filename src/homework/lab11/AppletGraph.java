@@ -34,9 +34,6 @@ public class AppletGraph extends Applet {
 
         Color drawColor = getHtmlColor(getParameter("DrawColor"), Color.BLACK);
 
-        CartesianFrame cartesianFrame = new CartesianFrame();
-        add(cartesianFrame);
-
         String param = "param_";
         String data;
         String[] dataXY;
@@ -53,6 +50,7 @@ public class AppletGraph extends Applet {
             dataXY = data.split(" ");
             points.add(new Point2D.Double(Double.parseDouble(dataXY[0]), Double.parseDouble(dataXY[1])));
         }*/
+
         /*points.add(new Point2D.Double(-5.2, 40.2));
         points.add(new Point2D.Double(-5.1, 45.8));
         points.add(new Point2D.Double(-4.0, 62.5));
@@ -60,42 +58,21 @@ public class AppletGraph extends Applet {
         points.add(new Point2D.Double(1.2, 89.8));
         points.add(new Point2D.Double(3, 90.1));*/
 
-        /*canvas = new DrawPlotGraph(drawColor, points);
-        add(canvas);*/
-    }
+        points.add(new Point2D.Double(-5.2, 40.2));
+        points.add(new Point2D.Double(-5.1, 45.8));
+        points.add(new Point2D.Double(-4.0, 62.5));
+        points.add(new Point2D.Double(0, 77.8));
+        points.add(new Point2D.Double(1.2, 89.8));
+        points.add(new Point2D.Double(3, 90.1));
 
-    /*@Override
-    public void start() {
-        startThread();
-    }
-
-    @Override
-    public void stop() {
-        stopThread();
-    }
-
-    @Override
-    public void destroy() {
-        stopThread();
-    }
-
-    private AppletThread thread = null;
-
-    private void createThread() {
-        if (thread == null) {
-            thread = new AppletThread(this);
+/*
+        for (Point2D.Double point : points) {
+            point.x += 10;
+            point.y += 10;
         }
-    }
+*/
 
-    private void startThread() {
-        createThread();
-        thread.start();
+        CartesianFrame cartesianFrame = new CartesianFrame(points);
+        add(cartesianFrame);
     }
-
-    private void stopThread() {
-        if (thread != null) {
-            thread.interrupt();
-            thread = null;
-        }
-    }*/
 }
