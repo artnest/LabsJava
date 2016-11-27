@@ -1,6 +1,7 @@
 package homework.lab11;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class DrawPlotGraph extends Canvas {
     DrawPlotGraph(Color drawColor, List<Point2D.Double> points) {
         color = drawColor;
         setMaximumSize(dimension);
-        setBounds(0, 0, dimension.width, dimension.height);
+//        setBounds(0, 0, dimension.width, dimension.height);
         series = points;
     }
 
@@ -38,11 +39,15 @@ public class DrawPlotGraph extends Canvas {
     }
 
     private void draw(Graphics g) {
-        g.drawLine(-10, -10, 10, 10); // OX // TODO change the coordinates
-        g.drawLine(10, -10, -10, 10); // OY // TODO change the coordinates
+        Graphics2D g2D = ((Graphics2D) g);
+        g2D.drawLine(-10, -10, 10, 10); // OX // TODO change the coordinates
+        g2D.drawLine(10, -10, -10, 10); // OY // TODO change the coordinates
 
         for (int i = 0; i < series.size() - 1; i++) {
-            g.drawLine(series.get(i).getX(), series.get(i).getY(), series.get(i + 1).getX(), series.get(i + 1).getY());
+            /*g2D.draw(new Line2D.Double(series.get(i).getX(), series.get(i).getY(), series.get(i + 1)
+                    .getX(), series.get(i + 1)
+                    .getY()));*/
+            g2D.draw(new Line2D.Double(series.get(i), series.get(i + 1)));
         }
     }
 }

@@ -34,6 +34,9 @@ public class AppletGraph extends Applet {
 
         Color drawColor = getHtmlColor(getParameter("DrawColor"), Color.BLACK);
 
+        CartesianFrame cartesianFrame = new CartesianFrame();
+        add(cartesianFrame);
+
         String param = "param_";
         String data;
         String[] dataXY;
@@ -46,24 +49,33 @@ public class AppletGraph extends Applet {
         // }
 
         int i = 0;
-        while ((data = getParameter(param + i++)) != null) {
+        /*while ((data = getParameter(param + i++)) != null) {
             dataXY = data.split(" ");
             points.add(new Point2D.Double(Double.parseDouble(dataXY[0]), Double.parseDouble(dataXY[1])));
-        }
+        }*/
+        points.add(new Point2D.Double(-5.2, 40.2));
+        points.add(new Point2D.Double(-5.1, 45.8));
+        points.add(new Point2D.Double(-4.0, 62.5));
+        points.add(new Point2D.Double(0, 77.8));
+        points.add(new Point2D.Double(1.2, 89.8));
+        points.add(new Point2D.Double(3, 90.1));
 
         canvas = new DrawPlotGraph(drawColor, points);
         add(canvas);
     }
 
-    void start() {
+    /*@Override
+    public void start() {
         startThread();
     }
 
-    void stop() {
+    @Override
+    public void stop() {
         stopThread();
     }
 
-    void destroy() {
+    @Override
+    public void destroy() {
         stopThread();
     }
 
@@ -85,5 +97,5 @@ public class AppletGraph extends Applet {
             thread.interrupt();
             thread = null;
         }
-    }
+    }*/
 }
