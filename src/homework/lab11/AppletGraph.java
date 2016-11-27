@@ -2,76 +2,88 @@ package homework.lab11;
 
 import java.applet.Applet;
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AppletGraph extends Applet {
-    private static final int CX = 400;
-    private static final int CY = 400;
-
+    private static final Dimension dimension = new Dimension(450, 450);
     private Canvas canvas;
-    private Canvas canvasStars[] = new Canvas[15];
+    private List<Point2D.Double> points = new LinkedList<>();
 
-    public Color getHtmlColor(String strRGB, Color color) {
-        if (strRGB != null && strRGB.charAt(0) == '#') {
+    Color getHtmlColor(String stringRGB, Color defaultColor) {
+        if (stringRGB != null && stringRGB.charAt(0) == '#') {
             try {
-                return new Color(Integer.parseInt(strRGB.substring(1), 16));
+                return new Color(Integer.parseInt(stringRGB.substring(1), 16));
             } catch (NumberFormatException e) {
-                return color;
+                return defaultColor;
             }
         }
 
-        return color;
+        return defaultColor;
     }
 
     @Override
     public void init() {
-        setSize(CX, CY);
+        setSize(dimension);
         setLayout(null);
 
-        Color color = getHtmlColor(getParameter("AppBackgroundColor"), new Color(90, 90, 160));
-        setBackground(color);
+        Color backgroundColor = getHtmlColor(getParameter("AppletBackgroundColor"),
+                                            new Color(215, 215, 215));
+        setBackground(backgroundColor);
 
-        Color colorx = getHtmlColor(getParameter("DrawBackgroundColor"), new Color(64, 64, 64));
-        color = getHtmlColor(getParameter("DrawColor"), Color.WHITE);
+        Color drawColor = getHtmlColor(getParameter("DrawColor"), Color.BLACK);
 
-        canvas = new DrawGraph(color, colorx);
-        String s = getParameter("DrawImage");
-        Image image = getImage(getCodeBase(), s == null ? "star.gif" : s);
+        String param = "param_";
+        String data;
+        String[] dataXY;
 
+        // BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        // while ((data = reader.readLine()) != null) {
+        //     data = getParameter(param + i++));
+        //     dataXY = data.split(" ");
+        //     ...
+        // }
 
+        int i = 0;
+        while ((data = getParameter(param + i++)) != null) {
+            dataXY = data.split(" ");
+            points.add(new Point2D.Double(Double.parseDouble(dataXY[0]), Double.parseDouble(dataXY[1])));
+        }
+
+        canvas = new DrawPlotGraph(drawColor, points);
+        add(canvas);
     }
 
-    @Override
-    public void start() {
+    void start() {
         startThread();
     }
 
-    @Override
-    public void stop() {
+    void stop() {
         stopThread();
     }
 
-    @Override
-    public void destroy() {
+    void destroy() {
         stopThread();
     }
 
-    private AppletThread appletThread = null;
+    private AppletThread thread = null;
 
     private void createThread() {
-        if (appletThread == null) {
-            appletThread = new AppletThread(this);
+        if (thread == null) {
+            thread = new AppletThread(this);
         }
     }
 
     private void startThread() {
         createThread();
-        appletThread.start();
+        thread.start();
     }
 
     private void stopThread() {
-        if (appletThread != null) {
-            appletThread.interrupt();
-            appletThread = null;
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
         }
     }
 }
