@@ -37,10 +37,7 @@ public class AppletGraph extends Applet {
         String s = getParameter("DrawImage");
         Image image = getImage(getCodeBase(), s == null ? "star.gif" : s);
 
-        for (Canvas canvasStar : canvasStars) {
-            canvasStar = new DrawImage(this, image);
-            add(canvasStar);
-        }
+
     }
 
     @Override
