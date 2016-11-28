@@ -11,28 +11,12 @@ public class AppletGraph extends Applet {
     private Canvas canvas;
     private List<Point2D.Double> points = new LinkedList<>();
 
-    Color getHtmlColor(String stringRGB, Color defaultColor) {
-        if (stringRGB != null && stringRGB.charAt(0) == '#') {
-            try {
-                return new Color(Integer.parseInt(stringRGB.substring(1), 16));
-            } catch (NumberFormatException e) {
-                return defaultColor;
-            }
-        }
-
-        return defaultColor;
-    }
-
     @Override
     public void init() {
         setSize(dimension);
         setLayout(null);
 
-        Color backgroundColor = getHtmlColor(getParameter("AppletBackgroundColor"),
-                                            new Color(215, 215, 215));
-        setBackground(backgroundColor);
-
-        Color drawColor = getHtmlColor(getParameter("DrawColor"), Color.BLACK);
+        setBackground(new Color(215, 215, 215));
 
         String param = "param_";
         String data;
@@ -51,26 +35,12 @@ public class AppletGraph extends Applet {
             points.add(new Point2D.Double(Double.parseDouble(dataXY[0]), Double.parseDouble(dataXY[1])));
         }*/
 
-        /*points.add(new Point2D.Double(-5.2, 40.2));
-        points.add(new Point2D.Double(-5.1, 45.8));
-        points.add(new Point2D.Double(-4.0, 62.5));
-        points.add(new Point2D.Double(0, 77.8));
-        points.add(new Point2D.Double(1.2, 89.8));
-        points.add(new Point2D.Double(3, 90.1));*/
-
         points.add(new Point2D.Double(-5.2, 40.2));
         points.add(new Point2D.Double(-5.1, 45.8));
         points.add(new Point2D.Double(-4.0, 62.5));
         points.add(new Point2D.Double(0, 77.8));
         points.add(new Point2D.Double(1.2, 89.8));
         points.add(new Point2D.Double(3, 90.1));
-
-/*
-        for (Point2D.Double point : points) {
-            point.x += 10;
-            point.y += 10;
-        }
-*/
 
         CartesianFrame cartesianFrame = new CartesianFrame(points);
         add(cartesianFrame);
