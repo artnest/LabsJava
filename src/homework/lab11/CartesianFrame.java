@@ -24,7 +24,7 @@ class CartesianFrame extends Canvas {
     private List<Point2D.Double> points;
 
     {
-        setBackground(Color.CYAN);
+        setBackground(Color.WHITE);
         setMaximumSize(AppletGraph.dimension);
         setBounds(0, 0, AppletGraph.dimension.width, AppletGraph.dimension.height);
     }
@@ -116,18 +116,14 @@ class CartesianFrame extends Canvas {
         final int X_CENTER_NEW_COORD = (X_AXIS_SECOND_X_COORD - 2 * X_AXIS_FIRST_X_COORD - 1) / 2;
         final int Y_CENTER_NEW_COORD = 0;
 
-        g2D.fillOval(X_CENTER_NEW_COORD,
-                Y_CENTER_NEW_COORD - 6 / 2,
-                6, 6);
+        g2D.translate(X_CENTER_NEW_COORD, Y_CENTER_NEW_COORD);
 
         for (int i1 = 0; i1 < actualPoints.size(); i1++) {
-            actualPoints.get(i1).x = X_CENTER_NEW_COORD + xLength * actualPoints.get(i1).x;
-            actualPoints.get(i1).y = Y_CENTER_NEW_COORD + yLength * actualPoints.get(i1).y/* / 100*/;
+//            actualPoints.get(i1).x = X_CENTER_NEW_COORD + xLength * actualPoints.get(i1).x;
+            actualPoints.get(i1).x = xLength * actualPoints.get(i1).x / xCoordinateNumbers;
+//            actualPoints.get(i1).y = Y_CENTER_NEW_COORD + yLength * actualPoints.get(i1).y;
+            actualPoints.get(i1).y = yLength * actualPoints.get(i1).y / yCoordinateNumbers * 4.2;
         }
-
-        g2D.fillOval(0 - 6 / 2,
-                0 - 6 / 2,
-                6, 6);
 
         g.setColor(Color.MAGENTA);
 
