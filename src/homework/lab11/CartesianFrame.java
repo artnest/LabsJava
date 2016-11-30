@@ -14,7 +14,6 @@ class CartesianFrame extends Canvas {
 
     private static final int Y_AXIS_FIRST_Y_COORD = 50;
     private static final int Y_AXIS_SECOND_Y_COORD = 600;
-    private static final int Y_AXIS_X_COORD = 50;
 
     private static final int FIRST_LENGTH = 10;
     private static final int SECOND_LENGTH = 5;
@@ -46,10 +45,9 @@ class CartesianFrame extends Canvas {
         int xLength = (X_AXIS_SECOND_X_COORD - X_AXIS_FIRST_X_COORD) / xCoordinateNumbers;
         int yLength = (Y_AXIS_SECOND_Y_COORD - Y_AXIS_FIRST_Y_COORD) / yCoordinateNumbers;
 
-        final int Y_AXIS_X_CENTER_COORD = Y_AXIS_X_COORD + 7 * xLength;
+        final int Y_AXIS_X_CENTER_COORD = X_AXIS_FIRST_X_COORD + 7 * xLength;
 
         g2D.drawLine(X_AXIS_FIRST_X_COORD, X_AXIS_Y_COORD, X_AXIS_SECOND_X_COORD, X_AXIS_Y_COORD);
-//        g2D.drawLine(Y_AXIS_X_COORD, Y_AXIS_FIRST_Y_COORD, Y_AXIS_X_COORD, Y_AXIS_SECOND_Y_COORD);
         g2D.drawLine(Y_AXIS_X_CENTER_COORD, Y_AXIS_FIRST_Y_COORD, Y_AXIS_X_CENTER_COORD, Y_AXIS_SECOND_Y_COORD);
 
         g2D.drawLine(X_AXIS_SECOND_X_COORD - FIRST_LENGTH, X_AXIS_Y_COORD - SECOND_LENGTH,
@@ -104,12 +102,11 @@ class CartesianFrame extends Canvas {
                     Y_AXIS_X_CENTER_COORD + AXIS_STRING_DISTANCE - 10, Y_AXIS_SECOND_Y_COORD - i * yLength + 5);
         }
 
-        g2D.translate(X_AXIS_FIRST_X_COORD, Y_AXIS_SECOND_Y_COORD);
-        g2D.scale(1.0, -1.0);
+        final int X_CENTER_NEW_COORD = (X_AXIS_FIRST_X_COORD + X_AXIS_SECOND_X_COORD) / 2 - xLength;
+        final int Y_CENTER_NEW_COORD = Y_AXIS_SECOND_Y_COORD;
 
-        final int X_CENTER_NEW_COORD = (X_AXIS_SECOND_X_COORD - 2 * X_AXIS_FIRST_X_COORD - 1) / 2;
-        final int Y_CENTER_NEW_COORD = 0;
         g2D.translate(X_CENTER_NEW_COORD, Y_CENTER_NEW_COORD);
+        g2D.scale(1.0, -1.0);
 
         List<Point2D.Double> actualPoints = new LinkedList<>();
         for (Point2D point : points) {
@@ -117,8 +114,8 @@ class CartesianFrame extends Canvas {
         }
 
         for (Point2D.Double point : actualPoints) {
-            point.x = xLength * point.x / xCoordinateNumbers * 1.3;
-            point.y = yLength * point.y / yCoordinateNumbers * 4.18;
+            point.x = xLength * point.x / 10;
+            point.y = yLength * point.y / 5;
         }
 
         g2D.setColor(Color.BLUE);
