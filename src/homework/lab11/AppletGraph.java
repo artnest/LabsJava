@@ -20,14 +20,37 @@ public class AppletGraph extends Applet {
         String data;
         String[] dataXY;
 
+        boolean validArgumentsFlag = true;
         int i = 0;
         while ((data = getParameter(param + i++)) != null) {
             dataXY = data.split(" ");
-            points.add(new Point2D.Double(Double.parseDouble(dataXY[1].replace(',', '.')),
-                    Double.parseDouble(dataXY[0].replace(',', '.'))));
+            double dataX = Double.parseDouble(dataXY[1].replace(',', '.'));
+            double dataY = Double.parseDouble(dataXY[0].replace(',', '.'));
+
+            if ((dataX >= -70 && dataX <= 70) &&
+                    (dataY > 0 && dataY <= 100)) {
+                points.add(new Point2D.Double(dataX, dataY));
+            } else {
+                points.clear();
+                validArgumentsFlag = false;
+                break;
+            }
         }
 
-        CartesianFrame cartesianFrame = new CartesianFrame(points);
+        /*points.add(new Point2D.Double(-5.2, 40.2));
+        points.add(new Point2D.Double(-5.1, 45.8));
+        points.add(new Point2D.Double(-4.0, 62.5));
+        points.add(new Point2D.Double(0, 77.8));
+        points.add(new Point2D.Double(1.2, 89.8));
+        points.add(new Point2D.Double(3, 90.1));*/
+        // test
+
+        CartesianFrame cartesianFrame;
+        if (validArgumentsFlag) {
+            cartesianFrame = new CartesianFrame(points);
+        } else {
+            cartesianFrame = new CartesianFrame();
+        }
         add(cartesianFrame);
     }
 }
