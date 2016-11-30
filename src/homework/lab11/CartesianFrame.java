@@ -2,6 +2,7 @@ package homework.lab11;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +22,7 @@ class CartesianFrame extends Canvas {
 //    private static final int ORIGIN_COORD_LENGTH = 6;
     private static final int AXIS_STRING_DISTANCE = 20;
 
-    private List<Point2D.Double> points;
+    private List<Point2D> points;
 
     {
         setBackground(Color.WHITE);
@@ -32,7 +33,7 @@ class CartesianFrame extends Canvas {
     CartesianFrame() {
     }
 
-    CartesianFrame(List<Point2D.Double> points) {
+    CartesianFrame(List<Point2D> points) {
         this.points = points;
     }
 
@@ -72,8 +73,6 @@ class CartesianFrame extends Canvas {
         /*g2D.drawString("(0, 0)",
                         X_AXIS_FIRST_X_COORD - AXIS_STRING_DISTANCE, Y_AXIS_SECOND_Y_COORD + AXIS_STRING_DISTANCE);*/
 
-        List<Point2D.Double> actualPoints = new LinkedList<>();
-
         int i;
         int j;
 
@@ -108,27 +107,35 @@ class CartesianFrame extends Canvas {
         g2D.translate(X_AXIS_FIRST_X_COORD, Y_AXIS_SECOND_Y_COORD);
         g2D.scale(1.0, -1.0);
 
-//        List<Point2D.Double> actualPoints = new LinkedList<>();
-        for (Point2D.Double point : points) {
+        final int X_CENTER_NEW_COORD = (X_AXIS_SECOND_X_COORD - 2 * X_AXIS_FIRST_X_COORD - 1) / 2;
+        final int Y_CENTER_NEW_COORD = 0;
+        g2D.translate(X_CENTER_NEW_COORD, Y_CENTER_NEW_COORD);
+
+        List<Point2D.Double> actualPoints = new LinkedList<>();
+        for (Point2D point : points) {
             actualPoints.add(new Point2D.Double(point.getX(), point.getY()));
         }
 
-        final int X_CENTER_NEW_COORD = (X_AXIS_SECOND_X_COORD - 2 * X_AXIS_FIRST_X_COORD - 1) / 2;
-        final int Y_CENTER_NEW_COORD = 0;
-
-        g2D.translate(X_CENTER_NEW_COORD, Y_CENTER_NEW_COORD);
-
-        for (int i1 = 0; i1 < actualPoints.size(); i1++) {
-//            actualPoints.get(i1).x = X_CENTER_NEW_COORD + xLength * actualPoints.get(i1).x;
-            actualPoints.get(i1).x = xLength * actualPoints.get(i1).x / xCoordinateNumbers;
-//            actualPoints.get(i1).y = Y_CENTER_NEW_COORD + yLength * actualPoints.get(i1).y;
-            actualPoints.get(i1).y = yLength * actualPoints.get(i1).y / yCoordinateNumbers * 4.2;
+        for (Point2D.Double point : actualPoints) {
+            point.x = xLength * point.x / xCoordinateNumbers;
+            point.y = yLength * point.y / yCoordinateNumbers * 4.2;
         }
 
-        g.setColor(Color.MAGENTA);
+        g2D.setColor(Color.RED);
+        g2D.setStroke(new BasicStroke(4.0f));
 
-        for (i = 0; i < actualPoints.size() - 1; i++) {
-            g2D.draw(new Line2D.Double(actualPoints.get(i), actualPoints.get(i + 1)));
+        for (Point2D point : actualPoints) {
+            g2D.draw(new Line2D.Double(point, point));
         }
+
+        g2D.setColor(Color.GREEN);
+        g2D.setStroke(new BasicStroke());
+
+        Path2D path2D = new Path2D.Double();
+        path2D.moveTo(actualPoints.get(0).getX(), actualPoints.get(0).getY());
+        for (Point2D point : actualPoints) {
+            path2D.lineTo(point.getX(), point.getY());
+        }
+        g2D.draw(path2D);
     }
 }

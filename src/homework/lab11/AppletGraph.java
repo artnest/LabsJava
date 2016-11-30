@@ -8,8 +8,7 @@ import java.util.List;
 
 public class AppletGraph extends Applet {
     static final Dimension dimension = new Dimension(650, 650);
-    private Canvas canvas;
-    private List<Point2D.Double> points = new LinkedList<>();
+    private List<Point2D> points = new LinkedList<>();
 
     @Override
     public void init() {
