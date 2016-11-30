@@ -66,9 +66,9 @@ class CartesianFrame extends Canvas {
                        Y_AXIS_SECOND_Y_COORD - ORIGIN_COORD_LENGTH / 2,
                        ORIGIN_COORD_LENGTH, ORIGIN_COORD_LENGTH);*/
 
-        g2D.drawString("X",
+        g2D.drawString("t, Celsius",
                     X_AXIS_SECOND_X_COORD - AXIS_STRING_DISTANCE / 2, X_AXIS_Y_COORD + AXIS_STRING_DISTANCE);
-        g2D.drawString("Y",
+        g2D.drawString("Humidity, % (percent)",
                     Y_AXIS_X_CENTER_COORD + AXIS_STRING_DISTANCE - 10, Y_AXIS_FIRST_Y_COORD + AXIS_STRING_DISTANCE / 2);
         /*g2D.drawString("(0, 0)",
                         X_AXIS_FIRST_X_COORD - AXIS_STRING_DISTANCE, Y_AXIS_SECOND_Y_COORD + AXIS_STRING_DISTANCE);*/
@@ -117,19 +117,12 @@ class CartesianFrame extends Canvas {
         }
 
         for (Point2D.Double point : actualPoints) {
-            point.x = xLength * point.x / xCoordinateNumbers;
-            point.y = yLength * point.y / yCoordinateNumbers * 4.2;
+            point.x = xLength * point.x / xCoordinateNumbers * 1.3;
+            point.y = yLength * point.y / yCoordinateNumbers * 4.18;
         }
 
-        g2D.setColor(Color.RED);
-        g2D.setStroke(new BasicStroke(4.0f));
-
-        for (Point2D point : actualPoints) {
-            g2D.draw(new Line2D.Double(point, point));
-        }
-
-        g2D.setColor(Color.GREEN);
-        g2D.setStroke(new BasicStroke());
+        g2D.setColor(Color.BLUE);
+        g2D.setStroke(new BasicStroke(2.0f));
 
         Path2D path2D = new Path2D.Double();
         path2D.moveTo(actualPoints.get(0).getX(), actualPoints.get(0).getY());
@@ -137,5 +130,12 @@ class CartesianFrame extends Canvas {
             path2D.lineTo(point.getX(), point.getY());
         }
         g2D.draw(path2D);
+
+        g2D.setColor(Color.RED);
+        g2D.setStroke(new BasicStroke(4.0f));
+
+        for (Point2D point : actualPoints) {
+            g2D.draw(new Line2D.Double(point, point));
+        }
     }
 }

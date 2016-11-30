@@ -14,12 +14,13 @@ public class AppletGraph extends Applet {
     public void init() {
         setSize(dimension);
         setLayout(null);
-
         setBackground(new Color(215, 215, 215));
 
         String param = "param_";
         String data;
         String[] dataXY;
+
+        String pr = getParameter("param_0");
 
         // BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         // while ((data = reader.readLine()) != null) {
