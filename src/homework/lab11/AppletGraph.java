@@ -46,6 +46,7 @@ public class AppletGraph extends Applet {
         // test
 
         CartesianFrame cartesianFrame;
+        points.sort((o1, o2) -> new Double(o1.getX()).compareTo(o2.getX()));
         if (validArgumentsFlag) {
             cartesianFrame = new CartesianFrame(points);
         } else {
