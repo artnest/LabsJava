@@ -2,17 +2,20 @@ package homework.lab12;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 public class MainForm {
     private JFrame mainFrame;
-    private JPanel controlPanel;
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenu submenu;
     private JMenuItem menuItem;
-    private JPanel mainPanel;
+    private JPanel panel;
+    private JTextArea textArea;
 
     public MainForm() {
         prepateGUI();
@@ -36,6 +39,31 @@ public class MainForm {
         menuBar.add(menu);
 
         menuItem = new JMenuItem("Open");
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+
+                int returnVal = chooser.showOpenDialog(mainFrame);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = chooser.getSelectedFile();
+
+                    /*filePath = file.getAbsolutePath();
+                    try {
+                        //your write to Jframe method
+                    } catch (FileNotFoundException e) {
+                        Logger.getLogger(YourClassName.class.getName()).log(
+                                Level.SEVERE, null, e);
+                    }
+
+                    //This is where a real application would open the file.
+                    log.append("Opening: " + file.getName() + "." + newline);*/
+                } /*else {
+                    log.append("Open command cancelled by user." + newline);
+                }*/
+            }
+        });
         menu.add(menuItem);
         menu.addSeparator();
         menuItem = new JMenuItem("Exit");
@@ -133,8 +161,13 @@ public class MainForm {
 
         menu = new JMenu("Help");
         menuBar.add(menu);
+        menuItem = new JMenuItem("About");
+        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame, "Made by Artyom Nesterenko"));
+        menu.add(menuItem);
 
         mainFrame.setJMenuBar(menuBar);
+
+        panel.add(textArea);
     }
 
     private void showForm() {
@@ -161,14 +194,18 @@ public class MainForm {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel = new JPanel();
+        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setEnabled(true);
+        textArea = new JTextArea();
+        textArea.setText("\n\n\n\n\n\n\n\n\nHello!");
+        panel.add(textArea, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return mainPanel;
+        return panel;
     }
 }
