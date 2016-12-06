@@ -2,11 +2,8 @@ package homework.lab12;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
+import java.awt.event.*;
+import java.io.*;
 
 public class MainForm {
     private JFrame mainFrame;
@@ -15,13 +12,13 @@ public class MainForm {
     private JMenu submenu;
     private JMenuItem menuItem;
     private JPanel panel;
-    private JTextArea textArea;
+    private JTextPane textPane;
 
     public MainForm() {
-        prepateGUI();
+        prepareGUI();
     }
 
-    private void prepateGUI() {
+    private void prepareGUI() {
         mainFrame = new JFrame("Bills Application");
         mainFrame.setSize(640, 480);
 
@@ -39,7 +36,7 @@ public class MainForm {
         menuBar.add(menu);
 
         menuItem = new JMenuItem("Open");
-        menuItem.addActionListener(new ActionListener() {
+        /*menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser();
@@ -49,25 +46,19 @@ public class MainForm {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = chooser.getSelectedFile();
 
-                    /*filePath = file.getAbsolutePath();
-                    try {
-                        //your write to Jframe method
-                    } catch (FileNotFoundException e) {
-                        Logger.getLogger(YourClassName.class.getName()).log(
-                                Level.SEVERE, null, e);
-                    }
+                    String filePath = file.getAbsolutePath();
 
                     //This is where a real application would open the file.
-                    log.append("Opening: " + file.getName() + "." + newline);*/
-                } /*else {
-                    log.append("Open command cancelled by user." + newline);
-                }*/
+//                    log.append("Opening: " + file.getName() + "." + newline);
+                } else {
+//                    log.append("Open command cancelled by user." + newline);
+                }
             }
-        });
+        });*/
         menu.add(menuItem);
         menu.addSeparator();
         menuItem = new JMenuItem("Exit");
-        menuItem.addActionListener(e -> mainFrame.dispose());
+//        menuItem.addActionListener(e -> mainFrame.dispose());
         menu.add(menuItem);
 
         menu = new JMenu("Commands");
@@ -165,9 +156,24 @@ public class MainForm {
         menuItem.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame, "Made by Artyom Nesterenko"));
         menu.add(menuItem);
 
-        mainFrame.setJMenuBar(menuBar);
+        for (Component menu : menuBar.getComponents()) {
+            for (Component menuItem : ((JMenu) menu).getMenuComponents()) {
+                if (!(menuItem instanceof JMenu) && !(menuItem instanceof JPopupMenu.Separator)) {
+                    ((JMenuItem) menuItem).setActionCommand(((JMenuItem) menuItem).getText());
+                    ((JMenuItem) menuItem).addActionListener(new menuItemListener());
+                } else {
+                    if (!(menuItem instanceof JPopupMenu.Separator)) {
+                        for (Component submenuItem : ((JMenu) menuItem).getMenuComponents()) {
+                            ((JMenuItem) submenuItem).setActionCommand(((JMenuItem) submenuItem).getText());
+                            ((JMenuItem) submenuItem).addActionListener(new menuItemListener());
+                        }
+                    }
+                }
+            }
+        }
 
-        panel.add(textArea);
+        mainFrame.setJMenuBar(menuBar);
+        mainFrame.add(panel);
     }
 
     private void showForm() {
@@ -197,9 +203,11 @@ public class MainForm {
         panel = new JPanel();
         panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel.setEnabled(true);
-        textArea = new JTextArea();
-        textArea.setText("\n\n\n\n\n\n\n\n\nHello!");
-        panel.add(textArea, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        textPane = new JTextPane();
+        textPane.setBackground(new Color(-1529488));
+        textPane.setEditable(false);
+        textPane.setText("Hello");
+        panel.add(textPane, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     }
 
     /**
@@ -207,5 +215,47 @@ public class MainForm {
      */
     public JComponent $$$getRootComponent$$$() {
         return panel;
+    }
+
+    private class menuItemListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (e.getActionCommand()) {
+                case "Open":
+                    JFileChooser chooser = new JFileChooser();
+
+                    int returnVal = chooser.showOpenDialog(mainFrame);
+
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        File file = chooser.getSelectedFile();
+
+                        String filePath = file.getAbsolutePath();
+
+                        try {
+                            Bills.printFile();
+                        } catch (IOException | ClassNotFoundException exception) {
+                            System.err.println("go away");
+                        }
+
+                        //This is where a real application would open the file.
+//                    log.append("Opening: " + file.getName() + "." + newline);
+                    } else {
+//                    log.append("Open command cancelled by user." + newline);
+                    }
+                    break;
+
+                case "Exit":
+                    mainFrame.dispose();
+                    break;
+
+                case "Append data":
+                    try {
+                        Bills.appendFile(false);
+                    } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
+                        exception.printStackTrace();
+                    }
+                    break;
+            }
+        }
     }
 }

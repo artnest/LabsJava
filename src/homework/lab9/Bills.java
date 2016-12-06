@@ -72,14 +72,14 @@ public class Bills {
                     System.exit(1);
                 }
             } else {
-                System.err.println("PublicServicesAccounts: Nothing to do! Enter -? for options.");
+                System.err.println("Bills: Nothing to do! Enter -? for options.");
             }
         } catch (Exception e) {
             System.err.println("Runtime error: " + e);
             System.exit(1);
         }
 
-        System.out.println("Bill finished...");
+        System.out.println("Bills finished...");
         System.exit(0);
     }
 

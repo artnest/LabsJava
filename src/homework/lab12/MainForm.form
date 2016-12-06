@@ -9,6 +9,19 @@
       <enabled value="true"/>
     </properties>
     <border type="none"/>
-    <children/>
+    <children>
+      <component id="a4e48" class="javax.swing.JTextPane" binding="textPane">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-1529488"/>
+          <editable value="false"/>
+          <text value="Hello"/>
+        </properties>
+      </component>
+    </children>
   </grid>
 </form>

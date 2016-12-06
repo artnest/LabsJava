@@ -72,14 +72,14 @@ public class Bills {
                     System.exit(1);
                 }
             } else {
-                System.err.println("PublicServicesAccounts: Nothing to do! Enter -? for options.");
+                System.err.println("Bills: Nothing to do! Enter -? for options.");
             }
         } catch (Exception e) {
             System.err.println("Runtime error: " + e);
             System.exit(1);
         }
 
-        System.out.println("Bill finished...");
+        System.out.println("Bills finished...");
         System.exit(0);
     }
 
@@ -191,9 +191,7 @@ public class Bills {
     }
 
     private static void printRecord(RandomAccessFile raf, long pos) throws IOException, ClassNotFoundException {
-        boolean[] wasZipped = new boolean[] {
-                false
-        };
+        boolean[] wasZipped = new boolean[] { false };
 
         Bill bill = (Bill) Buffer.readObject(raf, pos, wasZipped);
         if (wasZipped[0]) {
