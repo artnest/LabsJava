@@ -232,7 +232,7 @@ public class MainForm {
                         String filePath = file.getAbsolutePath();
 
                         try {
-                            Bills.printFile();
+                            Bills.printFile(textPane); // TODO (draft) rework
                         } catch (IOException | ClassNotFoundException exception) {
                             System.err.println("go away");
                         }

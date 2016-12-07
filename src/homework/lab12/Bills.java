@@ -1,5 +1,6 @@
 package homework.lab12;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -200,12 +201,39 @@ public class Bills {
         System.out.println(" record at position " + pos + ": \n" + bill);
     }
 
+    private static void printRecord(RandomAccessFile raf, long pos, JTextPane textPane, String text) throws
+            IOException,
+            ClassNotFoundException {
+        boolean[] wasZipped = new boolean[] { false };
+
+        Bill bill = (Bill) Buffer.readObject(raf, pos, wasZipped);
+        if (wasZipped[0]) {
+            text += " compressed";
+        }
+        text += " record at position " + pos + ": \n" + bill;
+
+        textPane.setText(text);
+    }
+
     private static void printRecord(RandomAccessFile raf, String key, IndexBase pidx) throws IOException, ClassNotFoundException {
         long[] positions = pidx.get(key);
 
         for (long position : positions) {
             System.out.println("*** Key: " + key + " points to");
             printRecord(raf, position);
+        }
+    }
+
+    static void printFile(JTextPane textPane) throws IOException, ClassNotFoundException {
+        long pos;
+        int rec = 0;
+
+        try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
+            while ((pos = raf.getFilePointer()) < raf.length()) {
+                String text = "#" + (++rec);
+                printRecord(raf, pos, textPane, text);
+            }
+//            System.out.flush();
         }
     }
 
