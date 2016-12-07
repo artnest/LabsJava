@@ -30,7 +30,7 @@ public class AppendDataForm extends JDialog {
     private JLabel penaltyPercentLabel;
     private JLabel daysExpiredLabel;
 
-    private Bill bill = null;
+    private static Bill bill = null;
 
     public AppendDataForm() {
         setContentPane(contentPane);

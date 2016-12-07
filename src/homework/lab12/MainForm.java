@@ -249,10 +249,8 @@ public class MainForm {
                     break;
 
                 case "Append data":
-                    // TODO addForm
-                    AppendDataForm appendDataForm = new AppendDataForm();
                     try {
-                        Bills.appendFile(false, appendDataForm);
+                        Bills.appendFile(false, new AppendDataForm().getBill());
                     } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
                         exception.printStackTrace();
                     }
