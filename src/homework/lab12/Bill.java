@@ -93,7 +93,7 @@ public class Bill implements Serializable {
     }
 
     public static Bill read(Scanner fin, PrintStream out) {
-        Bill bill = new Bill();
+        Bill bill = null;
 
         bill.numberHouse = Integer.parseInt(fin.nextLine());
         if (!nextRead(P_numberApartment, fin, out)) {

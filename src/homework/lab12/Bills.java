@@ -168,20 +168,19 @@ public class Bills {
 //            billsOut = new PrintStream("/dev/null");
         }
 
-        appendFile(zipped);
+//        appendFile(zipped); // TODO uncomment
     }
 
-    static void appendFile(Boolean zipped) throws IOException, ClassNotFoundException, KeyNotUniqueException {
-        AppendDataForm appendDataForm = new AppendDataForm();
-
+    static void appendFile(Boolean zipped, AppendDataForm appendDataForm) throws IOException, ClassNotFoundException,
+            KeyNotUniqueException {
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
 //            for (;;) {
-                Bill bill = new Bill(); // TODO remove
+                Bill bill = appendDataForm.getBill(); // TODO remove
 
-                if (bill == null) {
+                /*if (bill == null) {
                     break;
-                }
+                }*/
 
                 idx.test(bill);
                 long pos = Buffer.writeObject(raf, bill, zipped);
