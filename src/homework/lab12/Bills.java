@@ -172,13 +172,12 @@ public class Bills {
     }
 
     static void appendFile(Boolean zipped) throws IOException, ClassNotFoundException, KeyNotUniqueException {
-        Scanner fin = new Scanner(System.in, encoding);
-        billsOut.println("Enter account data:");
+        AppendDataForm appendDataForm = new AppendDataForm();
 
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-            for (;;) {
-                Bill bill = readBill(fin);
+//            for (;;) {
+                Bill bill = new Bill(); // TODO remove
 
                 if (bill == null) {
                     break;
@@ -187,7 +186,7 @@ public class Bills {
                 idx.test(bill);
                 long pos = Buffer.writeObject(raf, bill, zipped);
                 idx.put(bill, pos);
-            }
+//            }
         }
     }
 

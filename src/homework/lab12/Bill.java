@@ -64,6 +64,24 @@ public class Bill implements Serializable {
         return year > 0 && year <= curCalendar.get(Calendar.YEAR);
     }*/
 
+    public Bill(int numberHouse,
+                int numberApartment,
+                String address,
+                String owner,
+                LocalDate paymentDate,
+                double paymentSum,
+                String penaltyPercent,
+                int daysExpired) {
+        this.numberHouse = numberHouse;
+        this.numberApartment = numberApartment;
+        this.address = address;
+        this.owner = owner;
+        this.paymentDate = paymentDate;
+        this.paymentSum = paymentSum;
+        this.penaltyPercent = penaltyPercent;
+        this.daysExpired = daysExpired;
+    }
+
     static Boolean nextRead(Scanner fin, PrintStream out) {
         return nextRead(P_numberHouse, fin, out);
     }
@@ -76,7 +94,6 @@ public class Bill implements Serializable {
 
     public static Bill read(Scanner fin, PrintStream out) {
         Bill bill = new Bill();
-
 
         bill.numberHouse = Integer.parseInt(fin.nextLine());
         if (!nextRead(P_numberApartment, fin, out)) {
