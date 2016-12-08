@@ -1,6 +1,7 @@
 package homework.lab12;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -12,7 +13,48 @@ public class MainForm {
     private JMenu submenu;
     private JMenuItem menuItem;
     private JPanel panel;
-    private JTextPane textPane;
+    private static JTextPane textPane;
+
+    private static String filenamePath;
+    private static String filenameBakPath;
+    private static String idxnamePath;
+    private static String idxnameBakPath;
+
+    public static JTextPane getTextPane() {
+        return textPane;
+    }
+
+    public static String getFilenamePath() {
+        return filenamePath;
+    }
+
+    public static void setFilenamePath(String filenamePath) {
+        MainForm.filenamePath = filenamePath;
+    }
+
+    public static String getIdxnamePath() {
+        return idxnamePath;
+    }
+
+    public static void setIdxnamePath(String idxnamePath) {
+        MainForm.idxnamePath = idxnamePath;
+    }
+
+    public static String getFilenameBakPath() {
+        return filenameBakPath;
+    }
+
+    public static void setFilenameBakPath(String fileBakPath) {
+        MainForm.filenameBakPath = fileBakPath;
+    }
+
+    public static String getIdxnameBakPath() {
+        return idxnameBakPath;
+    }
+
+    public static void setIdxnameBakPath(String idxnameBakPath) {
+        MainForm.idxnameBakPath = idxnameBakPath;
+    }
 
     public MainForm() {
         prepareGUI();
@@ -75,7 +117,7 @@ public class MainForm {
         menuItem = new JMenuItem("paymentDate");
         submenu.add(menuItem);
 
-        submenu = new JMenu("Print data sorted (by field)");
+        submenu = new JMenu("Print data sorted (by key)");
         menu.add(submenu);
         menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
@@ -86,7 +128,7 @@ public class MainForm {
         menuItem = new JMenuItem("paymentDate");
         submenu.add(menuItem);
 
-        submenu = new JMenu("Print data reverse sorted (by field)");
+        submenu = new JMenu("Print data reverse sorted (by key)");
         menu.add(submenu);
         menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
@@ -133,8 +175,11 @@ public class MainForm {
         menu = new JMenu("Help");
         menuBar.add(menu);
         menuItem = new JMenuItem("About");
-        menuItem.addActionListener(e -> JOptionPane.showMessageDialog(mainFrame, "Made by Artyom Nesterenko"));
         menu.add(menuItem);
+
+        // Рома
+        // +375297731699 - magnet  // TODO delete
+        // TODO < till 20:00
 
         for (Component menu : menuBar.getComponents()) {
             for (Component menuItem : ((JMenu) menu).getMenuComponents()) {
@@ -209,19 +254,13 @@ public class MainForm {
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
                         File file = chooser.getSelectedFile();
-
-                        String filePath = file.getAbsolutePath();
+                        filenamePath = file.getAbsolutePath();
 
                         try {
-                            Bills.printFile(textPane); // TODO (draft) rework
-                        } catch (IOException | ClassNotFoundException exception) {
-                            System.err.println("go away");
+                            Bills.printFile();
+                        } catch (IOException | ClassNotFoundException | BadLocationException exception) {
+                            JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
                         }
-
-                        //This is where a real application would open the file.
-//                    log.append("Opening: " + file.getName() + "." + newline);
-                    } else {
-//                    log.append("Open command cancelled by user." + newline);
                     }
                     break;
 
@@ -229,9 +268,13 @@ public class MainForm {
                     mainFrame.dispose();
                     break;
 
+                case "About":
+                    JOptionPane.showMessageDialog(mainFrame, "Made by Artyom Nesterenko");
+                    break;
+
                 case "Append data":
                     try {
-                        Bills.appendFile(false, new AppendDataForm().getBill());
+                        Bills.appendFile(false, new AppendDataForm().getBill(), filenamePath);
                     } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
                         JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
                     }
@@ -239,7 +282,7 @@ public class MainForm {
 
                 case "Append data, compress every record":
                     try {
-                        Bills.appendFile(true, new AppendDataForm().getBill());
+                        Bills.appendFile(true, new AppendDataForm().getBill(), filenamePath);
                     } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
                         JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
                     }
@@ -247,11 +290,83 @@ public class MainForm {
 
                 case "Clear all data":
                     Bills.deleteFile();
-                    // printFile();
+                    JOptionPane.showMessageDialog(mainFrame, "All data was cleared");
                     break;
                     
-                case "Clear data by houseNumber":
-                    Bills.deleteFile(new KeyEnter().getKey());
+                case "Clear data by key houseNumber":
+                case "Clear data by key apartmentNumber":
+                case "Clear data by key owner":
+                case "Clear data by key paymentDate":
+                    try {
+                        Bills.deleteFile(e.getActionCommand().substring(e.getActionCommand().lastIndexOf("Clear data by") + 1), new KeyEnter().getKey());
+                        Bills.printFile();
+                    } catch (IOException | ClassNotFoundException | KeyNotUniqueException | BadLocationException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Print data unsorted":
+                    try {
+                        Bills.printFile();
+                    } catch (IOException | ClassNotFoundException | BadLocationException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Print data sorted (by key) houseNumber":
+                case "Print data sorted (by key) apartmentNumber":
+                case "Print data sorted (by key) owner":
+                case "Print data sorted (by key) paymentDate":
+                    try {
+                        Bills.printFile(new KeyEnter().getKey(), false);
+                    } catch (IOException | ClassNotFoundException | BadLocationException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Print data reverse sorted (by key) houseNumber":
+                case "Print data reverse sorted (by key) apartmentNumber":
+                case "Print data reverse sorted (by key) owner":
+                case "Print data reverse sorted (by key) paymentDate":
+                    try {
+                        Bills.printFile(e.getActionCommand().substring(e.getActionCommand().lastIndexOf("Clear data by") + 1), true);
+                    } catch (IOException | ClassNotFoundException | BadLocationException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Find records by key numberHouse":
+                case "Find records by key apartmentNumber":
+                case "Find records by key owner":
+                case "Find records by key paymentDate":
+                    try {
+                        Bills.findByKey(e.getActionCommand().substring(e.getActionCommand().lastIndexOf("Find records by key") + 1), new KeyEnter().getKey());
+                    } catch (IOException | ClassNotFoundException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Find records > key numberHouse":
+                case "Find records > key apartmentNumber":
+                case "Find records > key owner":
+                case "Find records > key paymentDate":
+                    try {
+                        Bills.findByKey(e.getActionCommand().substring(e.getActionCommand().lastIndexOf("Find records > key") + 1), new KeyEnter().getKey(), new KeyComparators.KeyComparator());
+                    } catch (IOException | ClassNotFoundException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Find records < key numberHouse":
+                case "Find records < key apartmentNumber":
+                case "Find records < key owner":
+                case "Find records < key paymentDate":
+                    try {
+                        Bills.findByKey(e.getActionCommand().substring(e.getActionCommand().lastIndexOf("Find records < key") + 1), new KeyEnter().getKey(), new KeyComparators.KeyComparatorReverse());
+                    } catch (IOException | ClassNotFoundException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
             }
         }
     }

@@ -1,7 +1,12 @@
 package homework.lab12;
 
 import javax.swing.*;
-import java.io.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -18,7 +23,7 @@ public class Bills {
                                     "\t-d                     - clear all data\n" +
                                     "\t-dk  {h|a|o|d} key     - clear data by key\n" +
                                     "\t-p                     - print data unsorted\n" +
-                                    "\t-ps  {h|a|o|d}         - print sorted by numberHouse/" +
+                                    "\t-ps  {h|a|o|d}         - print data sorted by numberHouse/" +
                                                                                 "numberApartment/" +
                                                                                 "owner/" +
                                                                                 "paymentDate\n" +
@@ -36,15 +41,17 @@ public class Bills {
                 } else if (args[0].equals("-az")) {
 //                    appendFile(args, true);
                 } else if (args[0].equals("-p")) {
-                    printFile();
+//                    printFile();
                 } else if (args[0].equals("-ps")) {
-                    if (!printFile(args, false)) {
+                    /*if (!printFile(args, false)) {
                         System.exit(1);
-                    }
+                    }*/
                 } else if (args[0].equals("-psr")) {
+/*
                     if (!printFile(args, true)) {
                         System.exit(1);
                     }
+*/
                 } else if (args[0].equals("-d")) {
                     if (args.length != 1) {
                         System.err.println("Invalid number of arguments");
@@ -53,21 +60,29 @@ public class Bills {
 
                     deleteFile();
                 } else if (args[0].equals("-dk")) {
+/*
                     if (!deleteFile(args)) {
                         System.exit(1);
                     }
+*/
                 } else if (args[0].equals("-f")) {
+/*
                     if (!findByKey(args)) {
                         System.exit(1);
                     }
+*/
                 } else if (args[0].equals("-fr")) {
+/*
                     if (!findByKey(args, new KeyComparators.KeyComparator())) {
                         System.exit(1);
                     }
+*/
                 } else if (args[0].equals("-fl")) {
+/*
                     if (!findByKey(args, new KeyComparators.KeyComparatorReverse())) {
                         System.exit(1);
                     }
+*/
                 } else {
                     System.err.println("Option isn't realized: " + args[0]);
                     System.exit(1);
@@ -84,11 +99,6 @@ public class Bills {
         System.exit(0);
     }
 
-    static final String filename    = "Bills.dat";
-    static final String filenameBak = "Bills.~dat";
-    static final String idxname     = "Bills.idx";
-    static final String idxnameBak  = "Bills.~idx";
-
     private static String encoding = "CP866";
     private static PrintStream billsOut = System.out;
 
@@ -97,43 +107,43 @@ public class Bills {
     }
 
     private static void deleteBackup() {
-        new File(filename).delete();
-        new File(idxname).delete();
+        new File(MainForm.getFilenamePath()).delete();
+        new File(MainForm.getIdxnamePath()).delete();
     }
 
     static void deleteFile() {
         deleteBackup();
-        new File(filename).renameTo(new File(filenameBak));
-        new File(idxname).renameTo(new File(idxnameBak));
+        new File(MainForm.getFilenamePath()).renameTo(new File(MainForm.getFilenameBakPath()));
+        new File(MainForm.getIdxnamePath()).renameTo(new File(MainForm.getIdxnameBakPath()));
     }
 
     private static void backup() {
         deleteBackup();
-        new File(filename).renameTo(new File(filenameBak));
-        new File(idxname).renameTo(new File(idxnameBak));
+        new File(MainForm.getFilenamePath()).renameTo(new File(MainForm.getFilenameBakPath()));
+        new File(MainForm.getIdxnamePath()).renameTo(new File(MainForm.getIdxnameBakPath()));
     }
 
-    static boolean deleteFile(String key) throws IOException, ClassNotFoundException, KeyNotUniqueException {
+    static boolean deleteFile(String key, String value) throws IOException, ClassNotFoundException, KeyNotUniqueException {
         long[] positions;
-        try (Index idx = Index.load(idxname)) {
-            IndexBase pidx = indexByArg(args[1], idx);
+        try (Index idx = Index.load(MainForm.getIdxnamePath())) {
+            IndexBase pidx = indexByArg(key, idx);
 
             if (pidx == null) {
                 return false;
             }
-            if (!pidx.contains(args[2])) {
-                System.err.println("Key not found: " + args[2]);
+            if (!pidx.contains(value)) {
+                System.err.println("Key not found: " + value);
                 return false;
             }
 
-            positions = pidx.get(args[2]);
+            positions = pidx.get(value);
         }
 
         backup();
         Arrays.sort(positions);
-        try (Index idx = Index.load(idxname);
-            RandomAccessFile fileBak = new RandomAccessFile(filenameBak, "rw");
-            RandomAccessFile file = new RandomAccessFile(filename, "rw")) {
+        try (Index idx = Index.load(MainForm.getIdxnamePath());
+            RandomAccessFile fileBak = new RandomAccessFile(MainForm.getFilenameBakPath(), "rw");
+            RandomAccessFile file = new RandomAccessFile(MainForm.getFilenamePath(), "rw")) {
             boolean[] wasZipped = new boolean[] { false };
 
             long pos;
@@ -150,10 +160,10 @@ public class Bills {
         }
     }
 
-    static void appendFile(Boolean zipped, Bill bill) throws IOException, ClassNotFoundException,
+    static void appendFile(Boolean zipped, Bill bill, String filePath) throws IOException, ClassNotFoundException,
             KeyNotUniqueException {
-        try (Index idx = Index.load(idxname);
-             RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
+        try (Index idx = Index.load(MainForm.getIdxnamePath());
+             RandomAccessFile raf = new RandomAccessFile(filePath, "rw")) {
                 if (bill == null) {
                     return;
                 }
@@ -174,9 +184,9 @@ public class Bills {
         System.out.println(" record at position " + pos + ": \n" + bill);
     }
 
-    private static void printRecord(RandomAccessFile raf, long pos, JTextPane textPane, String text) throws
+    private static void printRecord(RandomAccessFile raf, long pos, String text) throws
             IOException,
-            ClassNotFoundException {
+            ClassNotFoundException, BadLocationException {
         boolean[] wasZipped = new boolean[] { false };
 
         Bill bill = (Bill) Buffer.readObject(raf, pos, wasZipped);
@@ -185,41 +195,32 @@ public class Bills {
         }
         text += " record at position " + pos + ": \n" + bill;
 
-        textPane.setText(text);
+        appendText(text);
     }
 
-    private static void printRecord(RandomAccessFile raf, String key, IndexBase pidx) throws IOException, ClassNotFoundException {
+    private static void appendText(String text) throws BadLocationException {
+        StyledDocument document = MainForm.getTextPane().getStyledDocument();
+        document.insertString(document.getLength(), text + "\n\n", null);
+    }
+
+    private static void printRecord(RandomAccessFile raf, String key, IndexBase pidx) throws IOException, ClassNotFoundException, BadLocationException {
         long[] positions = pidx.get(key);
 
         for (long position : positions) {
-            System.out.println("*** Key: " + key + " points to");
+            appendText("*** Key: " + key + " points to");
             printRecord(raf, position);
         }
     }
 
-    static void printFile(JTextPane textPane) throws IOException, ClassNotFoundException {
+    static void printFile() throws IOException, ClassNotFoundException, BadLocationException {
         long pos;
         int rec = 0;
 
-        try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(MainForm.getFilenamePath(), "rw")) {
             while ((pos = raf.getFilePointer()) < raf.length()) {
                 String text = "#" + (++rec);
-                printRecord(raf, pos, textPane, text);
+                printRecord(raf, pos, text);
             }
-//            System.out.flush();
-        }
-    }
-
-    static void printFile() throws IOException, ClassNotFoundException {
-        long pos;
-        int rec = 0;
-
-        try (RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-            while ((pos = raf.getFilePointer()) < raf.length()) {
-                System.out.println("#" + (++rec));
-                printRecord(raf, pos);
-            }
-            System.out.flush();
         }
     }
 
@@ -235,21 +236,16 @@ public class Bills {
         } else if (arg.equals("d")) {
             pidx = idx.paymentDates;
         } else {
-            System.err.println("Invalid index specified: " + arg);
+            JOptionPane.showMessageDialog(MainForm.getTextPane(), "Invalid index specified: " + arg);
         }
 
         return pidx;
     }
 
-    static boolean printFile(String[] args, boolean reverse) throws IOException, ClassNotFoundException {
-        if (args.length != 2) {
-            System.err.println("Invalid number of arguments");
-            return false;
-        }
-
-        try (Index idx = Index.load(idxname);
-            RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-            IndexBase pidx = indexByArg(args[1], idx);
+    static boolean printFile(String key, boolean reverse) throws IOException, ClassNotFoundException, BadLocationException {
+        try (Index idx = Index.load(MainForm.getIdxnamePath());
+            RandomAccessFile raf = new RandomAccessFile(MainForm.getFilenamePath(), "rw")) {
+            IndexBase pidx = indexByArg(key, idx);
 
             if (pidx == null) {
                 return false;
@@ -257,69 +253,59 @@ public class Bills {
 
             String[] keys = pidx.getKeys(reverse ? new KeyComparators.KeyComparatorReverse() : new KeyComparators.KeyComparator());
 
-            for (String key : keys) {
-                printRecord(raf, key, pidx);
+            for (String keyInFile : keys) {
+                printRecord(raf, keyInFile, pidx);
             }
 
             return true;
         }
     }
 
-    static boolean findByKey(String[] args) throws IOException, ClassNotFoundException {
-        if (args.length != 3) {
-            if (args[1].equals("o") && args.length > 3) {
-                for (int i = 3; i < args.length; i++) {
-                    args[2] += " " + args[i];
-                }
-            } else {
-                System.err.println("Invalid number of arguments");
-                return false;
+    static boolean findByKey(String key, String value) throws IOException, ClassNotFoundException, BadLocationException {
+        if (key.equals("owner")) {
+            if (value.split(" ").length != 3) {
+                throw new IllegalArgumentException("Invalid data!");
             }
         }
 
-        try (Index idx = Index.load(idxname);
-            RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-            IndexBase pidx = indexByArg(args[1], idx);
+        try (Index idx = Index.load(MainForm.getIdxnamePath());
+            RandomAccessFile raf = new RandomAccessFile(MainForm.getFilenamePath(), "rw")) {
+            IndexBase pidx = indexByArg(key, idx);
 
-            if (!pidx.contains(args[2])) {
-                System.err.println("Key not found: " + args[2]);
+            if (!pidx.contains(value)) {
+                System.err.println("Key not found: " + value);
                 return false;
             }
 
-            printRecord(raf, args[2], pidx);
+            printRecord(raf, value, pidx);
         }
 
         return true;
     }
 
-    static boolean findByKey(String[] args, Comparator<String> comparator) throws ClassNotFoundException, IOException {
-        if (args.length != 3) {
-            if (args[1].equals("o") && args.length > 3) {
-                for (int i = 3; i < args.length; i++) {
-                    args[2] += " " + args[i];
-                }
-            } else {
-                System.err.println("Invalid number of arguments");
-                return false;
+    static boolean findByKey(String key, String value, Comparator<String> comparator) throws ClassNotFoundException, IOException, BadLocationException {
+        if (key.equals("owner")) {
+            if (value.split(" ").length != 3) {
+                throw new IllegalArgumentException("Invalid data!");
             }
         }
 
-        try (Index idx = Index.load(idxname);
-             RandomAccessFile raf = new RandomAccessFile( filename, "rw" )) {
-            IndexBase pidx = indexByArg(args[1], idx);
+        try (Index idx = Index.load(MainForm.getIdxnamePath());
+             RandomAccessFile raf = new RandomAccessFile( MainForm.getFilenamePath(), "rw" )) {
+            IndexBase pidx = indexByArg(key, idx);
 
-            if (!pidx.contains(args[2])) {
-                System.err.println("Key not found: " + args[2]);
+            if (!pidx.contains(value)) {
+                System.err.println("Key not found: " + value);
                 return false;
             }
 
             String[] keys = pidx.getKeys(comparator);
-            for (String key : keys) {
-                if (key.equals(args[2])) {
+            for (String keyInKeys : keys) {
+                if (keyInKeys.equals(value)) {
                     break;
                 }
 
-                printRecord(raf, key, pidx);
+                printRecord(raf, keyInKeys, pidx);
             }
         }
 

@@ -7,7 +7,8 @@ public class KeyEnter extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField Key;
+    private JTextField KeyTextField;
+    private JLabel KeyLabel;
 
     private String key;
 
@@ -44,7 +45,7 @@ public class KeyEnter extends JDialog {
     }
 
     private void onOK() {
-        key = Key.getText();
+        key = KeyTextField.getText();
         dispose();
     }
 
