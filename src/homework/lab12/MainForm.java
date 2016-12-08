@@ -36,29 +36,9 @@ public class MainForm {
         menuBar.add(menu);
 
         menuItem = new JMenuItem("Open");
-        /*menuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-
-                int returnVal = chooser.showOpenDialog(mainFrame);
-
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = chooser.getSelectedFile();
-
-                    String filePath = file.getAbsolutePath();
-
-                    //This is where a real application would open the file.
-//                    log.append("Opening: " + file.getName() + "." + newline);
-                } else {
-//                    log.append("Open command cancelled by user." + newline);
-                }
-            }
-        });*/
         menu.add(menuItem);
         menu.addSeparator();
         menuItem = new JMenuItem("Exit");
-//        menuItem.addActionListener(e -> mainFrame.dispose());
         menu.add(menuItem);
 
         menu = new JMenu("Commands");
@@ -75,7 +55,7 @@ public class MainForm {
 
         submenu = new JMenu("Clear data by key");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -86,7 +66,7 @@ public class MainForm {
 
         submenu = new JMenu("Print data unsorted");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -97,7 +77,7 @@ public class MainForm {
 
         submenu = new JMenu("Print data sorted (by field)");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -108,7 +88,7 @@ public class MainForm {
 
         submenu = new JMenu("Print data reverse sorted (by field)");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -119,7 +99,7 @@ public class MainForm {
 
         submenu = new JMenu("Find records by key");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -130,7 +110,7 @@ public class MainForm {
 
         submenu = new JMenu("Find records > key");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -141,7 +121,7 @@ public class MainForm {
 
         submenu = new JMenu("Find records < key");
         menu.add(submenu);
-        menuItem = new JMenuItem("numberHouse");
+        menuItem = new JMenuItem("houseNumber");
         submenu.add(menuItem);
         menuItem = new JMenuItem("numberApartment");
         submenu.add(menuItem);
@@ -164,7 +144,8 @@ public class MainForm {
                 } else {
                     if (!(menuItem instanceof JPopupMenu.Separator)) {
                         for (Component submenuItem : ((JMenu) menuItem).getMenuComponents()) {
-                            ((JMenuItem) submenuItem).setActionCommand(((JMenuItem) submenuItem).getText());
+                            ((JMenuItem) submenuItem).setActionCommand(((JMenu) menuItem).getText() + " " +
+                                                                        ((JMenuItem) submenuItem).getText());
                             ((JMenuItem) submenuItem).addActionListener(new menuItemListener());
                         }
                     }
@@ -255,6 +236,22 @@ public class MainForm {
                         JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
                     }
                     break;
+
+                case "Append data, compress every record":
+                    try {
+                        Bills.appendFile(true, new AppendDataForm().getBill());
+                    } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
+                    }
+                    break;
+
+                case "Clear all data":
+                    Bills.deleteFile();
+                    // printFile();
+                    break;
+                    
+                case "Clear data by houseNumber":
+                    Bills.deleteFile(new KeyEnter().getKey());
             }
         }
     }

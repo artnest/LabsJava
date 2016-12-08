@@ -32,9 +32,9 @@ public class Bills {
                                     "\t-?, -h                 - command line syntax\n"
                     );
                 } else if (args[0].equals("-a")) {
-                    appendFile(args, false);
+//                    appendFile(args, false);
                 } else if (args[0].equals("-az")) {
-                    appendFile(args, true);
+//                    appendFile(args, true);
                 } else if (args[0].equals("-p")) {
                     printFile();
                 } else if (args[0].equals("-ps")) {
@@ -101,7 +101,7 @@ public class Bills {
         new File(idxname).delete();
     }
 
-    private static void deleteFile() {
+    static void deleteFile() {
         deleteBackup();
         new File(filename).renameTo(new File(filenameBak));
         new File(idxname).renameTo(new File(idxnameBak));
@@ -113,13 +113,8 @@ public class Bills {
         new File(idxname).renameTo(new File(idxnameBak));
     }
 
-    static boolean deleteFile(String[] args) throws IOException, ClassNotFoundException, KeyNotUniqueException {
-        if (args.length != 4) {
-            System.err.println("Invalid number of arguments");
-            return false;
-        }
-
-        long[] positions = null;
+    static boolean deleteFile(String key) throws IOException, ClassNotFoundException, KeyNotUniqueException {
+        long[] positions;
         try (Index idx = Index.load(idxname)) {
             IndexBase pidx = indexByArg(args[1], idx);
 
@@ -153,22 +148,6 @@ public class Bills {
 
             return true;
         }
-    }
-
-    static void appendFile(String[] args, Boolean zipped) throws IOException, KeyNotUniqueException, ClassNotFoundException {
-        if (args.length >= 2) {
-            FileInputStream stdin = new FileInputStream(args[1]);
-            System.setIn(stdin);
-
-            if (args.length == 3) {
-                encoding = args[2];
-            }
-
-            billsOut = new PrintStream("nul");
-//            billsOut = new PrintStream("/dev/null");
-        }
-
-//        appendFile(zipped); // TODO uncomment
     }
 
     static void appendFile(Boolean zipped, Bill bill) throws IOException, ClassNotFoundException,
