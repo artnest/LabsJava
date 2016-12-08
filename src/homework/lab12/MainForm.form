@@ -10,18 +10,23 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="a4e48" class="javax.swing.JTextPane" binding="textPane">
+      <scrollpane id="da681">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <background color="-1529488"/>
-          <editable value="false"/>
-          <text value=""/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="a4e48" class="javax.swing.JTextPane" binding="textPane">
+            <constraints/>
+            <properties>
+              <background color="-1529488"/>
+              <editable value="false"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>

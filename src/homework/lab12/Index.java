@@ -15,19 +15,19 @@ public class Index implements Serializable, Closeable {
         return result;
     }
 
-    IndexOne2One numbersHouse;
-    IndexOne2One numbersApartment;
+    IndexOne2One houseNumber;
+    IndexOne2One apartmentNumber;
     IndexOne2One owners;
     IndexOne2N paymentDates;
 
     public void test(Bill account) throws KeyNotUniqueException {
         assert account != null;
 
-        if (numbersHouse.contains(String.valueOf(account.getHouseNumber()))) {
+        if (houseNumber.contains(String.valueOf(account.getHouseNumber()))) {
             throw new KeyNotUniqueException(String.valueOf(account.getHouseNumber()));
         }
 
-        if (numbersApartment.contains(String.valueOf(account.getHouseNumber()))) {
+        if (apartmentNumber.contains(String.valueOf(account.getHouseNumber()))) {
             throw new KeyNotUniqueException(String.valueOf(account.getApartmentNumber()));
         }
 
@@ -38,21 +38,21 @@ public class Index implements Serializable, Closeable {
 
     public void put(Bill account, long value) throws KeyNotUniqueException {
         test(account);
-        numbersHouse.put(String.valueOf(account.getHouseNumber()), value);
-        numbersApartment.put(String.valueOf(account.getApartmentNumber()), value);
+        houseNumber.put(String.valueOf(account.getHouseNumber()), value);
+        apartmentNumber.put(String.valueOf(account.getApartmentNumber()), value);
         owners.put(account.getOwner(), value);
         paymentDates.put(account.getPaymentDate().toString(), value);
     }
 
     public Index() {
-        numbersHouse = new IndexOne2One();
-        numbersApartment = new IndexOne2One();
+        houseNumber = new IndexOne2One();
+        apartmentNumber = new IndexOne2One();
         owners = new IndexOne2One();
         paymentDates = new IndexOne2N();
     }
 
     public static Index load(String name) throws IOException, ClassNotFoundException {
-        Index obj = null;
+        Index obj;
 
         try {
             FileInputStream file = new FileInputStream(name);
