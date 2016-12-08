@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-/**
- * Created by artem on 01.11.2016.
- */
 public class IndexOne2N implements Serializable, IndexBase {
     private static final long serialVersionUID = 1L;
     private TreeMap<String, long[]> map;

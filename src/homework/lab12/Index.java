@@ -20,28 +20,28 @@ public class Index implements Serializable, Closeable {
     IndexOne2One owners;
     IndexOne2N paymentDates;
 
-    public void test(Bill account) throws KeyNotUniqueException {
-        assert account != null;
+    public void test(Bill bill) throws KeyNotUniqueException {
+        assert bill != null;
 
-        if (houseNumber.contains(String.valueOf(account.getHouseNumber()))) {
-            throw new KeyNotUniqueException(String.valueOf(account.getHouseNumber()));
+        if (houseNumber.contains(String.valueOf(bill.getHouseNumber()))) {
+            throw new KeyNotUniqueException(String.valueOf(bill.getHouseNumber()));
         }
 
-        if (apartmentNumber.contains(String.valueOf(account.getHouseNumber()))) {
-            throw new KeyNotUniqueException(String.valueOf(account.getApartmentNumber()));
+        if (apartmentNumber.contains(String.valueOf(bill.getHouseNumber()))) {
+            throw new KeyNotUniqueException(String.valueOf(bill.getApartmentNumber()));
         }
 
-        if (owners.contains(String.valueOf(account.getHouseNumber()))) {
-            throw new KeyNotUniqueException(account.getOwner());
+        if (owners.contains(String.valueOf(bill.getHouseNumber()))) {
+            throw new KeyNotUniqueException(bill.getOwner());
         }
     }
 
-    public void put(Bill account, long value) throws KeyNotUniqueException {
-        test(account);
-        houseNumber.put(String.valueOf(account.getHouseNumber()), value);
-        apartmentNumber.put(String.valueOf(account.getApartmentNumber()), value);
-        owners.put(account.getOwner(), value);
-        paymentDates.put(account.getPaymentDate().toString(), value);
+    public void put(Bill bill, long value) throws KeyNotUniqueException {
+        test(bill);
+        houseNumber.put(String.valueOf(bill.getHouseNumber()), value);
+        apartmentNumber.put(String.valueOf(bill.getApartmentNumber()), value);
+        owners.put(bill.getOwner(), value);
+        paymentDates.put(bill.getPaymentDate().toString(), value);
     }
 
     public Index() {

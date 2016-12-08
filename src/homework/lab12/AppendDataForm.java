@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AppendDataForm extends JDialog {
     private JPanel contentPane;
@@ -109,7 +110,7 @@ public class AppendDataForm extends JDialog {
                     daysExpired);
 
             dispose();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }

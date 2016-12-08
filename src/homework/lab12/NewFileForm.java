@@ -3,20 +3,20 @@ package homework.lab12;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class KeyEnter extends JDialog {
+public class NewFileForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField KeyTextField;
-    private JLabel KeyLabel;
+    private JTextField FilenameTextField;
+    private JLabel FilenameLabel;
 
-    private String key;
+    private String filename;
 
-    public String getKey() {
-        return key;
+    public String getFilename() {
+        return filename;
     }
 
-    public KeyEnter() {
+    public NewFileForm() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -43,12 +43,19 @@ public class KeyEnter extends JDialog {
     }
 
     private void onOK() {
-        key = KeyTextField.getText();
-        dispose();
+        try {
+            filename = FilenameTextField.getText();
+            if (!filename.contains(".dat")) {
+                throw new IllegalArgumentException("Bad filename!");
+            }
+            dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     private void onCancel() {
-        key = "";
+        filename = "";
         dispose();
     }
 }
