@@ -175,7 +175,6 @@ public class Bills {
             KeyNotUniqueException {
         try (Index idx = Index.load(idxname);
              RandomAccessFile raf = new RandomAccessFile(filename, "rw")) {
-//            for (;;) {
                 if (bill == null) {
                     return;
                 }
@@ -183,7 +182,6 @@ public class Bills {
                 idx.test(bill);
                 long pos = Buffer.writeObject(raf, bill, zipped);
                 idx.put(bill, pos);
-//            }
         }
     }
 

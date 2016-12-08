@@ -72,7 +72,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="number"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="19eab" class="javax.swing.JLabel" binding="apartmentNumberLabel">
@@ -90,7 +90,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="number"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="f4e73" class="javax.swing.JLabel" binding="addressLabel">
@@ -108,7 +108,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="address"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="e2246" class="javax.swing.JLabel" binding="ownerLabel">
@@ -126,7 +126,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="FirstName MiddleName LastName"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="bd1b4" class="javax.swing.JLabel" binding="paymentDateLabel">
@@ -144,7 +144,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="dd/MM/yyyy"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="6eb49" class="javax.swing.JLabel" binding="paymentSumLabel">
@@ -162,7 +162,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="number"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="d0652" class="javax.swing.JLabel" binding="penaltyPercentLabel">
@@ -180,7 +180,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="d%"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="db4c5" class="javax.swing.JLabel" binding="daysExpiredLabel">
@@ -198,7 +198,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="number"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

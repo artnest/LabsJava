@@ -2,9 +2,7 @@ package homework.lab12;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -59,29 +57,61 @@ public class AppendDataForm extends JDialog {
     }
 
     private void onOK() {
-        /*String s = fin.nextLine();
-        String[] strings = s.split(" ");
-        StringBuilder sB = new StringBuilder();
-        if (strings.length == 3) {
-            bill.owner = sB.append(strings[0]).append(" ")
-                    .append(strings[1]).append(" ")
-                    .append(strings[2]).toString();
-        } else {
-            throw new IllegalArgumentException("Invalid full name data");
-        }
-        if (!nextRead(P_paymentDate, fin, out)) {
-            return null;
-        }*/
+        try {
+            if (houseNumberTextField.getText().isEmpty() ||
+                    apartmentNumberTextField.getText().isEmpty() ||
+                    addressTextField.getText().isEmpty() ||
+                    ownerTextField.getText().isEmpty() ||
+                    paymentDateTextField.getText().isEmpty() ||
+                    paymentSumTextField.getText().isEmpty() ||
+                    penaltyPercentTextField.getText().isEmpty() ||
+                    daysExpiredTextField.getText().isEmpty()) {
+                throw new IllegalArgumentException("Some fields are empty!");
+            }
 
-        bill = new Bill(Integer.parseInt(houseNumberTextField.getText()),
-                Integer.parseInt(apartmentNumberTextField.getText()),
-                addressTextField.getText(),
-                ownerTextField.getText(),
-                LocalDate.parse(paymentDateTextField.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                Double.parseDouble(paymentSumTextField.getText()),
-                penaltyPercentTextField.getText(),
-                Integer.parseInt(daysExpiredTextField.getText()));
-        dispose();
+            int houseNumber = Integer.parseInt(houseNumberTextField.getText());
+            int apartmentNumber = Integer.parseInt(apartmentNumberTextField.getText());
+            String address = addressTextField.getText();
+
+            String owner = ownerTextField.getText();
+            String[] strings = owner.split(" ");
+            StringBuilder sB = new StringBuilder();
+            if (strings.length == 3) {
+                owner = sB.append(strings[0]).append(" ")
+                        .append(strings[1]).append(" ")
+                        .append(strings[2]).toString();
+            } else {
+                throw new IllegalArgumentException("Invalid full name data!");
+            }
+
+            LocalDate paymentDate = LocalDate.parse(paymentDateTextField.getText(),
+                                                    DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            double paymentSum = Double.parseDouble(paymentSumTextField.getText());
+
+            String penaltyPercent = "";
+            strings = penaltyPercentTextField.getText().split("%");
+            if (strings.length == 1) {
+                penaltyPercent = strings[0];
+            } else {
+                throw new IllegalArgumentException("Invalid penalty data!");
+            }
+
+            int daysExpired = Integer.parseInt(daysExpiredTextField.getText());
+
+            bill = new Bill(
+                    houseNumber,
+                    apartmentNumber,
+                    address,
+                    owner,
+                    paymentDate,
+                    paymentSum,
+                    penaltyPercent,
+                    daysExpired);
+
+            dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     private void onCancel() {
@@ -131,49 +161,49 @@ public class AppendDataForm extends JDialog {
         houseNumberLabel.setText("House number");
         panel3.add(houseNumberLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         houseNumberTextField = new JTextField();
-        houseNumberTextField.setText("number");
+        houseNumberTextField.setText("");
         panel3.add(houseNumberTextField, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         apartmentNumberLabel = new JLabel();
         apartmentNumberLabel.setText("Apartment number");
         panel3.add(apartmentNumberLabel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         apartmentNumberTextField = new JTextField();
-        apartmentNumberTextField.setText("number");
+        apartmentNumberTextField.setText("");
         panel3.add(apartmentNumberTextField, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addressLabel = new JLabel();
         addressLabel.setText("Address");
         panel3.add(addressLabel, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         addressTextField = new JTextField();
-        addressTextField.setText("address");
+        addressTextField.setText("");
         panel3.add(addressTextField, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ownerLabel = new JLabel();
         ownerLabel.setText("Owner");
         panel3.add(ownerLabel, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ownerTextField = new JTextField();
-        ownerTextField.setText("FirstName MiddleName LastName");
+        ownerTextField.setText("");
         panel3.add(ownerTextField, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         paymentDateLabel = new JLabel();
         paymentDateLabel.setText("Payment date");
         panel3.add(paymentDateLabel, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         paymentDateTextField = new JTextField();
-        paymentDateTextField.setText("dd/MM/yyyy");
+        paymentDateTextField.setText("");
         panel3.add(paymentDateTextField, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         paymentSumLabel = new JLabel();
         paymentSumLabel.setText("Payment sum");
         panel3.add(paymentSumLabel, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         paymentSumTextField = new JTextField();
-        paymentSumTextField.setText("number");
+        paymentSumTextField.setText("");
         panel3.add(paymentSumTextField, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         penaltyPercentLabel = new JLabel();
         penaltyPercentLabel.setText("Penalty percent");
         panel3.add(penaltyPercentLabel, new com.intellij.uiDesigner.core.GridConstraints(6, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         penaltyPercentTextField = new JTextField();
-        penaltyPercentTextField.setText("d%");
+        penaltyPercentTextField.setText("");
         panel3.add(penaltyPercentTextField, new com.intellij.uiDesigner.core.GridConstraints(6, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         daysExpiredLabel = new JLabel();
         daysExpiredLabel.setText("Days expired");
         panel3.add(daysExpiredLabel, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         daysExpiredTextField = new JTextField();
-        daysExpiredTextField.setText("number");
+        daysExpiredTextField.setText("");
         panel3.add(daysExpiredTextField, new com.intellij.uiDesigner.core.GridConstraints(7, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
     }
 

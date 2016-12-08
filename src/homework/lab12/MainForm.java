@@ -252,7 +252,7 @@ public class MainForm {
                     try {
                         Bills.appendFile(false, new AppendDataForm().getBill());
                     } catch (IOException | ClassNotFoundException | KeyNotUniqueException exception) {
-                        exception.printStackTrace();
+                        JOptionPane.showMessageDialog(mainFrame, exception.getMessage());
                     }
                     break;
             }

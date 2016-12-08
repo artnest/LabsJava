@@ -23,23 +23,23 @@ public class Index implements Serializable, Closeable {
     public void test(Bill account) throws KeyNotUniqueException {
         assert account != null;
 
-        if (numbersHouse.contains(String.valueOf(account.getNumberHouse()))) {
-            throw new KeyNotUniqueException(String.valueOf(account.getNumberHouse()));
+        if (numbersHouse.contains(String.valueOf(account.getHouseNumber()))) {
+            throw new KeyNotUniqueException(String.valueOf(account.getHouseNumber()));
         }
 
-        if (numbersApartment.contains(String.valueOf(account.getNumberHouse()))) {
-            throw new KeyNotUniqueException(String.valueOf(account.getNumberApartment()));
+        if (numbersApartment.contains(String.valueOf(account.getHouseNumber()))) {
+            throw new KeyNotUniqueException(String.valueOf(account.getApartmentNumber()));
         }
 
-        if (owners.contains(String.valueOf(account.getNumberHouse()))) {
+        if (owners.contains(String.valueOf(account.getHouseNumber()))) {
             throw new KeyNotUniqueException(account.getOwner());
         }
     }
 
     public void put(Bill account, long value) throws KeyNotUniqueException {
         test(account);
-        numbersHouse.put(String.valueOf(account.getNumberHouse()), value);
-        numbersApartment.put(String.valueOf(account.getNumberApartment()), value);
+        numbersHouse.put(String.valueOf(account.getHouseNumber()), value);
+        numbersApartment.put(String.valueOf(account.getApartmentNumber()), value);
         owners.put(account.getOwner(), value);
         paymentDates.put(account.getPaymentDate().toString(), value);
     }

@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class Bill implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int numberHouse;
-    static final String P_numberHouse = "House number";
-    private int numberApartment;
-    static final String P_numberApartment = "Apartment number";
+    private int houseNumber;
+    static final String P_houseNumber = "House number";
+    private int apartmentNumber;
+    static final String P_apartmentNumber = "Apartment number";
     private String address;
     static final String P_address = "Address";
     private String owner;
@@ -27,12 +27,12 @@ public class Bill implements Serializable {
     private int daysExpired;
     static final String P_daysExpired = "Days expired";
 
-    public int getNumberHouse() {
-        return numberHouse;
+    public int getHouseNumber() {
+        return houseNumber;
     }
 
-    public int getNumberApartment() {
-        return numberApartment;
+    public int getApartmentNumber() {
+        return apartmentNumber;
     }
 
     public String getAddress() {
@@ -64,16 +64,16 @@ public class Bill implements Serializable {
         return year > 0 && year <= curCalendar.get(Calendar.YEAR);
     }*/
 
-    public Bill(int numberHouse,
-                int numberApartment,
+    public Bill(int houseNumber,
+                int apartmentNumber,
                 String address,
                 String owner,
                 LocalDate paymentDate,
                 double paymentSum,
                 String penaltyPercent,
                 int daysExpired) {
-        this.numberHouse = numberHouse;
-        this.numberApartment = numberApartment;
+        this.houseNumber = houseNumber;
+        this.apartmentNumber = apartmentNumber;
         this.address = address;
         this.owner = owner;
         this.paymentDate = paymentDate;
@@ -83,7 +83,7 @@ public class Bill implements Serializable {
     }
 
     static Boolean nextRead(Scanner fin, PrintStream out) {
-        return nextRead(P_numberHouse, fin, out);
+        return nextRead(P_houseNumber, fin, out);
     }
 
     private static Boolean nextRead(final String prompt, Scanner fin, PrintStream out) {
@@ -95,12 +95,12 @@ public class Bill implements Serializable {
     public static Bill read(Scanner fin, PrintStream out) {
         Bill bill = null;
 
-        bill.numberHouse = Integer.parseInt(fin.nextLine());
-        if (!nextRead(P_numberApartment, fin, out)) {
+        bill.houseNumber = Integer.parseInt(fin.nextLine());
+        if (!nextRead(P_apartmentNumber, fin, out)) {
             return null;
         }
 
-        bill.numberApartment = Integer.parseInt(fin.nextLine());
+        bill.apartmentNumber = Integer.parseInt(fin.nextLine());
         if (!nextRead(P_address, fin, out)) {
             return null;
         }
@@ -154,8 +154,8 @@ public class Bill implements Serializable {
 
     @Override
     public String toString() {
-        return numberHouse + areaDel +
-                numberApartment + areaDel +
+        return houseNumber + areaDel +
+                apartmentNumber + areaDel +
                 address + areaDel +
                 owner + areaDel +
                 paymentDate + areaDel +
