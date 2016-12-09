@@ -54,6 +54,7 @@ public class AppendDataForm extends JDialog {
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
