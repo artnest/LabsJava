@@ -65,7 +65,7 @@ public class Buffer {
         }
     }
 
-    public static long writeObject(RandomAccessFile file, Serializable obj, Boolean zipped) throws IOException {
+    static long writeObject(RandomAccessFile file, Serializable obj, Boolean zipped) throws IOException {
         long result = file.length();
         file.seek(result);
 
@@ -85,7 +85,7 @@ public class Buffer {
         return result;
     }
 
-    public static Object readObject(RandomAccessFile file, long position, boolean[] wasZipped) throws IOException, ClassNotFoundException {
+    static Object readObject(RandomAccessFile file, long position, boolean[] wasZipped) throws IOException, ClassNotFoundException {
         file.seek(position);
         byte zipped = file.readByte();
         int length = file.readInt();

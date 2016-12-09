@@ -5,10 +5,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class Index implements Serializable, Closeable {
+class Index implements Serializable, Closeable {
     private static final long serialVersionUID = 1L;
 
-    public static long[] InsertValue(long[] array, long value) {
+    static long[] InsertValue(long[] array, long value) {
         long[] result = new long[(array == null ? 0 : array.length) + 1];
         System.arraycopy(array, 0, result, 0, result.length);
         result[result.length] = value;
@@ -20,7 +20,7 @@ public class Index implements Serializable, Closeable {
     IndexOne2One owners;
     IndexOne2N paymentDates;
 
-    public void test(Bill bill) throws KeyNotUniqueException {
+    void test(Bill bill) throws KeyNotUniqueException {
         assert bill != null;
 
         if (houseNumber.contains(String.valueOf(bill.getHouseNumber()))) {
@@ -36,7 +36,7 @@ public class Index implements Serializable, Closeable {
         }
     }
 
-    public void put(Bill bill, long value) throws KeyNotUniqueException {
+    void put(Bill bill, long value) throws KeyNotUniqueException {
         test(bill);
         houseNumber.put(String.valueOf(bill.getHouseNumber()), value);
         apartmentNumber.put(String.valueOf(bill.getApartmentNumber()), value);
@@ -44,14 +44,14 @@ public class Index implements Serializable, Closeable {
         paymentDates.put(bill.getPaymentDate().toString(), value);
     }
 
-    public Index() {
+    private Index() {
         houseNumber = new IndexOne2One();
         apartmentNumber = new IndexOne2One();
         owners = new IndexOne2One();
         paymentDates = new IndexOne2N();
     }
 
-    public static Index load(String name) throws IOException, ClassNotFoundException {
+    static Index load(String name) throws IOException, ClassNotFoundException {
         Index obj;
 
         try {
@@ -84,7 +84,7 @@ public class Index implements Serializable, Closeable {
         filename = name;
     }
 
-    public void saveAs(String name) throws IOException {
+    private void saveAs(String name) throws IOException {
         FileOutputStream file = new FileOutputStream(name);
         try (ZipOutputStream zos = new ZipOutputStream(file)) {
             zos.putNextEntry(new ZipEntry(Buffer.zipEntryName));

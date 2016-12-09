@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-public class IndexOne2One implements Serializable, IndexBase {
+class IndexOne2One implements Serializable, IndexBase {
     private static final long serialVersionUID = 1L;
     private TreeMap<String, Long> map;
 
-    public IndexOne2One() {
+    IndexOne2One() {
         map = new TreeMap<>();
     }
 

@@ -9,7 +9,7 @@ import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Bills {
+class Bills {
     private static void deleteBackup() {
         new File(MainForm.getFilenamePath()).delete();
         new File(MainForm.getIdxnamePath()).delete();
