@@ -1,11 +1,11 @@
 package homework.lab12;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 public class MainForm {
     private JFrame mainFrame;
