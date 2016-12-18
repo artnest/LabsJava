@@ -21,15 +21,46 @@ public abstract class MessageXML implements Serializable {
         return (MessageXML) u.unmarshal(is);
     }
 
-    public static void writeMsg(DataOutputStream os, MessageXML msg) {
+    public static void writeMsg(DataOutputStream os, MessageXML msg) throws JAXBException, IOException {
         writeViaByteArray(os, msg);
     }
 
-    private static void writeViaByteArray(DataOutputStream os, MessageXML msg) {
+    private static void writeViaByteArray(DataOutputStream os, MessageXML msg) throws JAXBException, IOException {
+        try (ByteArrayOutputStream bufOut = new ByteArrayOutputStream(512)) {
+            try (DataOutputStream out = new DataOutputStream(bufOut)) {
+                String name = msg.getClass().getName();
+                out.writeUTF(name);
+                toXML(msg, out);
+                out.flush();
+            }
 
+            byte[] res = bufOut.toByteArray();
+            os.writeInt(res.length);
+            os.write(res);
+            os.flush();
+        }
     }
 
-    public static void readMsg(DataInputStream is) {
-        readViaByteArray(os, msg);
+    public static void readMsg(DataInputStream is) throws JAXBException, IOException, ClassNotFoundException {
+        readViaByteArray(is);
+    }
+
+    private static MessageXML readViaByteArray(DataInputStream is) throws IOException, ClassNotFoundException, JAXBException {
+        int length = is.readInt();
+        byte[] raw = new byte[length];
+        int idx = 0;
+        int num = length;
+
+        while (idx < num) {
+            int n = is.read(raw, idx, num - idx);
+            idx += n;
+        }
+
+        try (ByteArrayInputStream bufIn = new ByteArrayInputStream(raw)) {
+            try (DataInputStream in = new DataInputStream(bufIn)) {
+                String name = in.readUTF();
+                return fromXML((Class<? extends MessageXML>) Class.forName(name), in);
+            }
+        }
     }
 }
