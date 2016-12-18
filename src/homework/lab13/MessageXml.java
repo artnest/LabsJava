@@ -132,10 +132,12 @@ abstract class MessageXml implements Serializable {
         }
     }
 
-    static MessageResult query(Message msg, DataInputStream is, DataOutputStream os, Class<? extends MessageResult> what) throws JAXBException, IOException {
+    static MessageResult query(Message msg,
+                               DataInputStream is,
+                               DataOutputStream os,
+                               Class<? extends MessageResult> what) throws JAXBException, IOException {
         if (query2(msg, is, os)) {
-            MessageResult result = (MessageResult) fromXml(what, is);
-            return result;
+            return (MessageResult) fromXml(what, is);
         }
 
         return null;
@@ -153,8 +155,7 @@ abstract class MessageXml implements Serializable {
         os.flush();
 
         if (what != null) {
-            Message result = (Message) fromXml(what, is);
-            return result;
+            return (Message) fromXml(what, is);
         }
 
         return null;
