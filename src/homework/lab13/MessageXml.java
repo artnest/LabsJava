@@ -6,31 +6,31 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
-public abstract class MessageXML implements Serializable {
+abstract class MessageXml implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static void toXML(MessageXML msg, OutputStream os) throws JAXBException {
+    static void toXml(MessageXml msg, OutputStream os) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(msg.getClass());
         Marshaller m = context.createMarshaller();
         m.marshal(msg, os);
     }
 
-    public static MessageXML fromXML(Class<? extends MessageXML> what, InputStream is) throws JAXBException {
+    static MessageXml fromXml(Class<? extends MessageXml> what, InputStream is) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(what);
         Unmarshaller u = context.createUnmarshaller();
-        return (MessageXML) u.unmarshal(is);
+        return (MessageXml) u.unmarshal(is);
     }
 
-    public static void writeMsg(DataOutputStream os, MessageXML msg) throws JAXBException, IOException {
+    static void writeMsg(DataOutputStream os, MessageXml msg) throws JAXBException, IOException {
         writeViaByteArray(os, msg);
     }
 
-    private static void writeViaByteArray(DataOutputStream os, MessageXML msg) throws JAXBException, IOException {
+    private static void writeViaByteArray(DataOutputStream os, MessageXml msg) throws JAXBException, IOException {
         try (ByteArrayOutputStream bufOut = new ByteArrayOutputStream(512)) {
             try (DataOutputStream out = new DataOutputStream(bufOut)) {
                 String name = msg.getClass().getName();
                 out.writeUTF(name);
-                toXML(msg, out);
+                toXml(msg, out);
                 out.flush();
             }
 
@@ -41,26 +41,36 @@ public abstract class MessageXML implements Serializable {
         }
     }
 
-    public static void readMsg(DataInputStream is) throws JAXBException, IOException, ClassNotFoundException {
+    static void readMsg(DataInputStream is) throws JAXBException, IOException, ClassNotFoundException {
         readViaByteArray(is);
     }
 
-    private static MessageXML readViaByteArray(DataInputStream is) throws IOException, ClassNotFoundException, JAXBException {
+    @SuppressWarnings("unchecked")
+    private static MessageXml readViaByteArray(DataInputStream is) throws IOException, ClassNotFoundException, JAXBException {
         int length = is.readInt();
         byte[] raw = new byte[length];
         int idx = 0;
-        int num = length;
 
-        while (idx < num) {
-            int n = is.read(raw, idx, num - idx);
+        while (idx < length) {
+            int n = is.read(raw, idx, length - idx);
             idx += n;
         }
 
         try (ByteArrayInputStream bufIn = new ByteArrayInputStream(raw)) {
             try (DataInputStream in = new DataInputStream(bufIn)) {
                 String name = in.readUTF();
-                return fromXML((Class<? extends MessageXML>) Class.forName(name), in);
+                return fromXml((Class<? extends MessageXml>) Class.forName(name), in);
             }
         }
+    }
+
+    static String lastQueryError = null;
+
+    static boolean query2(Message msg, DataInputStream is, DataOutputStream os) {
+        MessageContext context = new MessageContext(msg);
+        toXml(context, os);
+        os.flush();
+
+        MessageResult result = fromXml(MessageContextResult.class, is);
     }
 }

@@ -1,18 +1,48 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import java.io.Serializable;
 
-class Message implements Serializable {
-    private static final long serialVersionUID = 1L;
+abstract class Message extends MessageXml {
+    static class Data implements Serializable {
+        private static final long serialVersionUID = 1L;
 
-    private byte id;
+        protected byte id;
 
-    byte getID() {
-        return id;
+        @XmlAttribute
+        public byte getID() {
+            return id;
+        }
+
+        @XmlAttribute
+        public void setID(byte id) {
+            assert Protocol.validID(id);
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return Integer.toString(id);
+        }
     }
 
-    protected Message(byte id) {
-        assert Protocol.validID(id);
-        this.id = id;
+    private static final long serialVersionUID = 1L;
+
+    protected abstract Data getData();
+
+    byte getID() {
+        return getData().getID();
+    }
+
+    protected Message() {
+    }
+
+    protected void setup(byte id) {
+        getData().setID(id);
+    }
+
+    @Override
+    public String toString() {
+        return getData().toString();
     }
 }
