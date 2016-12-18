@@ -4,14 +4,24 @@ public class MessageContext extends Message {
     private static final long serialVersionUID = 1L;
 
     public Byte classID;
-    public Data data = new Data();
+    public Message.Data data = new Message.Data();
+
+    public MessageContext() {
+        super.setup(Protocol.CMD_CONTEXT);
+        classID = 0;
+    }
 
     MessageContext(Message msg) {
         super.setup(Protocol.CMD_CONTEXT);
+        classID = msg.getID();
     }
 
     @Override
-    protected Data getData() {
+    protected Message.Data getData() {
         return data;
+    }
+
+    public Class<? extends Message> getXmlClass() {
+        return MessageXml.classByID(classID);
     }
 }

@@ -66,11 +66,102 @@ abstract class MessageXml implements Serializable {
 
     static String lastQueryError = null;
 
-    static boolean query2(Message msg, DataInputStream is, DataOutputStream os) {
+    static boolean query2(Message msg, DataInputStream is, DataOutputStream os) throws JAXBException, IOException {
         MessageContext context = new MessageContext(msg);
         toXml(context, os);
         os.flush();
 
-        MessageResult result = fromXml(MessageContextResult.class, is);
+        MessageResult result = (MessageResult) fromXml(MessageContextResult.class, is);
+
+        if (!result.error()) {
+            lastQueryError = null;
+            MessageXml.toXml(msg, os);
+            os.flush();
+            return true;
+        }
+
+        lastQueryError = result.getErrorMessage();
+        return false;
+    }
+
+    static Class<? extends MessageResult> classResultByID(byte id) {
+        assert Protocol.validID(id);
+        switch (id) {
+            case Protocol.CMD_CONTEXT:
+                return MessageContextResult.class;
+            case Protocol.CMD_CONNECT:
+                return MessageConnectResult.class;
+            case Protocol.CMD_DISCONNECT:
+                return null;
+            case Protocol.CMD_USER:
+                return MessageUserResult.class;
+            case Protocol.CMD_CHECK_MAIL:
+                return MessageCheckMailResult.class;
+            case Protocol.CMD_LETTER:
+                return MessageLetterResult.class;
+            /*case Protocol.CMD_CONNECT_USER:
+                return MessageConnectUser.class;
+            case Protocol.CMD_DISCONNECT_USER:
+                return MessageDisconnectUser.class;*/
+            default:
+                    return null;
+        }
+    }
+
+    static Class<? extends Message> classByID(byte id) {
+        assert Protocol.validID(id);
+        switch (id) {
+            case Protocol.CMD_CONTEXT:
+                return MessageContext.class;
+            case Protocol.CMD_CONNECT:
+                return MessageConnect.class;
+            case Protocol.CMD_DISCONNECT:
+                return null;
+            case Protocol.CMD_USER:
+                return MessageUser.class;
+            case Protocol.CMD_CHECK_MAIL:
+                return MessageCheckMail.class;
+            case Protocol.CMD_LETTER:
+                return MessageLetter.class;
+            /*case Protocol.CMD_CONNECT_USER:
+                return MessageConnectUser.class;
+            case Protocol.CMD_DISCONNECT_USER:
+                return MessageDisconnectUser.class;*/
+            default:
+                return null;
+        }
+    }
+
+    static MessageResult query(Message msg, DataInputStream is, DataOutputStream os, Class<? extends MessageResult> what) throws JAXBException, IOException {
+        if (query2(msg, is, os)) {
+            MessageResult result = (MessageResult) fromXml(what, is);
+            return result;
+        }
+
+        return null;
+    }
+
+    static Message getMessage(DataInputStream is, DataOutputStream os) throws JAXBException, IOException {
+        MessageContext context = (MessageContext) fromXml(MessageContext.class, is);
+        Class<? extends Message> what = context.getXmlClass();
+
+        if (what != null) {
+            toXml(new MessageContextResult(), os);
+        } else {
+            toXml(new MessageContextResult("Invalid XML class ID"), os);
+        }
+        os.flush();
+
+        if (what != null) {
+            Message result = (Message) fromXml(what, is);
+            return result;
+        }
+
+        return null;
+    }
+
+    static void answer(MessageResult msg, DataOutputStream os) throws JAXBException, IOException {
+        toXml(msg, os);
+        os.flush();
     }
 }

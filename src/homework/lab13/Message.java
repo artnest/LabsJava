@@ -14,7 +14,6 @@ abstract class Message extends MessageXml {
             return id;
         }
 
-        @XmlAttribute
         public void setID(byte id) {
             assert Protocol.validID(id);
             this.id = id;
