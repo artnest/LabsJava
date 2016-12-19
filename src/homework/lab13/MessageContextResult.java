@@ -1,5 +1,8 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 class MessageContextResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 

@@ -130,7 +130,7 @@ public class Client {
             if (result.error()) {
                 System.err.println(result.getErrorMessage());
             } else {
-                switch (result.getID()) {
+                switch (result.getData().getID()) {
                     case Protocol.CMD_USER:
                         printUsers((MessageUserResult) result);
                         break;

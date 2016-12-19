@@ -1,13 +1,23 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 class MessageConnectResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
+    public MessageResult.Data data = new MessageResult.Data();
+
     MessageConnectResult(String errorMessage) { // error
-        super(Protocol.CMD_CONNECT, errorMessage);
+        super.setup(Protocol.CMD_CONNECT, errorMessage);
     }
 
     MessageConnectResult() { // No error
-        super(Protocol.CMD_CONNECT);
+        super.setup(Protocol.CMD_CONNECT);
+    }
+
+    @Override
+    public MessageResult.Data getData() {
+        return data;
     }
 }

@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import java.io.Serializable;
 
 abstract class MessageResult extends MessageXml {
+
     static class Data implements Serializable {
         private static final long serialVersionUID = 1L;
 
@@ -61,7 +62,7 @@ abstract class MessageResult extends MessageXml {
     }
 
     boolean error() {
-        return getData().error()
+        return getData().error();
     }
 
     String getErrorMessage() {
