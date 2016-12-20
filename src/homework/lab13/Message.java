@@ -1,8 +1,12 @@
 package homework.lab13;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
+@XmlType(name = "Message", propOrder = {
+        "data"
+})
+@XmlRootElement(name = "Message")
 abstract class Message extends MessageXml {
     static class Data implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -27,6 +31,7 @@ abstract class Message extends MessageXml {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     protected abstract Data getData();
 
     byte getID() {

@@ -1,11 +1,17 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlType(name = "MessageUser", propOrder = {
+        "data"
+})
+@XmlRootElement(name = "MessageUser")
 class MessageUser extends Message {
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     public Message.Data data = new Message.Data();
 
     @Override

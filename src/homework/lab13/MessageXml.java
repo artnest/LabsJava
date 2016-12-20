@@ -4,8 +4,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.*;
 
+@XmlType(name = "MessageXml", propOrder = {
+        "lastQueryError"
+})
+@XmlRootElement(name = "MessageXml")
 abstract class MessageXml implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +71,7 @@ abstract class MessageXml implements Serializable {
         }
     }
 
+    @XmlElement(required = true)
     static String lastQueryError = null;
 
     static boolean query2(Message msg, DataInputStream is, DataOutputStream os) throws JAXBException, IOException {
