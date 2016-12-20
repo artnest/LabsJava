@@ -8,6 +8,7 @@ import java.io.Serializable;
 })
 @XmlRootElement(name = "Message")
 abstract class Message extends MessageXml {
+    @XmlType(namespace = "Message")
     static class Data implements Serializable {
         private static final long serialVersionUID = 1L;
 

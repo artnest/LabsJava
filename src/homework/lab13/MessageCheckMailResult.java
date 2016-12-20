@@ -1,12 +1,20 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlType(name = "MessageCheckMailResult", propOrder = {
+        "letters",
+        "data"
+})
+@XmlRootElement(name = "MessageCheckMailResult")
 class MessageCheckMailResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     private String[] letters = null;
+    @XmlElement(required = true)
     public MessageResult.Data data = new MessageResult.Data();
 
     String[] getLetters() {

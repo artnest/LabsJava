@@ -1,10 +1,14 @@
 package homework.lab13;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
+@XmlType(name = "MessageResult")
+@XmlRootElement(name = "MessageResult")
 abstract class MessageResult extends MessageXml {
-
+    @XmlType(namespace = "MessageResult")
     static class Data implements Serializable {
         private static final long serialVersionUID = 1L;
 
