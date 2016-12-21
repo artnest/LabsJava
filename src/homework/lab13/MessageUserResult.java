@@ -1,17 +1,27 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Arrays;
 
-@XmlRootElement
+// TODO fix XML generation
+@XmlType(name = "MessageUserResult", propOrder = {
+        "userNicks",
+        "data"
+})
+@XmlRootElement(name = "MessageUserResult")
 class MessageUserResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     private String[] userNicks = null;
 
     String[] getUserNicks() {
         return userNicks;
     }
+
+    @XmlElement(required = true)
     public MessageResult.Data data = new MessageResult.Data();
 
     MessageUserResult(String errorMessage) { // error
@@ -30,9 +40,7 @@ class MessageUserResult extends MessageResult {
 
     @Override
     public String toString() {
-        return "MessageUserResult{" +
-                "userNicks=" + Arrays.toString(userNicks) +
-                ", data=" + data +
-                '}';
+        return "Users: " + Arrays.toString(userNicks) +
+                "; " + data;
     }
 }

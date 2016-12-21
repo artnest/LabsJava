@@ -1,11 +1,17 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "MessageConnectResult", propOrder = {
+        "data"
+})
 @XmlRootElement
 class MessageConnectResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     public MessageResult.Data data = new MessageResult.Data();
 
     MessageConnectResult(String errorMessage) { // error

@@ -1,11 +1,15 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement
+@XmlType(name = "MessageLetterResult")
+@XmlRootElement(name = "MessageLetterResult")
 class MessageLetterResult extends MessageResult {
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(required = true)
     public MessageResult.Data data = new MessageResult.Data();
 
     MessageLetterResult(String errorMessage) { //error

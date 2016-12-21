@@ -1,5 +1,10 @@
 package homework.lab13;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(name = "MessageDisconnectUser")
+@XmlRootElement(name = "MessageDisconnectUser")
 class MessageDisconnectUser extends MessageNotify {
     private static final long serialVersionUID = 1L;
 
