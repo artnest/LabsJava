@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE MessageResult [
+
+        <!ELEMENT MessageResult (Data)>
+        <!ELEMENT Data EMPTY>
+
+        <!ATTLIST Data id CDATA #REQUIRED>
+        <!ATTLIST Data errorCode CDATA #REQUIRED>
+        <!ATTLIST Data errorMessage CDATA #REQUIRED>
+
+        ]>

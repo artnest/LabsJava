@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MessageContext", propOrder = {
         "classID",
         "data"
-})
+}, namespace = "MessageContext")
 @XmlRootElement(name = "MessageContext")
 public class MessageContext extends Message {
     private static final long serialVersionUID = 1L;

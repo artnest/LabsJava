@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
         "CMD_LETTER",
         "CMD_CONNECT_USER",
         "CMD_DISCONNECT_USER"
-})
+}, namespace = "CMD")
 interface CMD {
     @XmlAttribute(required = true)
     byte CMD_CONTEXT = 1;

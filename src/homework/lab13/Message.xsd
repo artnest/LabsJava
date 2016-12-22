@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="Message" xmlns:tns="Message" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="MessageXml">
+
+  <xs:import namespace="MessageXml" schemaLocation="schema2.xsd"/>
+
+  <xs:complexType name="Message" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="ns1:MessageXml">
+        <xs:sequence>
+          <xs:element name="data" type="tns:data"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="data">
+    <xs:sequence/>
+    <xs:attribute name="id" type="xs:byte" use="required"/>
+  </xs:complexType>
+</xs:schema>
+

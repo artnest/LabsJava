@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE Protocol [
+
+        <!ELEMENT Protocol EMPTY>
+
+        <!ATTLIST Protocol CMD_MIN CDATA #REQUIRED>
+        <!ATTLIST Protocol CMD_MAX CDATA #REQUIRED>
+
+        ]>

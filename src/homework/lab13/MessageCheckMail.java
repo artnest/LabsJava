@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "MessageCheckMail", propOrder = {
+@XmlType(name = "MessageCheckMail.xsd", propOrder = {
         "data"
-})
-@XmlRootElement(name = "MessageCheckMail")
+}, namespace = "MessageCheckMail.xsd")
+@XmlRootElement(name = "MessageCheckMail.xsd")
 class MessageCheckMail extends Message {
     private static final long serialVersionUID = 1L;
 

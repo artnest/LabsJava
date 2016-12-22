@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE MessageContext [
+
+        <!ELEMENT MessageContext (classID, data)>
+        <!ELEMENT classID (#PCDATA)>
+        <!ELEMENT data (#PCDATA)>
+
+        ]>

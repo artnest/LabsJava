@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE MessageConnect [
+
+        <!ELEMENT MessageConnect (userNick, userFullName, data)>
+        <!ELEMENT userNick (#PCDATA)>
+        <!ELEMENT userFullName (#PCDATA)>
+        <!ELEMENT data (#PCDATA)>
+
+        ]>

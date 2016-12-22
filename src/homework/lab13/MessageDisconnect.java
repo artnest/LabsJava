@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "MessageDisconnect", propOrder = {
         "data"
-})
+}, namespace = "MessageDisconnect")
 @XmlRootElement(name = "MessageDisconnect")
 class MessageDisconnect extends Message {
     private static final long serialVersionUID = 1L;

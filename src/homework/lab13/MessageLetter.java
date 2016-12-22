@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MessageLetter", propOrder = {
         "text",
         "data"
-})
+}, namespace = "MessageLetter")
 @XmlRootElement(name = "MessageLetter")
 class MessageLetter extends Message {
     private static final long serialVersionUID = 1L;

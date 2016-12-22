@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MessageCheckMailResult", propOrder = {
         "letters",
         "data"
-})
+}, namespace = "MessageCheckMail.xsd")
 @XmlRootElement(name = "MessageCheckMailResult")
 class MessageCheckMailResult extends MessageResult {
     private static final long serialVersionUID = 1L;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE RESULT [
+
+        <!ELEMENT RESULT EMPTY>
+
+        <!ATTLIST RESULT RESULT_CODE_OK CDATA #REQUIRED>
+        <!ATTLIST RESULT RESULT_CODE_ERROR CDATA #REQUIRED>
+
+        ]>

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 // TODO fix XML generation
-@XmlType(name = "MessageNotify")
+@XmlType(name = "MessageNotify", namespace = "MessageNotify")
 @XmlRootElement(name = "MessageNotify")
 abstract class MessageNotify extends Message {
     private static final long serialVersionUID = 1L;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE MessageNotify [
+
+        <!ELEMENT MessageNotify (userNick, data)>
+        <!ELEMENT userNick (#PCDATA)>
+        <!ELEMENT data (#PCDATA)>
+
+        ]>

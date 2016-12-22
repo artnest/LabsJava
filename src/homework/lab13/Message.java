@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @XmlType(name = "Message", propOrder = {
         "data"
-})
+}, namespace = "Message")
 @XmlRootElement(name = "Message")
 abstract class Message extends MessageXml {
     @XmlType(namespace = "Message")

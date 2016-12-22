@@ -9,7 +9,7 @@ import java.util.Arrays;
 @XmlType(name = "MessageUserResult", propOrder = {
         "userNicks",
         "data"
-})
+}, namespace = "MessageUserResult")
 @XmlRootElement(name = "MessageUserResult")
 class MessageUserResult extends MessageResult {
     private static final long serialVersionUID = 1L;

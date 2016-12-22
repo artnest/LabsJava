@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!DOCTYPE Message [
+
+        <!ELEMENT Message (data)>
+        <!ELEMENT data (#PCDATA)>
+
+        <!ATTLIST Message id CDATA #REQUIRED>
+
+        ]>

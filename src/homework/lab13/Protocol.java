@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Protocol", propOrder = {
         "CMD_MIN",
         "CMD_MAX"
-})
+}, namespace = "Protocol")
 @XmlRootElement (name = "Protocol")
 class Protocol implements CMD, RESULT, PORT {
     @XmlAttribute(required = true)

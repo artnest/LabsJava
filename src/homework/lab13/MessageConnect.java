@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
         "userNick",
         "userFullName",
         "data"
-})
+}, namespace = "MessageConnect")
 @XmlRootElement(name = "MessageConnect")
 class MessageConnect extends Message {
     private static final long serialVersionUID = 1L;

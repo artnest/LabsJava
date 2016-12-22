@@ -11,7 +11,7 @@ import java.io.*;
 
 @XmlType(name = "MessageXml", propOrder = {
         "lastQueryError"
-})
+}, namespace = "MessageXml")
 @XmlRootElement(name = "MessageXml")
 abstract class MessageXml implements Serializable {
     private static final long serialVersionUID = 1L;

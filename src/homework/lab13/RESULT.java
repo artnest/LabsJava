@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "RESULT", propOrder = {
         "RESULT_CODE_OK",
         "RESULT_CODE_ERROR"
-})
+}, namespace = "RESULT")
 interface RESULT {
     @XmlAttribute(required = true)
     int RESULT_CODE_OK      = 0;

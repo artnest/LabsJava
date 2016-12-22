@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "MessageContextResult")
+@XmlType(name = "MessageContextResult", namespace = "MessageContextResult")
 @XmlRootElement(name = "MessageContextResult")
 class MessageContextResult extends MessageResult {
     private static final long serialVersionUID = 1L;

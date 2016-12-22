@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlType(name = "MessageResult")
+@XmlType(name = "MessageResult", namespace = "MessageResult")
 @XmlRootElement(name = "MessageResult")
 abstract class MessageResult extends MessageXml {
     @XmlType(namespace = "MessageResult")

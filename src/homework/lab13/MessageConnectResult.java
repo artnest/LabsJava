@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "MessageConnectResult", propOrder = {
         "data"
-})
+}, namespace = "MessageConnectResult")
 @XmlRootElement
 class MessageConnectResult extends MessageResult {
     private static final long serialVersionUID = 1L;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="MessageLetterResult" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="MessageResult">
+
+  <xs:import namespace="MessageResult" schemaLocation="schema4.xsd"/>
+
+  <xs:complexType name="MessageLetterResult">
+    <xs:complexContent>
+      <xs:extension base="ns1:MessageResult">
+        <xs:sequence>
+          <xs:element name="data" type="ns1:data"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+

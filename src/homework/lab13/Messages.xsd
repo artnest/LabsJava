@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:ns2="Message" xmlns:ns1="MessageXml" xmlns:ns4="Protocol" xmlns:ns3="MessageResult" xmlns:ns6="MessageContext" xmlns:ns5="MessageContextResult" xmlns:ns8="MessageDisconnect" xmlns:ns7="MessageConnect" xmlns:ns12="MessageLetterResult" xmlns:ns9="MessageCheckMail.xsd" xmlns:ns11="MessageConnectResult" xmlns:ns10="MessageUser" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="MessageXml" schemaLocation="schema2.xsd"/>
+
+  <xs:import namespace="Message" schemaLocation="schema12.xsd"/>
+
+  <xs:import namespace="MessageResult" schemaLocation="schema4.xsd"/>
+
+  <xs:import namespace="Protocol" schemaLocation="schema1.xsd"/>
+
+  <xs:import namespace="MessageContextResult" schemaLocation="schema7.xsd"/>
+
+  <xs:import namespace="MessageContext" schemaLocation="schema8.xsd"/>
+
+  <xs:import namespace="MessageConnect" schemaLocation="schema10.xsd"/>
+
+  <xs:import namespace="MessageDisconnect" schemaLocation="schema6.xsd"/>
+
+  <xs:import namespace="MessageCheckMail.xsd" schemaLocation="schema11.xsd"/>
+
+  <xs:import namespace="MessageUser" schemaLocation="schema3.xsd"/>
+
+  <xs:import namespace="MessageConnectResult" schemaLocation="schema9.xsd"/>
+
+  <xs:import namespace="MessageLetterResult" schemaLocation="schema5.xsd"/>
+
+  <xs:element name="Message" type="ns2:Message"/>
+
+  <xs:element name="MessageCheckMail.xsd" type="ns9:MessageCheckMail.xsd"/>
+
+  <xs:element name="MessageConnect" type="ns7:MessageConnect"/>
+
+  <xs:element name="MessageContext" type="ns6:MessageContext"/>
+
+  <xs:element name="MessageContextResult" type="ns5:MessageContextResult"/>
+
+  <xs:element name="MessageDisconnect" type="ns8:MessageDisconnect"/>
+
+  <xs:element name="MessageLetterResult" type="ns12:MessageLetterResult"/>
+
+  <xs:element name="MessageResult" type="ns3:MessageResult"/>
+
+  <xs:element name="MessageUser" type="ns10:MessageUser"/>
+
+  <xs:element name="MessageXml" type="ns1:MessageXml"/>
+
+  <xs:element name="Protocol" type="ns4:Protocol"/>
+
+  <xs:element name="messageConnectResult" type="ns11:MessageConnectResult"/>
+
+
+
+
+
+
+
+
+
+
+
+
+</xs:schema>
+
